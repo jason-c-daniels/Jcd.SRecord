@@ -1,12 +1,18 @@
 # Jcd.SRecord
-A short project description goes here
+This library will load, parse and validate a motorola sRecord 
+file according to the [Ubuntu srec manpage](https://manpages.ubuntu.com/manpages/trusty/man5/srec.5.html) 
+and the [Wikipedia SREC (file format)](https://en.wikipedia.org/wiki/SREC_(file_format)) article. 
+
+
+Some inspiration was taken from reading the code by [Vanya A. Sergeev and Jerry G. Scherer](https://github.com/vsergeev/libGISdotnet/blob/master/SRecord.cs)
+However, you'll note mine is significantly different.
 
 ## Examples
 ```csharp
 // snippets of code from the examples project goes here.
 ```
 
-# Before you begin coding, setup the AppVeyor project and update the project slug in this file, as well as the ro documentation md file. Then delete this line.
+# Before you upload to Git, setup the AppVeyor project and update the project slug in this file, as well as the ro documentation md file. Then delete this line.
 
 
 [![GitHub](https://img.shields.io/github/license/jason-c-daniels/Jcd.SRecord)](https://github.com/jason-c-daniels/Jcd.SRecord/blob/main/LICENSE)
