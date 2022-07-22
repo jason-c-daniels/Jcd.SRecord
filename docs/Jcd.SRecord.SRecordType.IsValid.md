@@ -13,4 +13,4 @@ public readonly bool IsValid;
 
 ### Remarks
 This is set by whatever is constructing the type. Usually this will be set  
-at compile time. See, `StrictSRecord` and `FlexibleSRecord` for examples.
+at compile time. See, `Strict` and `Flexible` for examples.

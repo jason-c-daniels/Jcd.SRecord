@@ -53,24 +53,20 @@ namespace Jcd.SRecord
 
         private void AppendByte(StringBuilder sb, byte value)
         {
-            var format = EmitHexNumbersInUpperCase ? "X2" : "x2";
-            sb.Append(value.ToString(format));
+            var format = EmitHexNumbersInUpperCase ? "{0:X2}" : "{0:x2}";
+            sb.AppendFormat(format, value);
         }
 
         private void AppendBytes(StringBuilder sb, IEnumerable<byte> bytes)
         {
-            if (bytes == null) return;
-            foreach (var b in bytes)
-            {
-                AppendByte(sb,b);
-            }
+            sb.Append(bytes.BytesToHexString(EmitHexNumbersInUpperCase));
         }
 
         private void AppendAddress(StringBuilder sb, SRecord sRecord)
         {
             var charCount = sRecord.Type.AddressLengthInBytes * 2;
-            var format = EmitHexNumbersInUpperCase ? $"X{charCount}" : $"x{charCount}";
-            sb.Append(sRecord.Address.ToString(format));
+            var format = EmitHexNumbersInUpperCase ? $"{{0:X{charCount}}}" : $"{{0:x{charCount}}}";
+            sb.AppendFormat(format,sRecord.Address);
         }
     }
 }

@@ -2,7 +2,7 @@
 
 ## SRecordParser.Flexible Field
 
-An instance configured to use FlexibleSRecord definitions.
+An instance configured to use Flexible definitions.
 
 ```csharp
 public static readonly SRecordParser Flexible;

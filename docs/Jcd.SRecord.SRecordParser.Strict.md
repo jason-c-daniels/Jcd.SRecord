@@ -2,7 +2,7 @@
 
 ## SRecordParser.Strict Field
 
-An instance configured to use StrictSRecord definitions.
+An instance configured to use Strict definitions.
 
 ```csharp
 public static readonly SRecordParser Strict;

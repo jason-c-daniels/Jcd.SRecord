@@ -4,114 +4,26 @@
         <name>Jcd.SRecord</name>
     </assembly>
     <members>
-        <member name="T:Jcd.SRecord.FlexibleSRecord">
+        <member name="T:Jcd.SRecord.HexStringConversions">
             <summary>
-            Provides a collection and lookup mechanism for instances of <see cref="T:Jcd.SRecord.SRecordType"/>
-            configured to accept a flexible number of data bytes per record. The exact amount
-            allowed varies per type and is 254 bytes minus the address length in bytes, for S0,
-            S1, S2, S3, and S4. NOTE: S4 types always require special, implementation defined, handling.
+            A set of extension methods to help in converting
+            to and from hexadecimal representations of bytes 
             </summary>
         </member>
-        <member name="F:Jcd.SRecord.FlexibleSRecord.S0">
+        <member name="M:Jcd.SRecord.HexStringConversions.HexStringToBytes(System.String)">
             <summary>
-            The identifier for S0 records. Address is 2 bytes, should always be 0. 
+            Converts a sequence of hexadecimal characters into the equivalent bytes. 
             </summary>
-            <remarks>
-            This record contains vendor specific ASCII text comment represented as a series of hex digit pairs.
-            There is a spec, seldom conformed to, outlined in the <see href="https://manpages.ubuntu.com/manpages/trusty/man5/srec.5.html">Ubuntu manpage</see>.
-            </remarks>
+            <param name="hexString">the text to convert.</param>
+            <returns>The sequence of bytes represented by the hex string.</returns>
         </member>
-        <member name="F:Jcd.SRecord.FlexibleSRecord.S1">
+        <member name="M:Jcd.SRecord.HexStringConversions.BytesToHexString(System.Collections.Generic.IEnumerable{System.Byte},System.Boolean)">
             <summary>
-            The identifier for S1 records. Address is 2 bytes. 
-            This record contains data that starts at the 16-bit address field.
+            Convert a sequence of bytes into a string of hexadecimal values. 
             </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="F:Jcd.SRecord.FlexibleSRecord.S2">
-            <summary>
-            The identifier for S2 records. Address is 3 bytes. Maximum data bytes allowed 32 bytes.
-            This record contains data that starts at a 24-bit address.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="F:Jcd.SRecord.FlexibleSRecord.S3">
-            <summary>
-            The identifier for S3 records. Address is 4 bytes. Maximum data bytes allowed 32 bytes.
-            This record contains data that starts at a 32-bit address.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="F:Jcd.SRecord.FlexibleSRecord.S4">
-            <summary>
-            The identifier for S4 records. Address is 4 bytes. Maximum data bytes allowed 32 bytes.
-            Special handling required. This is vendor defined/reserved.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="F:Jcd.SRecord.FlexibleSRecord.S5">
-            <summary>
-            The identifier for S5 records. Address is 2 bytes. No data allowed.
-            This contains a 16-bit count of all S1, S2, or S3 records.
-            This record is used if the record count is less than or equal to 0xFFFF.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="F:Jcd.SRecord.FlexibleSRecord.S6">
-            <summary>
-            The identifier for S6 records. Address is 3 bytes. No data allowed.
-            This contains a 24-bit count of all S1, S2, or S3 records.
-            This record is used if the record count is less than or equal to 16,777,215 (0xFFFFFF) and 
-            greater than 65,535 (0xFFFF) records.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="F:Jcd.SRecord.FlexibleSRecord.S7">
-            <summary>
-            The identifier for S7 records. Address is 4 bytes. 
-            This is used to terminate a series of S3 records. If a SRecord file is only used to program
-            a memory device and the execution location is ignored, then an address of zero could be
-            used.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="F:Jcd.SRecord.FlexibleSRecord.S8">
-            <summary>
-            The identifier for S8 records. Address is 3 bytes. 
-            This is used to terminate a series of S2 records. If a SRecord file is only used to program
-            a memory device and the execution location is ignored, then an address of zero could be used.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="F:Jcd.SRecord.FlexibleSRecord.S9">
-            <summary>
-            The identifier for S8 records. Address is 3 bytes. 
-            </summary>
-            <remarks>
-            This is used to terminate a series of S1 records. If a SRecord file is only used to program
-            a memory device and the execution location is ignored, then an address of zero could be used.
-            </remarks>
-        </member>
-        <member name="F:Jcd.SRecord.FlexibleSRecord.TypeLookup">
-            <summary>
-            A key-based lookup for known StrictSRecord <c>SRecordType</c> instances.
-            </summary>
-        </member>
-        <member name="M:Jcd.SRecord.FlexibleSRecord.FromKey(System.String)">
-            <summary>
-            Given a key, return an SRecordType instance describing it.
-            Invalid keys will return  
-            </summary>
-            <param name="key"></param>
-            <returns>A matching <c>SRecordType</c> or a new instance with IsValid set to false.</returns>
+            <param name="bytes">the bytes to convert</param>
+            <param name="makeUppercase">makes the A-F range uppercase when true, lowercase otherwise</param>
+            <returns>The hexadecimal text representation</returns>
         </member>
         <member name="T:Jcd.SRecord.SRecord">
             <summary>
@@ -156,6 +68,12 @@
         <member name="P:Jcd.SRecord.SRecord.Address">
             <summary>
             If applicable, the address for data to be written to, or in some cases, a count of preceding records.
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.SRecord.EndAddress">
+            <summary>
+            The computed address of the last byte of data contained in this record.
+            For records with 0 data length, this will contain the same value as Address. 
             </summary>
         </member>
         <member name="P:Jcd.SRecord.SRecord.Data">
@@ -233,7 +151,7 @@
             binary representation.
             </summary>
         </member>
-        <member name="M:Jcd.SRecord.SRecordParser.#ctor(System.Collections.ObjectModel.ReadOnlyDictionary{System.String,Jcd.SRecord.SRecordType})">
+        <member name="M:Jcd.SRecord.SRecordParser.#ctor(System.Collections.Generic.IDictionary{System.String,Jcd.SRecord.SRecordType})">
             <summary>
             Constructs an SRecordParser from a defined sRecord type lookup table.
             </summary>
@@ -258,12 +176,12 @@
         </member>
         <member name="F:Jcd.SRecord.SRecordParser.Strict">
             <summary>
-            An instance configured to use StrictSRecord definitions.
+            An instance configured to use Strict definitions.
             </summary>
         </member>
         <member name="F:Jcd.SRecord.SRecordParser.Flexible">
             <summary>
-            An instance configured to use FlexibleSRecord definitions.
+            An instance configured to use Flexible definitions.
             </summary>
         </member>
         <member name="T:Jcd.SRecord.SRecordType">
@@ -305,7 +223,7 @@
             </summary>
             <remarks>
             This is set by whatever is constructing the type. Usually this will be set
-            at compile time. See, <c>StrictSRecord</c> and <c>FlexibleSRecord</c> for examples.
+            at compile time. See, <c>Strict</c> and <c>Flexible</c> for examples.
             </remarks>
         </member>
         <member name="F:Jcd.SRecord.SRecordType.RequiresSpecialHandling">
@@ -321,7 +239,7 @@
             </summary>
             <remarks>
             This constructor is only intended to be used by people who will use it correctly.
-            Typically you'll want to use StrictSRecord.FromKey or FlexibleSRecord.FromKey instead.
+            Typically you'll want to use Strict.FromKey or Flexible.FromKey instead.
             </remarks>
             <param name="key">The two character SRecord identifier. (S0..S9)</param>
             <param name="addressLengthInBytes">The byte length of the address</param>
@@ -338,38 +256,39 @@
             </summary>
             <remarks>
             This constructor is only intended to be used by people who will use it correctly.
-            Typically you'll want to use StrictSRecord.FromKey or FlexibleSRecord.FromKey instead.
+            Typically you'll want to use Strict.FromKey or Flexible.FromKey instead.
             </remarks>
             <param name="key">The two character SRecord identifier. (S0..S9)</param>
             <param name="addressLengthInBytes">The byte length of the address</param>
             <param name="requiresSpecialHandling">Indicates if the type requires special handling. (S4 does)</param>
             <param name="isValid">Indicates if parsing recognized the key.</param>
         </member>
-        <member name="T:Jcd.SRecord.StrictSRecord">
+        <member name="T:Jcd.SRecord.SRecordType.Flexible">
             <summary>
             Provides a collection and lookup mechanism for instances of <see cref="T:Jcd.SRecord.SRecordType"/>
-            configured to accept a maximum of 32 data bytes per record for S0, S1, S2, S3, and S4
-            record types. NOTE: S4 types always require special, implementation defined, handling.
+            configured to accept a flexible number of data bytes per record. The exact amount
+            allowed varies per type and is 254 bytes minus the address length in bytes, for S0,
+            S1, S2, S3, and S4. NOTE: S4 types always require special, implementation defined, handling.
             </summary>
         </member>
-        <member name="F:Jcd.SRecord.StrictSRecord.S0">
+        <member name="F:Jcd.SRecord.SRecordType.Flexible.S0">
             <summary>
-            The identifier for S0 records. Address is 2 bytes, should always be 0. Maximum data bytes allowed 32 bytes.
+            The identifier for S0 records. Address is 2 bytes, should always be 0. 
             </summary>
             <remarks>
             This record contains vendor specific ASCII text comment represented as a series of hex digit pairs.
             There is a spec, seldom conformed to, outlined in the <see href="https://manpages.ubuntu.com/manpages/trusty/man5/srec.5.html">Ubuntu manpage</see>.
             </remarks>
         </member>
-        <member name="F:Jcd.SRecord.StrictSRecord.S1">
+        <member name="F:Jcd.SRecord.SRecordType.Flexible.S1">
             <summary>
-            The identifier for S1 records. Address is 2 bytes. Maximum data bytes allowed 32 bytes.
+            The identifier for S1 records. Address is 2 bytes. 
             This record contains data that starts at the 16-bit address field.
             </summary>
             <remarks>
             </remarks>
         </member>
-        <member name="F:Jcd.SRecord.StrictSRecord.S2">
+        <member name="F:Jcd.SRecord.SRecordType.Flexible.S2">
             <summary>
             The identifier for S2 records. Address is 3 bytes. Maximum data bytes allowed 32 bytes.
             This record contains data that starts at a 24-bit address.
@@ -377,7 +296,7 @@
             <remarks>
             </remarks>
         </member>
-        <member name="F:Jcd.SRecord.StrictSRecord.S3">
+        <member name="F:Jcd.SRecord.SRecordType.Flexible.S3">
             <summary>
             The identifier for S3 records. Address is 4 bytes. Maximum data bytes allowed 32 bytes.
             This record contains data that starts at a 32-bit address.
@@ -385,7 +304,7 @@
             <remarks>
             </remarks>
         </member>
-        <member name="F:Jcd.SRecord.StrictSRecord.S4">
+        <member name="F:Jcd.SRecord.SRecordType.Flexible.S4">
             <summary>
             The identifier for S4 records. Address is 4 bytes. Maximum data bytes allowed 32 bytes.
             Special handling required. This is vendor defined/reserved.
@@ -393,7 +312,7 @@
             <remarks>
             </remarks>
         </member>
-        <member name="F:Jcd.SRecord.StrictSRecord.S5">
+        <member name="F:Jcd.SRecord.SRecordType.Flexible.S5">
             <summary>
             The identifier for S5 records. Address is 2 bytes. No data allowed.
             This contains a 16-bit count of all S1, S2, or S3 records.
@@ -402,7 +321,7 @@
             <remarks>
             </remarks>
         </member>
-        <member name="F:Jcd.SRecord.StrictSRecord.S6">
+        <member name="F:Jcd.SRecord.SRecordType.Flexible.S6">
             <summary>
             The identifier for S6 records. Address is 3 bytes. No data allowed.
             This contains a 24-bit count of all S1, S2, or S3 records.
@@ -412,7 +331,120 @@
             <remarks>
             </remarks>
         </member>
-        <member name="F:Jcd.SRecord.StrictSRecord.S7">
+        <member name="F:Jcd.SRecord.SRecordType.Flexible.S7">
+            <summary>
+            The identifier for S7 records. Address is 4 bytes. 
+            This is used to terminate a series of S3 records. If a SRecord file is only used to program
+            a memory device and the execution location is ignored, then an address of zero could be
+            used.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="F:Jcd.SRecord.SRecordType.Flexible.S8">
+            <summary>
+            The identifier for S8 records. Address is 3 bytes. 
+            This is used to terminate a series of S2 records. If a SRecord file is only used to program
+            a memory device and the execution location is ignored, then an address of zero could be used.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="F:Jcd.SRecord.SRecordType.Flexible.S9">
+            <summary>
+            The identifier for S8 records. Address is 3 bytes. 
+            </summary>
+            <remarks>
+            This is used to terminate a series of S1 records. If a SRecord file is only used to program
+            a memory device and the execution location is ignored, then an address of zero could be used.
+            </remarks>
+        </member>
+        <member name="F:Jcd.SRecord.SRecordType.Flexible.TypeLookup">
+            <summary>
+            A key-based lookup for known Strict <c>SRecordType</c> instances.
+            </summary>
+        </member>
+        <member name="M:Jcd.SRecord.SRecordType.Flexible.FromKey(System.String)">
+            <summary>
+            Given a key, return an SRecordType instance describing it.
+            Invalid keys will return  
+            </summary>
+            <param name="key"></param>
+            <returns>A matching <c>SRecordType</c> or a new instance with IsValid set to false.</returns>
+        </member>
+        <member name="T:Jcd.SRecord.SRecordType.Strict">
+            <summary>
+            Provides a collection and lookup mechanism for instances of <see cref="T:Jcd.SRecord.SRecordType"/>
+            configured to accept a maximum of 32 data bytes per record for S0, S1, S2, S3, and S4
+            record types. NOTE: S4 types always require special, implementation defined, handling.
+            </summary>
+        </member>
+        <member name="F:Jcd.SRecord.SRecordType.Strict.MaxDataLength">
+            <summary>
+            The maximum data any data bearing record may have
+            </summary>
+        </member>
+        <member name="F:Jcd.SRecord.SRecordType.Strict.S0">
+            <summary>
+            The identifier for S0 records. Address is 2 bytes, should always be 0. Maximum data bytes allowed 32 bytes.
+            </summary>
+            <remarks>
+            This record contains vendor specific ASCII text comment represented as a series of hex digit pairs.
+            There is a spec, seldom conformed to, outlined in the <see href="https://manpages.ubuntu.com/manpages/trusty/man5/srec.5.html">Ubuntu manpage</see>.
+            </remarks>
+        </member>
+        <member name="F:Jcd.SRecord.SRecordType.Strict.S1">
+            <summary>
+            The identifier for S1 records. Address is 2 bytes. Maximum data bytes allowed 32 bytes.
+            This record contains data that starts at the 16-bit address field.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="F:Jcd.SRecord.SRecordType.Strict.S2">
+            <summary>
+            The identifier for S2 records. Address is 3 bytes. Maximum data bytes allowed 32 bytes.
+            This record contains data that starts at a 24-bit address.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="F:Jcd.SRecord.SRecordType.Strict.S3">
+            <summary>
+            The identifier for S3 records. Address is 4 bytes. Maximum data bytes allowed 32 bytes.
+            This record contains data that starts at a 32-bit address.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="F:Jcd.SRecord.SRecordType.Strict.S4">
+            <summary>
+            The identifier for S4 records. Address is 4 bytes. Maximum data bytes allowed 32 bytes.
+            Special handling required. This is vendor defined/reserved.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="F:Jcd.SRecord.SRecordType.Strict.S5">
+            <summary>
+            The identifier for S5 records. Address is 2 bytes. No data allowed.
+            This contains a 16-bit count of all S1, S2, or S3 records.
+            This record is used if the record count is less than or equal to 0xFFFF.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="F:Jcd.SRecord.SRecordType.Strict.S6">
+            <summary>
+            The identifier for S6 records. Address is 3 bytes. No data allowed.
+            This contains a 24-bit count of all S1, S2, or S3 records.
+            This record is used if the record count is less than or equal to 16,777,215 (0xFFFFFF) and 
+            greater than 65,535 (0xFFFF) records.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="F:Jcd.SRecord.SRecordType.Strict.S7">
             <summary>
             The identifier for S7 records. Address is 4 bytes. Maximum data bytes allowed 32 bytes.
             This is used to terminate a series of S3 records. If a SRecord file is only used to program
@@ -422,7 +454,7 @@
             <remarks>
             </remarks>
         </member>
-        <member name="F:Jcd.SRecord.StrictSRecord.S8">
+        <member name="F:Jcd.SRecord.SRecordType.Strict.S8">
             <summary>
             The identifier for S8 records. Address is 3 bytes. Maximum data bytes allowed 32 bytes.
             This is used to terminate a series of S2 records. If a SRecord file is only used to program
@@ -431,7 +463,7 @@
             <remarks>
             </remarks>
         </member>
-        <member name="F:Jcd.SRecord.StrictSRecord.S9">
+        <member name="F:Jcd.SRecord.SRecordType.Strict.S9">
             <summary>
             The identifier for S8 records. Address is 3 bytes. Maximum data bytes allowed 32 bytes.
             </summary>
@@ -440,12 +472,12 @@
             a memory device and the execution location is ignored, then an address of zero could be used.
             </remarks>
         </member>
-        <member name="F:Jcd.SRecord.StrictSRecord.TypeLookup">
+        <member name="F:Jcd.SRecord.SRecordType.Strict.TypeLookup">
             <summary>
             A key-based lookup for known Strict (32 byte data max) <c>SRecordType</c> instances.
             </summary>
         </member>
-        <member name="M:Jcd.SRecord.StrictSRecord.FromKey(System.String)">
+        <member name="M:Jcd.SRecord.SRecordType.Strict.FromKey(System.String)">
             <summary>
             Given a key, return an SRecordType instance describing it.
             Invalid keys will return  

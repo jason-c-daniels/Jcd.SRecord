@@ -9,7 +9,7 @@ namespace Jcd.SRecord
     /// as documented here
     /// </see>
     /// </summary>
-    public struct SRecordType
+    public partial struct SRecordType
     {
         /// <summary>
         /// The length of the key in characters.
@@ -41,7 +41,7 @@ namespace Jcd.SRecord
         /// </summary>
         /// <remarks>
         /// This is set by whatever is constructing the type. Usually this will be set
-        /// at compile time. See, <c>StrictSRecord</c> and <c>FlexibleSRecord</c> for examples.
+        /// at compile time. See, <c>Strict</c> and <c>Flexible</c> for examples.
         /// </remarks>
         public readonly bool IsValid;
         
@@ -57,7 +57,7 @@ namespace Jcd.SRecord
         /// </summary>
         /// <remarks>
         /// This constructor is only intended to be used by people who will use it correctly.
-        /// Typically you'll want to use StrictSRecord.FromKey or FlexibleSRecord.FromKey instead.
+        /// Typically you'll want to use Strict.FromKey or Flexible.FromKey instead.
         /// </remarks>
         /// <param name="key">The two character SRecord identifier. (S0..S9)</param>
         /// <param name="addressLengthInBytes">The byte length of the address</param>
@@ -86,7 +86,7 @@ namespace Jcd.SRecord
         /// </summary>
         /// <remarks>
         /// This constructor is only intended to be used by people who will use it correctly.
-        /// Typically you'll want to use StrictSRecord.FromKey or FlexibleSRecord.FromKey instead.
+        /// Typically you'll want to use Strict.FromKey or Flexible.FromKey instead.
         /// </remarks>
         /// <param name="key">The two character SRecord identifier. (S0..S9)</param>
         /// <param name="addressLengthInBytes">The byte length of the address</param>

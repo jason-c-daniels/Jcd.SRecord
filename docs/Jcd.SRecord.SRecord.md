@@ -32,6 +32,7 @@ and [the wikipedia page](https://en.wikipedia.org/wiki/SREC_(file_format) 'https
 | [Checksum](Jcd.SRecord.SRecord.Checksum.md 'Jcd.SRecord.SRecord.Checksum') | The checksum for the type, address, and data. |
 | [CountOfRemainingBytes](Jcd.SRecord.SRecord.CountOfRemainingBytes.md 'Jcd.SRecord.SRecord.CountOfRemainingBytes') | The total count of the address, data, and checksum bytes. |
 | [Data](Jcd.SRecord.SRecord.Data.md 'Jcd.SRecord.SRecord.Data') | The data to be loaded into the address. (or in S0's case a descriptor for the file.) |
+| [EndAddress](Jcd.SRecord.SRecord.EndAddress.md 'Jcd.SRecord.SRecord.EndAddress') | The computed address of the last byte of data contained in this record.<br/>For records with 0 data length, this will contain the same value as Address. |
 | [Type](Jcd.SRecord.SRecord.Type.md 'Jcd.SRecord.SRecord.Type') | The type of SRecord |
 
 | Methods | |

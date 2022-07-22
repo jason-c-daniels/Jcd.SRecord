@@ -43,4 +43,4 @@ Indicates if parsing recognized the key.
 
 ### Remarks
 This constructor is only intended to be used by people who will use it correctly.  
-Typically you'll want to use StrictSRecord.FromKey or FlexibleSRecord.FromKey instead.
+Typically you'll want to use Strict.FromKey or Flexible.FromKey instead.

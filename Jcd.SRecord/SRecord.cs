@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Jcd.Validations;
 
@@ -49,11 +51,18 @@ namespace Jcd.SRecord
         /// If applicable, the address for data to be written to, or in some cases, a count of preceding records.
         /// </summary>
         public uint Address { get; }
+        
+        /// <summary>
+        /// The computed address of the last byte of data contained in this record.
+        /// For records with 0 data length, this will contain the same value as Address. 
+        /// </summary>
+        public long EndAddress => Address + Data.Count;
 
         /// <summary>
         /// The data to be loaded into the address. (or in S0's case a descriptor for the file.)
         /// </summary>
-        public byte[] Data { get; }
+        [NotNull]
+        public ReadOnlyCollection<byte> Data { get; }
         
         /// <summary>
         /// The checksum for the type, address, and data.
@@ -75,8 +84,8 @@ namespace Jcd.SRecord
             
             Type = type;
             Address = address;
-            Data = ReferenceEquals(Array.Empty<byte>(), data) ? data : (byte[])data.Clone(); // copy the data, if there is any. 
-            CountOfRemainingBytes = (byte)(type.AddressLengthInBytes + CheckSumByteLength + Data.Length);
+            Data = Array.AsReadOnly(data);
+            CountOfRemainingBytes = (byte)(type.AddressLengthInBytes + CheckSumByteLength + Data.Count);
             Checksum = ComputeChecksum(type, CountOfRemainingBytes, address, data);
         }
 

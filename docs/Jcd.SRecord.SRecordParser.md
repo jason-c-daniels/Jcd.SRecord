@@ -13,12 +13,12 @@ Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.O
 
 | Constructors | |
 | :--- | :--- |
-| [SRecordParser(ReadOnlyDictionary&lt;string,SRecordType&gt;)](Jcd.SRecord.SRecordParser.SRecordParser(System.Collections.ObjectModel.ReadOnlyDictionary_string,Jcd.SRecord.SRecordType_).md 'Jcd.SRecord.SRecordParser.SRecordParser(System.Collections.ObjectModel.ReadOnlyDictionary<string,Jcd.SRecord.SRecordType>)') | Constructs an SRecordParser from a defined sRecord type lookup table. |
+| [SRecordParser(IDictionary&lt;string,SRecordType&gt;)](Jcd.SRecord.SRecordParser.SRecordParser(System.Collections.Generic.IDictionary_string,Jcd.SRecord.SRecordType_).md 'Jcd.SRecord.SRecordParser.SRecordParser(System.Collections.Generic.IDictionary<string,Jcd.SRecord.SRecordType>)') | Constructs an SRecordParser from a defined sRecord type lookup table. |
 
 | Fields | |
 | :--- | :--- |
-| [Flexible](Jcd.SRecord.SRecordParser.Flexible.md 'Jcd.SRecord.SRecordParser.Flexible') | An instance configured to use FlexibleSRecord definitions. |
-| [Strict](Jcd.SRecord.SRecordParser.Strict.md 'Jcd.SRecord.SRecordParser.Strict') | An instance configured to use StrictSRecord definitions. |
+| [Flexible](Jcd.SRecord.SRecordParser.Flexible.md 'Jcd.SRecord.SRecordParser.Flexible') | An instance configured to use Flexible definitions. |
+| [Strict](Jcd.SRecord.SRecordParser.Strict.md 'Jcd.SRecord.SRecordParser.Strict') | An instance configured to use Strict definitions. |
 
 | Methods | |
 | :--- | :--- |

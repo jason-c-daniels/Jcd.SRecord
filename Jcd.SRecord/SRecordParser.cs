@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
@@ -16,13 +15,13 @@ namespace Jcd.SRecord
     public class SRecordParser
     {
         [NotNull]
-        private readonly ReadOnlyDictionary<string, SRecordType> _typeLookup;
+        private readonly IDictionary<string, SRecordType> _typeLookup;
         
         /// <summary>
         /// Constructs an SRecordParser from a defined sRecord type lookup table.
         /// </summary>
         /// <param name="typeLookup"></param>
-        public SRecordParser(ReadOnlyDictionary<string, SRecordType> typeLookup)
+        public SRecordParser(IDictionary<string, SRecordType> typeLookup)
         {
             Argument.IsNotNull(typeLookup, nameof(typeLookup), $"{nameof(typeLookup)} cannot be null.");
             Argument.HasItems(typeLookup, nameof(typeLookup), $"{nameof(typeLookup)} must contain at least one SRecord definition.");
@@ -52,13 +51,15 @@ namespace Jcd.SRecord
             // grab the first two characters
             var key = lineOfText.Substring(0,SRecord.KeyCharLength);
             // validate we have a key we know about
-            if (!typeLookup.ContainsKey(key)) throw new ArgumentException($"Unknown SRecord type {key}");
+            if (!typeLookup.ContainsKey(key)) 
+                throw new ArgumentException($"Unknown SRecord type {key}");
             var type = typeLookup[key];
             // since we know the first two chars (type indicator) are valid, truncate the string to everything after the type indicator 
             var remainingText = lineOfText.Substring(SRecord.KeyCharLength);
             
             // validate that all the remaining characters are hexadecimal.
-            if (_nonHexCharacters.IsMatch(lineOfText)) throw new ArgumentException("Non-hexadecimal characters detected in body of the SRecord.", nameof(lineOfText));
+            if (_nonHexCharacters.IsMatch(remainingText)) 
+                throw new ArgumentException("Non-hexadecimal characters detected in body of the SRecord.", nameof(remainingText));
 
             var countCharLength = SRecord.CountByteLength * 2;
             var countOfRemainingBytes = byte.Parse(remainingText.Substring(0, countCharLength),NumberStyles.HexNumber);
@@ -67,23 +68,26 @@ namespace Jcd.SRecord
             remainingText = remainingText.Substring(countCharLength);
             
             // convert to byte array
-            var remainingBytes = AsciiHexToByteArray(remainingText);
-            if (countOfRemainingBytes != remainingBytes.Length) throw new Exception($"Actual remaining byte count ({remainingBytes.Length}) does not match stored remaining byte count {countOfRemainingBytes}");
+            var remainingBytes = remainingText.HexStringToBytes().ToArray();
+            if (countOfRemainingBytes != remainingBytes.Length) 
+                throw new ArgumentException($"Actual remaining byte count ({remainingBytes.Length}) does not match stored remaining byte count ({countOfRemainingBytes})");
 
             // extract address
-            var address = remainingBytes.Take(type.AddressLengthInBytes).ToArray().UInt32FromBigEndianByteArray();
+            var addressBytes = remainingBytes.Take(type.AddressLengthInBytes).ToArray();
+            var address = addressBytes.UInt32FromBigEndianByteArray();
             remainingBytes = remainingBytes.Skip(type.AddressLengthInBytes).ToArray();
 
             // grab the data bytes and checksum from the remaining 
             var dataLength = countOfRemainingBytes - SRecord.CheckSumByteLength - type.AddressLengthInBytes;
-            var data = dataLength > 0 ? remainingBytes.Take(dataLength).ToArray() : Array.Empty<byte>();
-            var checkSum = remainingBytes.TakeLast(1).First();
-
+            var data = dataLength > 0 ? remainingBytes[..dataLength] : Array.Empty<byte>();
+            var checkSum = remainingBytes[^1];
             var record = new SRecord(type, address, data);
 
             // now confirm the parsed checksum and count match the data extracted from the text
-            if (checkSum != record.Checksum) throw new Exception("Computed checksum doesn't match checksum stored with the record.");
-            if (countOfRemainingBytes != record.CountOfRemainingBytes) throw new Exception("INTERNAL ERROR: CountOfRemainingBytes calculated incorrectly."); // this should never happen.
+            if (checkSum != record.Checksum) 
+                throw new ArgumentException("Computed checksum doesn't match checksum stored within the record.");
+            if (countOfRemainingBytes != record.CountOfRemainingBytes) 
+                throw new Exception("INTERNAL ERROR: CountOfRemainingBytes calculated incorrectly."); // this should never happen.
             return record;
         }
 
@@ -110,24 +114,14 @@ namespace Jcd.SRecord
         }
 
         /// <summary>
-        /// An instance configured to use StrictSRecord definitions.
+        /// An instance configured to use Strict definitions.
         /// </summary>
-        public static readonly SRecordParser Strict = new SRecordParser(StrictSRecord.TypeLookup);
+        public static readonly SRecordParser Strict = new SRecordParser(SRecordType.Strict.TypeLookup);
         
         /// <summary>
-        /// An instance configured to use FlexibleSRecord definitions.
+        /// An instance configured to use Flexible definitions.
         /// </summary>
-        public static readonly SRecordParser Flexible = new SRecordParser(FlexibleSRecord.TypeLookup);
+        public static readonly SRecordParser Flexible = new SRecordParser(SRecordType.Flexible.TypeLookup);
 
-        private static byte[] AsciiHexToByteArray(string asciiHex)
-        {
-            var bytes = new List<byte>();
-            for (var i = 0; i < asciiHex.Length; i += 2)
-            {
-                bytes.Add(byte.Parse(asciiHex.Substring(i,2)));
-            }
-
-            return bytes.ToArray();
-        }
     }
 }
