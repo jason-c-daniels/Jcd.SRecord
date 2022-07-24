@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
-using System.Text.RegularExpressions;
 using Jcd.SRecord.Extensions;
 using Jcd.Validations;
 
@@ -60,7 +59,7 @@ namespace Jcd.SRecord
             if (remainingText.ContainsNonHexData()) 
                 throw new ArgumentException("Non-hexadecimal characters detected in body of the SRecord.", nameof(remainingText));
 
-            var countCharLength = SRecord.CountByteLength * 2;
+            const int countCharLength = SRecord.CountByteLength * 2;
             var countOfRemainingBytes = byte.Parse(remainingText.Substring(0, countCharLength),NumberStyles.HexNumber);
 
             // get the text after the count.

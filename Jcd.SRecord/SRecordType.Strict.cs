@@ -58,6 +58,7 @@ namespace Jcd.SRecord
             /// </remarks>
             public static readonly SRecordType S4 = new SRecordType("S4", 4, MaxDataLength, true);
 
+            // ReSharper disable once CommentTypo
             /// <summary>
             /// The identifier for S5 records. Address is 2 bytes. No data allowed.
             /// </summary>
@@ -68,6 +69,7 @@ namespace Jcd.SRecord
             /// </remarks>
             public static readonly SRecordType S5 = new SRecordType("S5", 2, 0);
 
+            // ReSharper disable once CommentTypo
             /// <summary>
             /// The identifier for S6 records. Address is 3 bytes. No data allowed.
             /// </summary>
@@ -124,7 +126,7 @@ namespace Jcd.SRecord
                         { S6.Key, S6 },
                         { S7.Key, S7 },
                         { S8.Key, S8 },
-                        { S9.Key, S9 },
+                        { S9.Key, S9 }
                     }
                 );
 

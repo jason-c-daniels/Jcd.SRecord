@@ -66,6 +66,7 @@ namespace Jcd.SRecord
             /// </remarks>
             public static readonly SRecordType S5 = new SRecordType("S5", 2, 0);
 
+            // ReSharper disable once CommentTypo
             /// <summary>
             /// The identifier for S6 records. Address is 3 bytes. No data allowed.
             /// </summary>

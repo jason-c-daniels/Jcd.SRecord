@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using Jcd.SRecord.Extensions;
 
@@ -59,8 +60,8 @@ namespace Jcd.SRecord
 
         private void AppendByte(StringBuilder sb, byte value)
         {
-            var format = EmitHexNumbersInUpperCase ? "{0:X2}" : "{0:x2}";
-            sb.AppendFormat(format, value);
+            var format = EmitHexNumbersInUpperCase ? "X2" : "x2";
+            sb.Append(value.ToString(format));
         }
 
         private void AppendBytes(StringBuilder sb, IEnumerable<byte> bytes)
@@ -71,8 +72,8 @@ namespace Jcd.SRecord
         private void AppendAddress(StringBuilder sb, SRecord sRecord)
         {
             var charCount = sRecord.Type.AddressLengthInBytes * 2;
-            var format = EmitHexNumbersInUpperCase ? $"{{0:X{charCount}}}" : $"{{0:x{charCount}}}";
-            sb.AppendFormat(format,sRecord.Address);
+            var format = EmitHexNumbersInUpperCase ? $"X{charCount.ToString(CultureInfo.InvariantCulture)}" : $"x{charCount.ToString(CultureInfo.InvariantCulture)}";
+            sb.Append(sRecord.Address.ToString(format));
         }
     }
 }

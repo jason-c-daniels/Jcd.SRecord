@@ -1,3 +1,4 @@
+using System.Globalization;
 using Jcd.Validations;
 
 namespace Jcd.SRecord
@@ -65,11 +66,11 @@ namespace Jcd.SRecord
         /// <param name="isValid">Indicates if parsing recognized the key.</param>
         public SRecordType(string key, byte addressLengthInBytes, byte maximumDataBytesAllowed, bool requiresSpecialHandling=false, bool isValid=true)
         {
-            Argument.AreEqual(key.Length, KeyLength, nameof(key), $"{nameof(key)} must be exactly {KeyLength} characters in length.");
-            Argument.AreEqual( key[0],RecordStartCharacter, nameof(key), $"The first letter of {nameof(key)} must be '{RecordStartCharacter}' found '{key[0]}' instead.");
-            Argument.InRange(key[1], '0', '9', nameof(key), $"The second letter of {nameof(key)} must be '0' to '9' found '{key[1]}' instead.");
+            Argument.AreEqual(key.Length, KeyLength, nameof(key), $"{nameof(key)} must be exactly {KeyLength.ToString(CultureInfo.InvariantCulture)} characters in length.");
+            Argument.AreEqual( key[0],RecordStartCharacter, nameof(key), $"The first letter of {nameof(key)} must be '{RecordStartCharacter.ToString(CultureInfo.InvariantCulture)}' found '{key[0].ToString(CultureInfo.InvariantCulture)}' instead.");
+            Argument.InRange(key[1], '0', '9', nameof(key), $"The second letter of {nameof(key)} must be '0' to '9' found '{key[1].ToString(CultureInfo.InvariantCulture)}' instead.");
             Argument.IsLessThanOrEqual(maximumDataBytesAllowed,
-                SRecord.MaxValueForCount - addressLengthInBytes - SRecord.CheckSumByteLength, nameof(maximumDataBytesAllowed),$"Total byte size for address({addressLengthInBytes}), checksum({SRecord.CheckSumByteLength}) and data({maximumDataBytesAllowed}) exceeds {SRecord.MaxValueForCount}.");
+                SRecord.MaxValueForCount - addressLengthInBytes - SRecord.CheckSumByteLength, nameof(maximumDataBytesAllowed),$"Total byte size for address({addressLengthInBytes.ToString(CultureInfo.InvariantCulture)}), checksum({SRecord.CheckSumByteLength.ToString(CultureInfo.InvariantCulture)}) and data({maximumDataBytesAllowed.ToString(CultureInfo.InvariantCulture)}) exceeds {SRecord.MaxValueForCount.ToString(CultureInfo.InvariantCulture)}.");
             Key = key;
             AddressLengthInBytes = addressLengthInBytes;
             MaximumDataBytesAllowed = maximumDataBytesAllowed;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Linq;
 using Jcd.SRecord.Extensions;
 using Jcd.Validations;
@@ -84,7 +85,7 @@ namespace Jcd.SRecord
             data ??= Array.Empty<byte>();
             Argument.IsLessThanOrEqual(data.Length, type.MaximumDataBytesAllowed, 
                 $"{nameof(data)}.Length",
-                $"{type.Key} records must contain at most {type.MaximumDataBytesAllowed} bytes of data {data.Length} bytes were provided.");
+                $"{type.Key} records must contain at most {type.MaximumDataBytesAllowed.ToString(CultureInfo.InvariantCulture)} bytes of data {data.Length.ToString(CultureInfo.InvariantCulture)} bytes were provided.");
             
             Type = type;
             Address = address;

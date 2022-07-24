@@ -180,7 +180,7 @@ namespace Jcd.SRecord.IO
             Parsed?.Invoke(this,new SRecordElementParsedEventArgs(element));
         }
 
-        (string processable, string comment) SplitLineOnComment([NotNull]string line)
+        private (string processable, string comment) SplitLineOnComment([NotNull]string line)
         {
             var splits=line.Split(_commentCharacters,2);
             return splits.Length == 2 ? (splits[0], splits[1]) : (line, null);
