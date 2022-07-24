@@ -105,9 +105,11 @@ namespace Jcd.SRecord
         private static byte ComputeChecksum(SRecordType type, byte count ,uint address, byte[] data=null)
         {
             data ??= Array.Empty<byte>();
+            var n = type.AddressLengthInBytes;
             return ComputeChecksum(
                 new []{count}
-                    .Concat(address.ToBigEndianByteArray().TakeLast(type.AddressLengthInBytes))
+                    // TODO: Refactor buffer building so that we don't allocate enumerators.
+                    .Concat(address.ToBigEndianByteArray()[^n..])
                     .Concat(data));
         }
         

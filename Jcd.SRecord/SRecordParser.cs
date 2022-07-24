@@ -42,28 +42,28 @@ namespace Jcd.SRecord
             lineOfText = lineOfText.TrimEnd(); // remove any possible trailing whitespace, such as CRLF
             var minAddressByteLength = _typeLookup.Values!.Min(t => t.AddressLengthInBytes);
             var minTextLength=SRecord.KeyCharLength + SRecord.CountByteLength*2 + SRecord.CheckSumByteLength*2 + minAddressByteLength * 2;
-            Argument.IsGreaterThanOrEqual(lineOfText.Length,minTextLength, nameof(lineOfText), $"Length must be at least {minTextLength} characters in length.");
+            Argument.IsGreaterThanOrEqual(lineOfText.Length,minTextLength, nameof(lineOfText), $"Length must be at least {minTextLength.ToString(CultureInfo.InvariantCulture)} characters in length.");
             if (lineOfText.Length % 2 != 0)
                 throw new ArgumentException($"{nameof(lineOfText)} must be composed of an even number of characters.", nameof(lineOfText));
             
             // grab the first two characters
-            var key = lineOfText.Substring(0,SRecord.KeyCharLength);
+            var key = lineOfText[..SRecord.KeyCharLength];
             // validate we have a key we know about
             if (!_typeLookup.ContainsKey(key)) 
                 throw new ArgumentException($"Unknown SRecord type {key}");
             var type = _typeLookup[key];
             // since we know the first two chars (type indicator) are valid, truncate the string to everything after the type indicator 
-            var remainingText = lineOfText.Substring(SRecord.KeyCharLength);
+            var remainingText = lineOfText[SRecord.KeyCharLength..];
             
             // validate that all the remaining characters are hexadecimal.
             if (remainingText.ContainsNonHexData()) 
                 throw new ArgumentException("Non-hexadecimal characters detected in body of the SRecord.", nameof(remainingText));
 
             const int countCharLength = SRecord.CountByteLength * 2;
-            var countOfRemainingBytes = byte.Parse(remainingText.Substring(0, countCharLength),NumberStyles.HexNumber);
+            var countOfRemainingBytes = byte.Parse(remainingText[..countCharLength],NumberStyles.HexNumber);
 
             // get the text after the count.
-            remainingText = remainingText.Substring(countCharLength);
+            remainingText = remainingText[countCharLength..];
             
             // convert to byte array
             var remainingBytes = remainingText.HexStringToBytes().ToArray();
@@ -71,9 +71,9 @@ namespace Jcd.SRecord
                 throw new ArgumentException($"Actual remaining byte count ({remainingBytes.Length}) does not match stored remaining byte count ({countOfRemainingBytes})");
 
             // extract address
-            var addressBytes = remainingBytes.Take(type.AddressLengthInBytes).ToArray();
+            var addressBytes = remainingBytes[..type.AddressLengthInBytes];
             var address = addressBytes.UInt32FromBigEndianByteArray();
-            remainingBytes = remainingBytes.Skip(type.AddressLengthInBytes).ToArray();
+            remainingBytes = remainingBytes[type.AddressLengthInBytes..];
 
             // grab the data bytes and checksum from the remaining 
             var dataLength = countOfRemainingBytes - SRecord.CheckSumByteLength - type.AddressLengthInBytes;
