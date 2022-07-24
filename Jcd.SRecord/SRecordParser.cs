@@ -13,7 +13,7 @@ namespace Jcd.SRecord
     /// Provides facilities for parsing the textual SRecord format into its
     /// binary representation.
     /// </summary>
-    public class SRecordParser
+    public class SRecordParser : ISRecordParser
     {
         
         [NotNull]

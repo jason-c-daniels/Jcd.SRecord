@@ -9,7 +9,7 @@ namespace Jcd.SRecord
     /// Encapsulates the formatting logic required to emit a single SRecord
     /// with consistent hex value casing.
     /// </summary>
-    public class SRecordFormatter
+    public class SRecordFormatter : ISRecordFormatter
     {
         /// <summary>
         /// Indicates if the hex numbers should be uppercase (true) or lowercase (false)

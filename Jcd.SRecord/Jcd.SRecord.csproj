@@ -50,7 +50,7 @@
       <Compile Update="SRecordType.Strict.cs">
         <DependentUpon>SRecordType.cs</DependentUpon>
       </Compile>
-      <Compile Update="IO\SRecordLineFormatter.Options.cs">
+      <Compile Update="IO\SRecordElementFormatter.Options.cs">
         <DependentUpon>SRecordLineFormatter.cs</DependentUpon>
       </Compile>
     </ItemGroup>

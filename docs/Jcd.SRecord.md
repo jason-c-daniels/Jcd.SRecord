@@ -15,3 +15,8 @@
 | [SRecordType](Jcd.SRecord.SRecordType.md 'Jcd.SRecord.SRecordType') | Represents the information required to identify and process various types of SRecords<br/>[
             as documented here
             ](https://manpages.ubuntu.com/manpages/trusty/man5/srec.5.html 'https://manpages.ubuntu.com/manpages/trusty/man5/srec.5.html') |
+
+| Interfaces | |
+| :--- | :--- |
+| [ISRecordFormatter](Jcd.SRecord.ISRecordFormatter.md 'Jcd.SRecord.ISRecordFormatter') | Defines the operations necessary to support formatting an `SRecord`<br/>into text. |
+| [ISRecordParser](Jcd.SRecord.ISRecordParser.md 'Jcd.SRecord.ISRecordParser') | Defines the operations necessary in order to support parsing text into<br/>`SRecord` instances. |

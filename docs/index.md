@@ -7,4 +7,3 @@
 | [Jcd.SRecord](Jcd.SRecord.md 'Jcd.SRecord') | |
 | [Jcd.SRecord.Extensions](Jcd.SRecord.Extensions.md 'Jcd.SRecord.Extensions') | |
 | [Jcd.SRecord.IO](Jcd.SRecord.IO.md 'Jcd.SRecord.IO') | |
-| [Jcd.SRecord.Parsers](Jcd.SRecord.Parsers.md 'Jcd.SRecord.Parsers') | |

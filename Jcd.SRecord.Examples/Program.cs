@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using Jcd.SRecord.Parsers;
+using Jcd.SRecord.IO;
 
 namespace Jcd.SRecord.Examples
 {

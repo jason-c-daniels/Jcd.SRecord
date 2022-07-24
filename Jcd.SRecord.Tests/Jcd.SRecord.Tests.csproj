@@ -31,8 +31,8 @@
     <Compile Update="SRecordType.Strict.Tests.cs">
       <DependentUpon>SRecordTests.cs</DependentUpon>
     </Compile>
-    <Compile Update="IO\SRecordLineFormatter.Options.Tests.cs">
-      <DependentUpon>SRecordLineFormatterTests.cs</DependentUpon>
+    <Compile Update="IO\SRecordElementFormatter.Options.Tests.cs">
+      <DependentUpon>SRecordElementFormatterTests.cs</DependentUpon>
     </Compile>
   </ItemGroup>
 

@@ -4,6 +4,11 @@
         <name>Jcd.SRecord</name>
     </assembly>
     <members>
+        <member name="T:Jcd.SRecord.Extensions.CharExtensions">
+            <summary>
+            A set of utility methods for interacting with <c>char</c>s.
+            </summary>
+        </member>
         <member name="M:Jcd.SRecord.Extensions.CharExtensions.IsHexDigit(System.Char)">
             <summary>
              Returns true if a character is a hexadecimal digit.
@@ -39,102 +44,358 @@
             <param name="makeUppercase">makes the A-F range uppercase when true, lowercase otherwise</param>
             <returns>The hexadecimal text representation</returns>
         </member>
-        <member name="T:Jcd.SRecord.IO.ISRecordLineFormatter">
+        <member name="T:Jcd.SRecord.IO.ISRecordElementFormatter">
             <summary>
-            Defines the interface needed to format an <c>SRecordLine</c>
+            Defines the operations necessary to support formatting
+            <c>SRecordElement</c>s to lines of text.
             </summary>
         </member>
-        <member name="M:Jcd.SRecord.IO.ISRecordLineFormatter.Format(Jcd.SRecord.Parsers.SRecordLine)">
+        <member name="M:Jcd.SRecord.IO.ISRecordElementFormatter.Format(Jcd.SRecord.IO.SRecordElement)">
             <summary>
-            Formats an <c>SRecordLine</c> as a line of text.
+            Formats an <c>SRecordElement</c> as a element of text.
             </summary>
-            <param name="line">the line to format.</param>
+            <param name="element">the element to format.</param>
             <returns>
-            Null indicates no line was generated. String.Empty indicates
-            that a blank line was generated. <c>SRecordLineWriter</c>
+            Null indicates no element was generated. String.Empty indicates
+            that a blank element was generated. <c>SRecordElementWriter</c>
             will discard null results. Depending on options settings, it may write
             blank lines.
             </returns>
         </member>
-        <member name="T:Jcd.SRecord.IO.SRecordLineFormatter">
+        <member name="E:Jcd.SRecord.IO.ISRecordElementFormatter.Formatting">
             <summary>
-            Encapsulates the logic necessary to format an <c>SRecordLine</c>
+            An event indicating that formatting has begun.
+            </summary>
+        </member>
+        <member name="E:Jcd.SRecord.IO.ISRecordElementFormatter.Formatted">
+            <summary>
+            An event that indicates formatting has finished.
+            </summary>
+        </member>
+        <member name="T:Jcd.SRecord.IO.ISRecordElementParser">
+            <summary>
+            Defines the operations necessary to parse <c>SRecordElement</c>s
+            from text.
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.IO.ISRecordElementParser.AllowComments">
+            <summary>
+            A flag indicating if comments will be parsed and removed before interpreting
+            the <c>SRecord</c> data.
+            </summary>
+        </member>
+        <member name="M:Jcd.SRecord.IO.ISRecordElementParser.Parse(System.Int32,System.String)">
+            <summary>
+            Parses a line of text into an SRecordElement.
+            </summary>
+            <param name="lineNumber">The line number.</param>
+            <param name="lineOfText">The raw text.</param>
+            <returns>an SRecordElement describing the parsing results.</returns>
+        </member>
+        <member name="E:Jcd.SRecord.IO.ISRecordElementParser.Parsing">
+            <summary>
+            An event indicating that parsing has begun.
+            </summary>
+        </member>
+        <member name="E:Jcd.SRecord.IO.ISRecordElementParser.Parsed">
+            <summary>
+            An event that indicates parsing has finished.
+            </summary>
+        </member>
+        <member name="T:Jcd.SRecord.IO.SRecordDocument">
+            <summary>
+            Represents an SRecord document. This is a simple document reader/writer.
+            No S37, or other semantics are enforced.
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.IO.SRecordDocument.Elements">
+            <summary>
+            Gets a mutable collection of <c>SRecordElement</c>s contained in this document.
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.IO.SRecordDocument.SRecords">
+            <summary>
+            Gets an immutable collection of just the SRecord entries contained in the Elements collection.
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.IO.SRecordDocument.Parser">
+            <summary>
+            Gets the instance of the parser in use by this <c>SRecordDocument</c>. 
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.IO.SRecordDocument.Formatter">
+            <summary>
+            Gets the instance of the formatter used by this <c>SRecordDocument</c>.
+            </summary>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordDocument.#ctor(Jcd.SRecord.IO.ISRecordElementParser,Jcd.SRecord.IO.ISRecordElementFormatter)">
+            <summary>
+            Creates an instance of an <c>SRecordDocument</c>.
+            </summary>
+            <param name="parser">The parser to use for parsing <c>SRecordElement</c> text. If null the default one is used.</param>
+            <param name="formatter">The formatter to use when writing <c>SRecordElement</c>s. If null the default one is used.</param>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordDocument.Read(Jcd.SRecord.IO.SRecordElementReader)">
+            <summary>
+            Reads all of the remaining <c>SRecordElement</c> entries 
+            from the <c>SRecordElementReader</c>
+            </summary>
+            <param name="reader">The element reader.</param>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordDocument.ReadAsync(Jcd.SRecord.IO.SRecordElementReader)">
+            <summary>
+            Asynchronously reads all of the remaining <c>SRecordElement</c> entries 
+            from the <c>SRecordElementReader</c>
+            </summary>
+            <param name="reader">The element reader.</param>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordDocument.Write(Jcd.SRecord.IO.SRecordElementWriter)">
+            <summary>
+            Writes all of the <c>SRecordElement</c>s in this document to the
+            <c>SRecordElementWriter</c>
+            </summary>
+            <param name="writer">The <c>SRecordElementWriter</c> instance to write to.</param>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordDocument.WriteAsync(Jcd.SRecord.IO.SRecordElementWriter)">
+            <summary>
+            Asynchronously writes all of the <c>SRecordElement</c>s in this document to the
+            <c>SRecordElementWriter</c>
+            </summary>
+            <param name="writer">The <c>SRecordElementWriter</c> instance to write to.</param>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordDocument.CreateFromFile(System.String,Jcd.SRecord.IO.ISRecordElementParser,Jcd.SRecord.IO.ISRecordElementFormatter)">
+            <summary>
+            Creates a <c>SRecordDocument</c> using the provided parser and formatter
+            Then loads data from the specified file path.
+            </summary>
+            <param name="filePath">The file to read.</param>
+            <param name="parser">The parser. If null the default one is used.</param>
+            <param name="formatter">The formatter to used. If null the default one is used.</param>
+            <returns>The new <c>SRecordDocument</c> instance</returns>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordDocument.CreateFromFileAsync(System.String,Jcd.SRecord.IO.ISRecordElementParser,Jcd.SRecord.IO.ISRecordElementFormatter)">
+            <summary>
+            Creates the <c>SRecordDocument</c> using the provided parser and formatter
+            Then asynchronously loads data from the specified file path.
+            </summary>
+            <param name="filePath">The file to read.</param>
+            <param name="parser">The parser. If null the default one is used.</param>
+            <param name="formatter">The formatter to used. If null the default one is used.</param>
+            <returns>The new <c>SRecordDocument</c> instance</returns>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordDocument.LoadFileAsync(System.String)">
+            <summary>
+            Asynchronously loads data from the specified file path into the current
+            <c>SRecordDocument</c>. This appends to any existing entries.
+            </summary>
+            <param name="filePath">The file to read.</param>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordDocument.LoadFile(System.String)">
+            <summary>
+            Loads data from the specified file path into the current
+            <c>SRecordDocument</c>. This appends to any existing entries.
+            </summary>
+            <param name="filePath">The file to read.</param>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordDocument.WriteFile(System.String)">
+            <summary>
+            Creates or replaces a file at the specified path and writes
+            all of the formatted <c>SRecordElement</c> data into the file.
+            </summary>
+            <param name="filePath">The path of the file to write.</param>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordDocument.WriteFileAsync(System.String)">
+            <summary>
+            Asynchronously creates or replaces a file at the specified path and the
+            writes all of the formatted <c>SRecordElement</c> data into the file.
+            </summary>
+            <param name="filePath">The path of the file to write.</param>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordDocument.CreateFromString(System.String,Jcd.SRecord.IO.ISRecordElementParser,Jcd.SRecord.IO.ISRecordElementFormatter)">
+            <summary>
+            Creates a <c>SRecordDocument</c> using the provided parser and formatter
+            Then loads data from the string.
+            </summary>
+            <param name="text">The string to load.</param>
+            <param name="parser">The parser. If null the default one is used.</param>
+            <param name="formatter">The formatter to used. If null the default one is used.</param>
+            <returns>The new <c>SRecordDocument</c> instance</returns>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordDocument.LoadString(System.String)">
+            <summary>
+            Loads data from the provided string into the current  <c>SRecordDocument</c>.
+            This appends to any existing entries.
+            </summary>
+            <param name="text">The string to load.</param>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordDocument.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:Jcd.SRecord.IO.SRecordElement">
+            <summary>
+            Represents a single line in an <c>SRecordDocument</c>
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.IO.SRecordElement.LineNumber">
+            <summary>
+            The line in the file where the text was found.
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.IO.SRecordElement.SRecord">
+            <summary>
+            The SRecord parsed from the line (if any) 
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.IO.SRecordElement.Comment">
+            <summary>
+            The comment text (lines starting with a ';' '#' ...etc are comment lines.) 
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.IO.SRecordElement.ElementType">
+            <summary>
+            True if the line recognized as an SRecord and/or comment. False otherwise.
+            When false, OriginalLine should be populated with the extracted line of text, without end of line character(s).
+            Also, ErrorMessage should be populated with the error encountered while trying to parse the line. 
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.IO.SRecordElement.OriginalLine">
+            <summary>
+            The original line of text. A well constructed parser will always provide this. The default one does.
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.IO.SRecordElement.ErrorMessage">
+            <summary>
+            Contains a parser specific error message associated with attempting to parse this line.
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.IO.SRecordElement.Exception">
+            <summary>
+            An exception that happened while trying to parse the line of text.
+            </summary>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordElement.#ctor(System.Int32,Jcd.SRecord.IO.SRecordElementType,Jcd.SRecord.SRecord,System.String,System.String,System.String,System.Exception)">
+            <summary>
+            Constructs an instance of an <c>SRecordElement</c>
+            </summary>
+            <param name="lineNumber">The line number in the file.</param>
+            <param name="elementType">The elementType of line.</param>
+            <param name="sRecord">the parsed and validated <c>SRecord</c> instance.</param>
+            <param name="comment">The comment text, without the comment character.</param>
+            <param name="originalLine">The original full text of the line.</param>
+            <param name="errorMessage">An error message, populated when elementType is false.</param>
+            <param name="exception">An exception that occurred during parsing of the SRecord entry.</param>
+        </member>
+        <member name="T:Jcd.SRecord.IO.SRecordElementFormattedEventArgs">
+            <inheritdoc />
+        </member>
+        <member name="P:Jcd.SRecord.IO.SRecordElementFormattedEventArgs.Succeeded">
+            <summary>
+            Gets a flag indicating if the formatting attempt was successful.
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.IO.SRecordElementFormattedEventArgs.Element">
+            <summary>
+            Gets the element that was formatted. 
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.IO.SRecordElementFormattedEventArgs.FormattedText">
+            <summary>
+            Gets the text resulting from formatting.
+            </summary>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordElementFormattedEventArgs.#ctor(System.Boolean,Jcd.SRecord.IO.SRecordElement,System.String)">
+            <summary>
+            Constructs an instance of <c>SRecordElementFormattedEventArgs</c>
+            </summary>
+            <param name="succeeded">A flag indicating if the formatting attempt was successful.</param>
+            <param name="element">The element that was formatted.</param>
+            <param name="formattedText">The text resulting from formatting.</param>
+        </member>
+        <member name="T:Jcd.SRecord.IO.SRecordElementFormatter">
+            <summary>
+            Encapsulates the logic necessary to format an <c>SRecordElement</c>
             as a line of text.
             </summary>
         </member>
-        <member name="F:Jcd.SRecord.IO.SRecordLineFormatter.DefaultFormatter">
+        <member name="F:Jcd.SRecord.IO.SRecordElementFormatter.Default">
             <summary>
-            Gets the default instance of <c>SRecordLineFormatter</c> 
+            Gets the default instance of <c>SRecordElementFormatter</c> 
             </summary>
         </member>
-        <member name="P:Jcd.SRecord.IO.SRecordLineFormatter.CurrentOptions">
+        <member name="P:Jcd.SRecord.IO.SRecordElementFormatter.CurrentOptions">
             <summary>
             Gets the currently configured options.
             </summary>
         </member>
-        <member name="P:Jcd.SRecord.IO.SRecordLineFormatter.SRecordFormatter">
+        <member name="P:Jcd.SRecord.IO.SRecordElementFormatter.RecordFormatter">
             <summary>
-            Gets the currently configured SRecordFormatter
+            Gets the currently configured <c>ISRecordFormatter</c>
             </summary>
         </member>
-        <member name="M:Jcd.SRecord.IO.SRecordLineFormatter.#ctor(System.Nullable{Jcd.SRecord.IO.SRecordLineFormatter.Options},Jcd.SRecord.SRecordFormatter)">
+        <member name="M:Jcd.SRecord.IO.SRecordElementFormatter.#ctor(System.Nullable{Jcd.SRecord.IO.SRecordElementFormatter.Options},Jcd.SRecord.ISRecordFormatter)">
             <summary>
-            Constructs an instance of <c>SRecordLineFormatter</c> with the specified
-            options and SRecordFormatter.
+            Constructs an instance of <c>SRecordElementFormatter</c> with the specified
+            options and <c>ISRecordFormatter</c>.
             </summary>
             <param name="options">The options to use, if null, <c>Options.DefaultOptions</c> is used.</param>
-            <param name="sRecordFormatter">The SRecordFormatter to use. If null, <c>SRecordFormatter.UppercaseHex</c> is used.</param>
+            <param name="recordFormatter">The ISRecordFormatter to use. If null, <c>SRecordFormatter.UppercaseHex</c> is used.</param>
         </member>
-        <member name="M:Jcd.SRecord.IO.SRecordLineFormatter.Format(Jcd.SRecord.Parsers.SRecordLine)">
+        <member name="M:Jcd.SRecord.IO.SRecordElementFormatter.Format(Jcd.SRecord.IO.SRecordElement)">
             <inheritdoc />
         </member>
-        <member name="T:Jcd.SRecord.IO.SRecordLineFormatter.Options">
+        <member name="E:Jcd.SRecord.IO.SRecordElementFormatter.Formatting">
+            <inheritdoc />
+        </member>
+        <member name="E:Jcd.SRecord.IO.SRecordElementFormatter.Formatted">
+            <inheritdoc />
+        </member>
+        <member name="T:Jcd.SRecord.IO.SRecordElementFormatter.Options">
             <summary>
-            Represents the formatting options desired when writing <c>SRecordLine</c> contents
-            to an <c>SRecordLineWriter</c>.
+            Represents the formatting options desired when writing <c>SRecordElement</c> contents
+            to an <c>SRecordElementWriter</c>.
             </summary>
         </member>
-        <member name="F:Jcd.SRecord.IO.SRecordLineFormatter.Options.EmitOriginalText">
+        <member name="F:Jcd.SRecord.IO.SRecordElementFormatter.Options.EmitOriginalText">
             <summary>
             Tells the formatter to ignore all other directives, and just emit the original line of text.
             </summary>
         </member>
-        <member name="F:Jcd.SRecord.IO.SRecordLineFormatter.Options.EmitComment">
+        <member name="F:Jcd.SRecord.IO.SRecordElementFormatter.Options.EmitComment">
             <summary>
             Tells the formatter if end of line comments should be emitted.
             </summary>
         </member>
-        <member name="F:Jcd.SRecord.IO.SRecordLineFormatter.Options.EmitSRecordContent">
+        <member name="F:Jcd.SRecord.IO.SRecordElementFormatter.Options.EmitSRecordContent">
             <summary>
             Tells the formatter to emit the SRecord when present. This is usually true.
             </summary>
         </member>
-        <member name="F:Jcd.SRecord.IO.SRecordLineFormatter.Options.EmitSpaceBeforeEndOfLineComment">
+        <member name="F:Jcd.SRecord.IO.SRecordElementFormatter.Options.EmitSpaceBeforeEndOfLineComment">
             <summary>
             Tells the formatter if a space should be emitted before an end of line comment.
             </summary>
         </member>
-        <member name="F:Jcd.SRecord.IO.SRecordLineFormatter.Options.EmitErrorLineAsCommentLine">
+        <member name="F:Jcd.SRecord.IO.SRecordElementFormatter.Options.EmitErrorLineAsCommentLine">
             <summary>
             Indicates if the formatter should emit an error line as a commented out line.
             In order for a comment line to be emitted, EmitComment must also be true.
             If false, a blank line or null will be generated for error lines (depending on blank line handling).
             </summary>
         </member>
-        <member name="F:Jcd.SRecord.IO.SRecordLineFormatter.Options.EmitBlankLineAsEmptyString">
+        <member name="F:Jcd.SRecord.IO.SRecordElementFormatter.Options.EmitBlankLineAsEmptyString">
             <summary>
             Indicates if the formatter should emit a blank line as an empty string or null.
             When false, lines that would format to an empty string, become null instead.
             </summary>
         </member>
-        <member name="F:Jcd.SRecord.IO.SRecordLineFormatter.Options.CommentCharacter">
+        <member name="F:Jcd.SRecord.IO.SRecordElementFormatter.Options.CommentCharacter">
             <summary>
             The character to use when emitting a comment.
             </summary>
         </member>
-        <member name="M:Jcd.SRecord.IO.SRecordLineFormatter.Options.#ctor(System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Char)">
+        <member name="M:Jcd.SRecord.IO.SRecordElementFormatter.Options.#ctor(System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Char)">
             <summary>
-            Constructs a set of options to control the behavior of SRecordLineFormatter.
+            Constructs a set of options to control the behavior of SRecordElementFormatter.
             </summary>
             <param name="emitSRecordContent">Tells the formatter to emit the SRecord when present.</param>
             <param name="emitComment">Tells the formatter if end of line comments should be emitted.</param>
@@ -144,351 +405,445 @@
             <param name="emitErrorLineAsCommentLine"></param>
             <param name="commentCharacter"></param>
         </member>
-        <member name="F:Jcd.SRecord.IO.SRecordLineFormatter.Options.OnlyEmitSRecordData">
+        <member name="F:Jcd.SRecord.IO.SRecordElementFormatter.Options.OnlyEmitSRecordData">
             <summary>
             A convenience instance that is configured to only emit <c>SRecord</c> line and only the <c>SRecord</c> data.
             </summary>
         </member>
-        <member name="F:Jcd.SRecord.IO.SRecordLineFormatter.Options.OnlyEmitCommentData">
+        <member name="F:Jcd.SRecord.IO.SRecordElementFormatter.Options.OnlyEmitCommentData">
             <summary>
             A convenience instance that is configured to only emit comment data.
             </summary>
         </member>
-        <member name="F:Jcd.SRecord.IO.SRecordLineFormatter.Options.EmitSRecordAndCommentData">
+        <member name="F:Jcd.SRecord.IO.SRecordElementFormatter.Options.EmitSRecordAndCommentData">
             <summary>
             A convenience instance that is configured to emit <c>SRecord</c> line and comment data.
             </summary>
         </member>
-        <member name="F:Jcd.SRecord.IO.SRecordLineFormatter.Options.EmitSRecordAndCommentDataWithSpace">
+        <member name="F:Jcd.SRecord.IO.SRecordElementFormatter.Options.EmitSRecordAndCommentDataWithSpace">
             <summary>
             A convenience instance that is configured to emit <c>SRecord</c>
             line and comment data. For end of line comments after <c>SRecord</c>
             data, a space is inserted before the comment character.
             </summary>
         </member>
-        <member name="F:Jcd.SRecord.IO.SRecordLineFormatter.Options.CommentOutErrorLines">
+        <member name="F:Jcd.SRecord.IO.SRecordElementFormatter.Options.CommentOutErrorLines">
             <summary>
             A convenience instance that is configured to emit <c>SRecord</c> line and comment data.
-            As well <c>SRecordLine</c>s flagged as having an error will be emitted as commented out
-            lines. (SRecordLine.OriginalLine is used, otherwise preserving the whole line.) 
+            As well <c>SRecordElement</c>s flagged as having an error will be emitted as commented out
+            lines. (SRecordElement.OriginalLine is used, otherwise preserving the whole line.) 
             </summary>
         </member>
-        <member name="F:Jcd.SRecord.IO.SRecordLineFormatter.Options.OnlyEmitOriginalText">
+        <member name="F:Jcd.SRecord.IO.SRecordElementFormatter.Options.OnlyEmitOriginalText">
             <summary>
             A convenience instance that is configured to only emit the original text.
             </summary>
         </member>
-        <member name="P:Jcd.SRecord.IO.SRecordLineFormatter.Options.DefaultOptions">
+        <member name="P:Jcd.SRecord.IO.SRecordElementFormatter.Options.DefaultOptions">
             <summary>
             See <c>EmitSRecordAndCommentDataWithSpace</c>
             </summary>
         </member>
-        <member name="T:Jcd.SRecord.IO.SRecordLineParser">
+        <member name="T:Jcd.SRecord.IO.SRecordElementFormattingEventArgs">
+            <inheritdoc />
+        </member>
+        <member name="P:Jcd.SRecord.IO.SRecordElementFormattingEventArgs.Element">
             <summary>
-            Provides a simplistic manner of parsing SRecords
+            The element to be formatted.
             </summary>
         </member>
-        <member name="P:Jcd.SRecord.IO.SRecordLineParser.CommentCharacters">
+        <member name="M:Jcd.SRecord.IO.SRecordElementFormattingEventArgs.#ctor(Jcd.SRecord.IO.SRecordElement)">
+            <summary>
+            Constructs a <c>SRecordElementFormattingEventArgs</c> instance.
+            </summary>
+            <param name="element">The element to be formatted.</param>
+        </member>
+        <member name="T:Jcd.SRecord.IO.SRecordElementParsedEventArgs">
+            <inheritdoc />
+        </member>
+        <member name="P:Jcd.SRecord.IO.SRecordElementParsedEventArgs.Element">
+            <summary>
+            The parsed element containing the results of parsing.
+            (successful, type parsed, error, error message, exception...etc.)
+            </summary>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordElementParsedEventArgs.#ctor(Jcd.SRecord.IO.SRecordElement)">
+            <summary>
+            Constructs an instance of <c>SRecordElementParsedEventArgs</c>.
+            </summary>
+            <param name="element">The parsed element containing the results of parsing.</param>
+        </member>
+        <member name="T:Jcd.SRecord.IO.SRecordElementParser">
+            <summary>
+            Provides a default mechanism for parsing a line of text into
+            an <c>SRecordElement</c>.
+            </summary>
+        </member>
+        <member name="E:Jcd.SRecord.IO.SRecordElementParser.Parsing">
+            <summary>
+            An event indicating parsing of a line of text has begun.
+            The data on the argument is the original line of text.
+            </summary>
+        </member>
+        <member name="E:Jcd.SRecord.IO.SRecordElementParser.Parsed">
+            <summary>
+            An event indicating parsing has finished.
+            The data on the argument is the element resulting from parsing.
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.IO.SRecordElementParser.RecordParser">
+            <summary>
+            Gets the <c>ISRecordParser</c> instance used to parse the <c>SRecord</c> data
+            from a line of text.
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.IO.SRecordElementParser.CommentCharacters">
             <summary>
             Gets a copy of the comment characters in use.
             </summary>
         </member>
-        <member name="F:Jcd.SRecord.IO.SRecordLineParser.DefaultCommentCharacters">
+        <member name="F:Jcd.SRecord.IO.SRecordElementParser.DefaultCommentCharacters">
             <summary>
-            The default set of comment characeters we'll parse.
+            The default set of comment characters we'll parse.
             </summary>
         </member>
-        <member name="F:Jcd.SRecord.IO.SRecordLineParser.Default">
+        <member name="P:Jcd.SRecord.IO.SRecordElementParser.Default">
             <summary>
-            A default instance configured with reasonable, flexible, defaults. It should parse most any line.
+            A default instance configured with reasonable, flexible, defaults. It should parse
+            most any line.
             </summary>
         </member>
-        <member name="F:Jcd.SRecord.IO.SRecordLineParser.NoComments">
+        <member name="F:Jcd.SRecord.IO.SRecordElementParser.Flexible">
             <summary>
-            A default instance configured with reasonable, flexible, defaults. It should parse most any line.
+            An <c>SRecordElementParser</c> configured to accept either '#' or ';' as comment
+            characters,  and to allow up to 250-252 (SRecordType dependent) data bytes in the
+            <c>SRecord</c> data.
             </summary>
         </member>
-        <member name="P:Jcd.SRecord.IO.SRecordLineParser.AllowComments">
+        <member name="F:Jcd.SRecord.IO.SRecordElementParser.FlexibleNoComments">
+            <summary>
+            An <c>SRecordElementParser</c> configured to accept no comments, and to allow up
+            to 250-252 (SRecordType dependent) data bytes in the <c>SRecord</c> data.
+            </summary>
+        </member>
+        <member name="F:Jcd.SRecord.IO.SRecordElementParser.Strict">
+            <summary>
+            An <c>SRecordElementParser</c> configured to accept either '#' or ';' as comment
+            characters,  and to allow up to 32 (SRecordType dependent) data bytes in the
+            <c>SRecord</c> data.
+            </summary>
+        </member>
+        <member name="F:Jcd.SRecord.IO.SRecordElementParser.StrictNoComments">
+            <summary>
+            An <c>SRecordElementParser</c> configured to accept no comments, and to allow up
+            to 250-252 (SRecordType dependent) data bytes in the <c>SRecord</c> data.
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.IO.SRecordElementParser.AllowComments">
             <summary>
             Indicates if comments are allowed. To Allow comments pass a set of
             recognized comment characters in to the constructor. 
             </summary>
         </member>
-        <member name="M:Jcd.SRecord.IO.SRecordLineParser.#ctor(Jcd.SRecord.SRecordParser,System.Collections.Generic.IEnumerable{System.Char})">
+        <member name="M:Jcd.SRecord.IO.SRecordElementParser.#ctor(Jcd.SRecord.ISRecordParser,System.Collections.Generic.IEnumerable{System.Char})">
             <summary>
-            Constructs an SRecordLineParser from an <c>SRecordParser</c>
+            Constructs an <c>SRecordElementParser</c> from an <c>ISRecordParser</c>
             and an optional set of comment characters.
             </summary>
-            <param name="sRecordParser"></param>
-            <param name="commentCharacters"></param>
+            <param name="sRecordParser">The ISRecordParser instance to use.</param>
+            <param name="commentCharacters">The comment characters to accept when parsing.</param>
         </member>
-        <member name="M:Jcd.SRecord.IO.SRecordLineParser.Parse(System.Int32,System.String)">
+        <member name="M:Jcd.SRecord.IO.SRecordElementParser.Parse(System.Int32,System.String)">
             <summary>
-            Parses a line of text into an SRecordLine.
+            Parses a line of text into an SRecordElement.
             </summary>
             <param name="lineNumber">The line number.</param>
             <param name="lineOfText">The raw text.</param>
-            <returns>an SRecordLine describing the parsing results.</returns>
+            <returns>an SRecordElement describing the parsing results.</returns>
         </member>
-        <member name="T:Jcd.SRecord.IO.SRecordLineReader">
+        <member name="T:Jcd.SRecord.IO.SRecordElementParsingEventArgs">
+            <inheritdoc />
+        </member>
+        <member name="P:Jcd.SRecord.IO.SRecordElementParsingEventArgs.LineNumber">
             <summary>
-            A forward only SRecordLine stream/string reader.
-            This class always disposes its Stream/StreamReader when disposed.
+            The line number for the line of text being parsed.
             </summary>
         </member>
-        <member name="P:Jcd.SRecord.IO.SRecordLineReader.CurrentLine">
+        <member name="P:Jcd.SRecord.IO.SRecordElementParsingEventArgs.OriginalLineOfText">
+            <summary>
+            The original line of text to parse.
+            </summary>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordElementParsingEventArgs.#ctor(System.Int32,System.String)">
+            <summary>
+            Constructs a new instance of <c>SRecordElementParsingEventArgs</c>
+            </summary>
+            <param name="lineNumber">The line number.</param>
+            <param name="originalLineOfText">The original line of text.</param>
+        </member>
+        <member name="T:Jcd.SRecord.IO.SRecordElementReader">
+            <summary>
+            A forward only <c>SRecordElement</c> stream/string reader.
+            This class always disposes its TextReader when disposed.
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.IO.SRecordElementReader.CurrentLine">
             <summary>
             The line number of the most recently read line.
             This is 0 if nothing has been read and number of the last line in the file,
             if all lines have been read.
             </summary>
         </member>
-        <member name="M:Jcd.SRecord.IO.SRecordLineReader.#ctor(System.String,Jcd.SRecord.Parsers.ISRecordLineParser)">
+        <member name="M:Jcd.SRecord.IO.SRecordElementReader.#ctor(System.String,Jcd.SRecord.IO.ISRecordElementParser)">
             <summary>
-            Constructs an <c>SRecordLineReader</c> from a block of text. The encoding is assumed to be UTF8.
+            Constructs an <c>SRecordElementReader</c> from a block of text. The encoding is assumed to be UTF8.
             </summary>
             <param name="linesOfText">the block of text.</param>
             <param name="parser">the line parser.</param>
         </member>
-        <member name="M:Jcd.SRecord.IO.SRecordLineReader.#ctor(System.String,System.Text.Encoding,Jcd.SRecord.Parsers.ISRecordLineParser)">
+        <member name="M:Jcd.SRecord.IO.SRecordElementReader.#ctor(System.IO.Stream,Jcd.SRecord.IO.ISRecordElementParser)">
             <summary>
-            Constructs an <c>SRecordLineReader</c> from a block of text. The encoding is assumed to be UTF8.
-            </summary>
-            <param name="linesOfText">the block of text.</param>
-            <param name="parser">the line parser.</param>
-            <param name="encoding">The encoding to use for linesOfText.</param>
-        </member>
-        <member name="M:Jcd.SRecord.IO.SRecordLineReader.#ctor(System.IO.Stream,Jcd.SRecord.Parsers.ISRecordLineParser)">
-            <summary>
-            Constructs an <c>SRecordLineReader</c> from a stream.
+            Constructs an <c>SRecordElementReader</c> from a stream.
             </summary>
             <param name="stream">The stream to read from.</param>
             <param name="parser">The parser to use</param>
         </member>
-        <member name="M:Jcd.SRecord.IO.SRecordLineReader.#ctor(System.IO.Stream,System.Text.Encoding,Jcd.SRecord.Parsers.ISRecordLineParser)">
+        <member name="M:Jcd.SRecord.IO.SRecordElementReader.#ctor(System.IO.Stream,System.Text.Encoding,Jcd.SRecord.IO.ISRecordElementParser)">
             <summary>
-            Constructs an <c>SRecordLineReader</c> from a stream.
+            Constructs an <c>SRecordElementReader</c> from a stream.
             </summary>
             <param name="stream">The stream to read from.</param>
             <param name="parser">The parser to use</param>
             <param name="encoding">The text encoding to use.</param>
         </member>
-        <member name="M:Jcd.SRecord.IO.SRecordLineReader.#ctor(System.IO.StreamReader,Jcd.SRecord.Parsers.ISRecordLineParser)">
+        <member name="M:Jcd.SRecord.IO.SRecordElementReader.#ctor(System.IO.TextReader,Jcd.SRecord.IO.ISRecordElementParser)">
             <summary>
-            Constructs an <c>SRecordLineReader</c> from a stream reader and line parser.
+            Constructs an <c>SRecordElementReader</c> from a stream reader and line parser.
             </summary>
-            <param name="streamReader">The reader</param>
+            <param name="textReader">The reader</param>
             <param name="parser">The parser</param>
         </member>
-        <member name="M:Jcd.SRecord.IO.SRecordLineReader.ReadRemainingLines">
+        <member name="M:Jcd.SRecord.IO.SRecordElementReader.ReadToEnd">
             <summary>
-            Get an enumerable of <c>SRecordLine</c>s from the input stream from the current position.
+            Get an enumerable of <c>SRecordElement</c>s from the input stream from the current position.
             </summary>
-            <returns>an enumerable of <c>SRecordLine</c>s from the input stream</returns>
+            <returns>an enumerable of <c>SRecordElement</c>s from the input stream</returns>
         </member>
-        <member name="M:Jcd.SRecord.IO.SRecordLineReader.ReadRemainingLinesAsync">
+        <member name="M:Jcd.SRecord.IO.SRecordElementReader.ReadToEndAsync">
             <summary>
-            Get an enumerable of <c>SRecordLine</c>s from the input stream, asynchronously
+            Get an enumerable of <c>SRecordElement</c>s from the input stream, asynchronously
             </summary>
-            <returns>an enumerable of <c>SRecordLine</c>s from the input stream</returns>
+            <returns>an enumerable of <c>SRecordElement</c>s from the input stream</returns>
         </member>
-        <member name="M:Jcd.SRecord.IO.SRecordLineReader.ReadLine">
+        <member name="M:Jcd.SRecord.IO.SRecordElementReader.Read">
             <summary>
-            Reads an <c>SRecordLine</c> from the stream.
+            Reads an <c>SRecordElement</c> from the stream.
             </summary>
-            <returns>The <c>SRecordLine</c>, null if end of stream has been reached.</returns>
+            <returns>The <c>SRecordElement</c>, null if end of stream has been reached.</returns>
         </member>
-        <member name="M:Jcd.SRecord.IO.SRecordLineReader.ReadLineAsync">
+        <member name="M:Jcd.SRecord.IO.SRecordElementReader.ReadAsync">
             <summary>
-            Reads an <c>SRecordLine</c> from the stream.
+            Reads an <c>SRecordElement</c> from the stream.
             </summary>
-            <returns>The <c>SRecordLine</c>, null if end of stream has been reached.</returns>
+            <returns>The <c>SRecordElement</c>, null if end of stream has been reached.</returns>
         </member>
-        <member name="P:Jcd.SRecord.IO.SRecordLineReader.EndOfData">
+        <member name="P:Jcd.SRecord.IO.SRecordElementReader.EndOfData">
             <summary>
             Indicates if all of the data has been read.
             </summary>
         </member>
-        <member name="M:Jcd.SRecord.IO.SRecordLineReader.Dispose">
+        <member name="M:Jcd.SRecord.IO.SRecordElementReader.Dispose">
             <inheritdoc cref="M:System.IDisposable.Dispose"/>
         </member>
-        <member name="F:Jcd.SRecord.IO.SRecordLineType.Comment">
+        <member name="T:Jcd.SRecord.IO.SRecordElementType">
+            <summary>
+            Defines a set of flags that describe the results of parsing a line
+            of text from an <c>SRecordDocument</c> 
+            </summary>
+        </member>
+        <member name="F:Jcd.SRecord.IO.SRecordElementType.HasComment">
+            <summary>
+            Indicates that the parsed data contains a comment. (This may be an empty string) 
+            </summary>
+        </member>
+        <member name="F:Jcd.SRecord.IO.SRecordElementType.HasSRecord">
+            <summary>
+            Indicates that the parsed data contains <c>SRecord</c> data.
+            </summary>
+        </member>
+        <member name="F:Jcd.SRecord.IO.SRecordElementType.IsBlank">
+            <summary>
+            Indicates that the parsed line was blank.
+            </summary>
+        </member>
+        <member name="F:Jcd.SRecord.IO.SRecordElementType.HasError">
+            <summary>
+            Indicates that an error occurred during parsing.
+            </summary>
+        </member>
+        <member name="F:Jcd.SRecord.IO.SRecordElementType.Comment">
             <summary>
             A single line comment.
             </summary>
         </member>
-        <member name="F:Jcd.SRecord.IO.SRecordLineType.SRecord">
+        <member name="F:Jcd.SRecord.IO.SRecordElementType.SRecord">
             <summary>
             An SRecord without a comment.
             </summary>
         </member>
-        <member name="F:Jcd.SRecord.IO.SRecordLineType.SRecordWithEndOfLineComment">
+        <member name="F:Jcd.SRecord.IO.SRecordElementType.SRecordWithEndOfElementComment">
             <summary>
             An SRecord with end of line comment.
             </summary>
         </member>
-        <member name="F:Jcd.SRecord.IO.SRecordLineType.Blank">
+        <member name="F:Jcd.SRecord.IO.SRecordElementType.Blank">
             <summary>
             A blank line (Empty or all whitespace.)
             </summary>
         </member>
-        <member name="F:Jcd.SRecord.IO.SRecordLineType.Error">
+        <member name="F:Jcd.SRecord.IO.SRecordElementType.Error">
             <summary>
              Indicates if some error was detected while parsing the line.
             </summary>
         </member>
-        <member name="M:Jcd.SRecord.IO.SRecordLineType.Equals(Jcd.SRecord.IO.SRecordLineType)">
+        <member name="M:Jcd.SRecord.IO.SRecordElementType.Equals(Jcd.SRecord.IO.SRecordElementType)">
             <summary>
             Compares this instance to another.
             </summary>
             <param name="other">The other instance to compare to.</param>
             <returns>true if equal.</returns>
         </member>
-        <member name="M:Jcd.SRecord.IO.SRecordLineType.Equals(System.Object)">
+        <member name="M:Jcd.SRecord.IO.SRecordElementType.Equals(System.Object)">
             <summary>
             Compares this instance to another object.
             </summary>
-            <param name="other">The other instance to compare to.</param>
+            <param name="obj">The other instance to compare to.</param>
             <returns>true if equal.</returns>
         </member>
-        <member name="M:Jcd.SRecord.IO.SRecordLineType.GetHashCode">
+        <member name="M:Jcd.SRecord.IO.SRecordElementType.GetHashCode">
             <summary>
             Generates a hashcode for the instance.
             </summary>
             <returns>The hashcode</returns>
         </member>
-        <member name="M:Jcd.SRecord.IO.SRecordLineType.op_Equality(Jcd.SRecord.IO.SRecordLineType,Jcd.SRecord.IO.SRecordLineType)">
+        <member name="M:Jcd.SRecord.IO.SRecordElementType.op_Equality(Jcd.SRecord.IO.SRecordElementType,Jcd.SRecord.IO.SRecordElementType)">
             <summary>
-            Compares two instances of <c>SRecordLineType</c> for equality.
+            Compares two instances of <c>SRecordElementType</c> for equality.
             </summary>
             <param name="left">The left hand side of the comparison.</param>
             <param name="right">The right hand side of the comparison.</param>
             <returns>True if equal</returns>
         </member>
-        <member name="M:Jcd.SRecord.IO.SRecordLineType.op_Inequality(Jcd.SRecord.IO.SRecordLineType,Jcd.SRecord.IO.SRecordLineType)">
+        <member name="M:Jcd.SRecord.IO.SRecordElementType.op_Inequality(Jcd.SRecord.IO.SRecordElementType,Jcd.SRecord.IO.SRecordElementType)">
             <summary>
-            Compares two instances of <c>SRecordLineType</c> for inequality.
+            Compares two instances of <c>SRecordElementType</c> for inequality.
             </summary>
             <param name="left">The left hand side of the comparison.</param>
             <param name="right">The right hand side of the comparison.</param>
             <returns>True if not equal</returns>
         </member>
-        <member name="T:Jcd.SRecord.IO.SRecordLineWriter">
+        <member name="T:Jcd.SRecord.IO.SRecordElementWriter">
             <summary>
-            Writes <c>SRecordLine</c>s to a stream.
+            Writes <c>SRecordElement</c>s to a stream or <c>TextWriter</c>.
             </summary>
         </member>
-        <member name="M:Jcd.SRecord.IO.SRecordLineWriter.#ctor(System.IO.Stream,Jcd.SRecord.IO.ISRecordLineFormatter)">
+        <member name="M:Jcd.SRecord.IO.SRecordElementWriter.#ctor(System.IO.Stream,Jcd.SRecord.IO.ISRecordElementFormatter)">
             <summary>
-            Constructs an instance from a stream and line formatter. 
+            Constructs an instance from a stream and element formatter. 
             </summary>
             <param name="stream">The stream to write to.</param>
-            <param name="lineFormatter">The line formatter.</param>
+            <param name="elementFormatter">The element formatter.</param>
         </member>
-        <member name="M:Jcd.SRecord.IO.SRecordLineWriter.#ctor(System.IO.Stream,System.Text.Encoding,Jcd.SRecord.IO.ISRecordLineFormatter)">
+        <member name="M:Jcd.SRecord.IO.SRecordElementWriter.#ctor(System.IO.Stream,System.Text.Encoding,Jcd.SRecord.IO.ISRecordElementFormatter)">
             <summary>
-            Constructs an instance from a stream, an encoding, and line formatter. 
+            Constructs an instance from a stream, an encoding, and element formatter. 
             </summary>
             <param name="stream">The stream to write to.</param>
             <param name="encoding">The encoding to use.</param>
-            <param name="lineFormatter">The line formatter.</param>
+            <param name="elementFormatter">The element formatter.</param>
         </member>
-        <member name="M:Jcd.SRecord.IO.SRecordLineWriter.#ctor(System.IO.StreamWriter,Jcd.SRecord.IO.ISRecordLineFormatter)">
+        <member name="M:Jcd.SRecord.IO.SRecordElementWriter.#ctor(System.IO.TextWriter,Jcd.SRecord.IO.ISRecordElementFormatter)">
             <summary>
-            Constructs an instance from a <c>StreamWriter</c> and an <c>ISRecordLineFormatter</c>
+            Constructs an instance from a <c>StreamWriter</c> and an <c>ISRecordElementFormatter</c>
             </summary>
             <param name="streamWriter">The StreamWriter</param>
-            <param name="lineFormatter">The line formatter</param>
+            <param name="elementFormatter">The element formatter</param>
             <exception cref="T:System.ArgumentNullException">Thrown when either parameter is null.</exception>
         </member>
-        <member name="M:Jcd.SRecord.IO.SRecordLineWriter.WriteLine(Jcd.SRecord.Parsers.SRecordLine)">
+        <member name="M:Jcd.SRecord.IO.SRecordElementWriter.Write(Jcd.SRecord.IO.SRecordElement)">
             <summary>
-            Format and write an SRecordLine to the stream.
+            Format and write an SRecordElement to the stream.
             </summary>
-            <param name="line">the line to format and write.</param>
+            <param name="element">the element to format and write.</param>
         </member>
-        <member name="M:Jcd.SRecord.IO.SRecordLineWriter.WriteLineAsync(Jcd.SRecord.Parsers.SRecordLine)">
+        <member name="M:Jcd.SRecord.IO.SRecordElementWriter.WriteAsync(Jcd.SRecord.IO.SRecordElement)">
             <summary>
-            Formats and writes a line to the stream, asynchronously.
+            Formats and writes a element to the stream, asynchronously.
             </summary>
-            <param name="line">The line to write.</param>
+            <param name="element">The element to write.</param>
         </member>
-        <member name="M:Jcd.SRecord.IO.SRecordLineWriter.WriteLines(System.Collections.Generic.IEnumerable{Jcd.SRecord.Parsers.SRecordLine})">
+        <member name="M:Jcd.SRecord.IO.SRecordElementWriter.Write(System.Collections.Generic.IEnumerable{Jcd.SRecord.IO.SRecordElement})">
             <summary>
             Writes a set of lines to the stream.
             </summary>
             <param name="lines">The lines to write.</param>
         </member>
-        <member name="M:Jcd.SRecord.IO.SRecordLineWriter.WriteLinesAsync(System.Collections.Generic.IEnumerable{Jcd.SRecord.Parsers.SRecordLine})">
+        <member name="M:Jcd.SRecord.IO.SRecordElementWriter.WriteAsync(System.Collections.Generic.IEnumerable{Jcd.SRecord.IO.SRecordElement})">
             <summary>
             Writes a set of lines to a stream, asynchronously.
             </summary>
             <param name="lines">The lines to write.</param>
         </member>
-        <member name="M:Jcd.SRecord.IO.SRecordLineWriter.Dispose">
+        <member name="M:Jcd.SRecord.IO.SRecordElementWriter.WriteAsync(System.Collections.Generic.IAsyncEnumerable{Jcd.SRecord.IO.SRecordElement})">
+            <summary>
+            Writes a set of lines, obtained asynchronously, to a stream, asynchronously.
+            </summary>
+            <param name="lines">The lines to write.</param>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordElementWriter.Dispose">
             <inheritdoc cref="M:System.IDisposable.Dispose"/>
         </member>
-        <member name="M:Jcd.SRecord.Parsers.ISRecordLineParser.Parse(System.Int32,System.String)">
+        <member name="T:Jcd.SRecord.ISRecordFormatter">
             <summary>
-            Parses a line of text into an SRecordLine.
-            </summary>
-            <param name="lineNumber">The line number.</param>
-            <param name="lineOfText">The raw text.</param>
-            <returns>an SRecordLine describing the parsing results.</returns>
-        </member>
-        <member name="T:Jcd.SRecord.Parsers.SRecordLine">
-            <summary>
-            Represents a single line read and parsed from an <c>SRecordLineReader</c>.
+            Defines the operations necessary to support formatting an <c>SRecord</c>
+            into text.
             </summary>
         </member>
-        <member name="P:Jcd.SRecord.Parsers.SRecordLine.LineNumber">
+        <member name="P:Jcd.SRecord.ISRecordFormatter.EmitHexNumbersInUpperCase">
             <summary>
-            The line in the file where the text was found.
+            Indicates if the hex numbers should be uppercase (true)
+            or lowercase (false).
             </summary>
         </member>
-        <member name="P:Jcd.SRecord.Parsers.SRecordLine.SRecord">
+        <member name="M:Jcd.SRecord.ISRecordFormatter.Format(Jcd.SRecord.SRecord)">
             <summary>
-            The SRecord parsed from the line (if any) 
+            Converts an SRecord into its ASCII-HEX representation.
+            </summary>
+            <param name="sRecord">the record to format</param>
+            <returns>The formatted string (S0030000FC...etc)</returns>
+        </member>
+        <member name="T:Jcd.SRecord.ISRecordParser">
+            <summary>
+            Defines the operations necessary in order to support parsing text into
+            <c>SRecord</c> instances.
             </summary>
         </member>
-        <member name="P:Jcd.SRecord.Parsers.SRecordLine.Comment">
+        <member name="M:Jcd.SRecord.ISRecordParser.Parse(System.String)">
             <summary>
-            The comment text (lines starting with a ';' '#' ...etc are comment lines.) 
+            Parses a line of text into an <c>SRecord, ignoring trailing whitespace.</c>
             </summary>
+            <param name="lineOfText">The line of text to parse.</param>
+            <returns>An <c>SRecord</c> instance if it was successfully parsed.</returns>
+            <exception cref="T:System.ArgumentException"></exception>
+            <exception cref="T:System.Exception"></exception>
         </member>
-        <member name="P:Jcd.SRecord.Parsers.SRecordLine.LineType">
+        <member name="M:Jcd.SRecord.ISRecordParser.TryParse(System.String,Jcd.SRecord.SRecord@)">
             <summary>
-            True if the line recognized as an SRecord and/or comment. False otherwise.
-            When false, OriginalLine should be populated with the extracted line of text, without end of line character(s).
-            Also, ErrorMessage should be populated with the error encountered while trying to parse the line. 
+            Tries parsing a line of text into an <c>SRecord</c>
             </summary>
-        </member>
-        <member name="P:Jcd.SRecord.Parsers.SRecordLine.OriginalLine">
-            <summary>
-            The original line of text. A well constructed parser will always provide this. The default one does.
-            </summary>
-        </member>
-        <member name="P:Jcd.SRecord.Parsers.SRecordLine.ErrorMessage">
-            <summary>
-            Contains a parser specific error message associated with attempting to parse this line.
-            </summary>
-        </member>
-        <member name="P:Jcd.SRecord.Parsers.SRecordLine.Exception">
-            <summary>
-            An exception that happened while trying to parse the line of text.
-            </summary>
-        </member>
-        <member name="M:Jcd.SRecord.Parsers.SRecordLine.#ctor(System.Int32,Jcd.SRecord.IO.SRecordLineType,Jcd.SRecord.SRecord,System.String,System.String,System.String,System.Exception)">
-            <summary>
-            Constructs an instance of an <c>SRecordLine</c>
-            </summary>
-            <param name="lineNumber">The line number in the file.</param>
-            <param name="lineType">The lineType of line.</param>
-            <param name="sRecord">the parsed and validated <c>SRecord</c> instance.</param>
-            <param name="comment">The comment text, without the comment character.</param>
-            <param name="originalLine">The original full text of the line.</param>
-            <param name="errorMessage">An error message, populated when lineType is false.</param>
-            <param name="exception">An exception that occurred during parsing of the SRecord entry.</param>
+            <param name="lineOfText">the text to try parsing.</param>
+            <param name="sRecord">The result of parsing. null if not parsed.</param>
+            <returns>true if successful</returns>
         </member>
         <member name="T:Jcd.SRecord.SRecord">
             <summary>

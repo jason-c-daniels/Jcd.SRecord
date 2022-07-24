@@ -3,6 +3,8 @@
 
 ## CharExtensions Class
 
+A set of utility methods for interacting with `char`s.
+
 ```csharp
 public static class CharExtensions
 ```

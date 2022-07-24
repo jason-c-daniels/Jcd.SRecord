@@ -16,6 +16,8 @@ public Jcd.SRecord.SRecord Parse(string lineOfText);
 
 The line of text to parse.
 
+Implements [Parse(string)](Jcd.SRecord.ISRecordParser.Parse(string).md 'Jcd.SRecord.ISRecordParser.Parse(string)')
+
 #### Returns
 [SRecord](Jcd.SRecord.SRecord.md 'Jcd.SRecord.SRecord')  
 An `SRecord` instance if it was successfully parsed.

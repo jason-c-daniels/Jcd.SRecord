@@ -16,6 +16,8 @@ public string Format(Jcd.SRecord.SRecord sRecord);
 
 the record to format
 
+Implements [Format(SRecord)](Jcd.SRecord.ISRecordFormatter.Format(Jcd.SRecord.SRecord).md 'Jcd.SRecord.ISRecordFormatter.Format(Jcd.SRecord.SRecord)')
+
 #### Returns
 [System.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System.String')  
 The formatted string (S0030000FC...etc)

@@ -2,6 +2,9 @@ using System;
 
 namespace Jcd.SRecord.Extensions
 {
+    /// <summary>
+    /// A set of utility methods for interacting with <c>char</c>s.
+    /// </summary>
     public static class CharExtensions
     {
         /// <summary>

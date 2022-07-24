@@ -7,10 +7,13 @@ Provides facilities for parsing the textual SRecord format into its
 binary representation.
 
 ```csharp
-public class SRecordParser
+public class SRecordParser :
+Jcd.SRecord.ISRecordParser
 ```
 
 Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; SRecordParser
+
+Implements [ISRecordParser](Jcd.SRecord.ISRecordParser.md 'Jcd.SRecord.ISRecordParser')
 
 | Constructors | |
 | :--- | :--- |

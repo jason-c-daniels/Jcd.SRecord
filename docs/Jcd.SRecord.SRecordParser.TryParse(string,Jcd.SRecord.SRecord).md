@@ -22,6 +22,8 @@ the text to try parsing.
 
 The result of parsing. null if not parsed.
 
+Implements [TryParse(string, SRecord)](Jcd.SRecord.ISRecordParser.TryParse(string,Jcd.SRecord.SRecord).md 'Jcd.SRecord.ISRecordParser.TryParse(string, Jcd.SRecord.SRecord)')
+
 #### Returns
 [System.Boolean](https://docs.microsoft.com/en-us/dotnet/api/System.Boolean 'System.Boolean')  
 true if successful

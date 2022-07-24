@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Jcd.SRecord.Extensions;
-using Jcd.SRecord.Parsers;
+using Jcd.SRecord.IO;
 using Xunit;
 
 namespace Jcd.SRecord.Tests

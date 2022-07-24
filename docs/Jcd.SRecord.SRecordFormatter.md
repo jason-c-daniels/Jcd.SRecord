@@ -7,10 +7,13 @@ Encapsulates the formatting logic required to emit a single SRecord
 with consistent hex value casing.
 
 ```csharp
-public class SRecordFormatter
+public class SRecordFormatter :
+Jcd.SRecord.ISRecordFormatter
 ```
 
 Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; SRecordFormatter
+
+Implements [ISRecordFormatter](Jcd.SRecord.ISRecordFormatter.md 'Jcd.SRecord.ISRecordFormatter')
 
 | Fields | |
 | :--- | :--- |
