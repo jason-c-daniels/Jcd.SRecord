@@ -20,7 +20,9 @@ namespace Jcd.SRecord.Tests.Extensions
 
         [Theory]
         [MemberData(nameof(DataSet))]
+        #pragma warning disable xUnit1026
         public void HexStringToBytes_Converts_To_Correct_Byte_Array(string hexString, byte[] bytes, bool _)
+        #pragma warning restore xUnit1026
         {
             var actualBytes=hexString.HexStringToBytes()?.ToArray();
             Assert.Equal(bytes,actualBytes);
