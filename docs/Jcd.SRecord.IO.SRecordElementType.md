@@ -7,7 +7,7 @@ Defines a set of flags that describe the results of parsing a line
 of text from an `SRecordDocument`
 
 ```csharp
-public struct SRecordElementType :
+public readonly struct SRecordElementType :
 System.IEquatable<Jcd.SRecord.IO.SRecordElementType>
 ```
 

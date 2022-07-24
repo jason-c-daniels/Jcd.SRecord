@@ -1,5 +1,5 @@
 using System;
-using Jcd.SRecord.IO;
+// ReSharper disable UnusedMemberInSuper.Global
 
 namespace Jcd.SRecord.IO
 {
@@ -26,11 +26,13 @@ namespace Jcd.SRecord.IO
         /// <summary>
         /// An event indicating that parsing has begun.
         /// </summary>
+        // ReSharper disable once EventNeverSubscribedTo.Global
         public event EventHandler<SRecordElementParsingEventArgs> Parsing;
         
         /// <summary>
         /// An event that indicates parsing has finished.
         /// </summary>
+        // ReSharper disable once EventNeverSubscribedTo.Global
         public event EventHandler<SRecordElementParsedEventArgs> Parsed;
     }
 }

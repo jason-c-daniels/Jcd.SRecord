@@ -1,5 +1,4 @@
 using System;
-using Jcd.SRecord.IO;
 
 namespace Jcd.SRecord.IO
 {
@@ -11,39 +10,39 @@ namespace Jcd.SRecord.IO
         /// <summary>
         /// The line in the file where the text was found.
         /// </summary>
-        public int LineNumber { get; set; }
+        public int LineNumber { get; }
         
         /// <summary>
         /// The SRecord parsed from the line (if any) 
         /// </summary>
-        public SRecord SRecord { get; set; }
+        public SRecord SRecord { get; }
         
         /// <summary>
         /// The comment text (lines starting with a ';' '#' ...etc are comment lines.) 
         /// </summary>
-        public string Comment { get; set; }
+        public string Comment { get; }
         
         /// <summary>
         /// True if the line recognized as an SRecord and/or comment. False otherwise.
         /// When false, OriginalLine should be populated with the extracted line of text, without end of line character(s).
         /// Also, ErrorMessage should be populated with the error encountered while trying to parse the line. 
         /// </summary>
-        public SRecordElementType ElementType { get; set; }
+        public SRecordElementType ElementType { get; }
         
         /// <summary>
         /// The original line of text. A well constructed parser will always provide this. The default one does.
         /// </summary>
-        public string OriginalLine { get; set; }
+        public string OriginalLine { get; }
 
         /// <summary>
         /// Contains a parser specific error message associated with attempting to parse this line.
         /// </summary>
-        public string ErrorMessage { get; set; }
+        public string ErrorMessage { get; }
 
         /// <summary>
         /// An exception that happened while trying to parse the line of text.
         /// </summary>
-        public Exception Exception { get; set; }
+        public Exception Exception { get; }
 
         /// <summary>
         /// Constructs an instance of an <c>SRecordElement</c>

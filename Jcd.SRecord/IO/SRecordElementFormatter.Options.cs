@@ -84,11 +84,13 @@ namespace Jcd.SRecord.IO
             /// <summary>
             /// A convenience instance that is configured to only emit comment data.
             /// </summary>
+            // ReSharper disable once UnusedMember.Global
             public static readonly Options OnlyEmitCommentData = new Options(emitComment: true);
 
             /// <summary>
             /// A convenience instance that is configured to emit <c>SRecord</c> line and comment data.
             /// </summary>
+            // ReSharper disable once UnusedMember.Global
             public static readonly Options EmitSRecordAndCommentData =
                 new Options(emitSRecordContent: true, emitComment: true);
 
@@ -105,12 +107,14 @@ namespace Jcd.SRecord.IO
             /// As well <c>SRecordElement</c>s flagged as having an error will be emitted as commented out
             /// lines. (SRecordElement.OriginalLine is used, otherwise preserving the whole line.) 
             /// </summary>
+            // ReSharper disable once UnusedMember.Global
             public static readonly Options CommentOutErrorLines = new Options(emitSRecordContent: true,
                 emitComment: true, emitSpaceBeforeEndOfLineComment: true, emitErrorLineAsCommentLine:true);
 
             /// <summary>
             /// A convenience instance that is configured to only emit the original text.
             /// </summary>
+            // ReSharper disable once UnusedMember.Global
             public static readonly Options OnlyEmitOriginalText = new Options(emitOriginalText: true);
 
             /// <summary>

@@ -6,7 +6,7 @@ namespace Jcd.SRecord.IO
     /// Defines a set of flags that describe the results of parsing a line
     /// of text from an <c>SRecordDocument</c> 
     /// </summary>
-    public struct SRecordElementType : IEquatable<SRecordElementType>
+    public readonly struct SRecordElementType : IEquatable<SRecordElementType>
     {
         /// <summary>
         /// Indicates that the parsed data contains a comment. (This may be an empty string) 

@@ -10,9 +10,6 @@ namespace Jcd.SRecord.IO
     /// </summary>
     public partial class SRecordElementFormatter : ISRecordElementFormatter
     {
-        private readonly ISRecordFormatter _recordFormatter;
-        private readonly Options _options;
-
         /// <summary>
         /// Gets the default instance of <c>SRecordElementFormatter</c> 
         /// </summary>
@@ -21,13 +18,13 @@ namespace Jcd.SRecord.IO
         /// <summary>
         /// Gets the currently configured options.
         /// </summary>
-        public Options CurrentOptions => _options;
+        public Options CurrentOptions { get; }
 
         /// <summary>
         /// Gets the currently configured <c>ISRecordFormatter</c>
         /// </summary>
-        public ISRecordFormatter RecordFormatter => _recordFormatter;
-        
+        public ISRecordFormatter RecordFormatter { get; }
+
         /// <summary>
         /// Constructs an instance of <c>SRecordElementFormatter</c> with the specified
         /// options and <c>ISRecordFormatter</c>.
@@ -36,8 +33,8 @@ namespace Jcd.SRecord.IO
         /// <param name="recordFormatter">The ISRecordFormatter to use. If null, <c>SRecordFormatter.UppercaseHex</c> is used.</param>
         public SRecordElementFormatter(Options? options=null, ISRecordFormatter recordFormatter=null)
         {
-            _options = options ?? Options.DefaultOptions;
-            _recordFormatter = recordFormatter ?? SRecordFormatter.UppercaseHex;
+            CurrentOptions = options ?? Options.DefaultOptions;
+            RecordFormatter = recordFormatter ?? SRecordFormatter.UppercaseHex;
         }
 
         /// <inheritdoc />
@@ -46,7 +43,7 @@ namespace Jcd.SRecord.IO
             try
             {
                 RaiseFormattingEvent(element);
-                return ProcessResult(Format(_options, RecordFormatter, element), element);
+                return ProcessResult(Format(CurrentOptions, RecordFormatter, element), element);
             }
             catch
             {

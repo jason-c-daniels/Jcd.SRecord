@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Jcd.SRecord.Extensions
 {
@@ -42,6 +44,13 @@ namespace Jcd.SRecord.Extensions
                 char.IsLowSurrogate(character))
                 throw new ArgumentException($"'\\u+{Convert.ToUInt16(character):X4}' is cannot be used as a comment character. Invalid Unicode Category: {char.GetUnicodeCategory(character)}.");
         }
-        
+
+        internal static bool ContainsNonHexData(this IEnumerable<char> chars)
+        {
+            if (chars.Any(c => !c.IsHexDigit()))
+                return true;
+
+            return false;
+        }
     }
 }

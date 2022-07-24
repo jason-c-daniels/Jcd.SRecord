@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Jcd.SRecord.Extensions
 {
@@ -6,10 +7,11 @@ namespace Jcd.SRecord.Extensions
     {
         #region ToBigEndianByteArray
         
+        // ReSharper disable once ReturnTypeCanBeEnumerable.Global
         public static byte[] ToBigEndianByteArray(this uint value)
         {    
             // Value in bytes... in your system's endianness (let's say: little endian)
-            byte[] bytes = BitConverter.GetBytes(value);
+            var bytes = BitConverter.GetBytes(value);
 
             // If it was little endian, reverse it
             if (BitConverter.IsLittleEndian)
@@ -22,7 +24,7 @@ namespace Jcd.SRecord.Extensions
         
         #region Ints from Big Endian Byte Array
         
-        public static UInt32 UInt32FromBigEndianByteArray(this byte[] bytes)
+        public static uint UInt32FromBigEndianByteArray(this byte[] bytes)
         {
             var buffer = MakeBuffer(bytes, 4);
             // If the system architecture is little-endian (that is, little end first),
@@ -33,11 +35,11 @@ namespace Jcd.SRecord.Extensions
             return BitConverter.ToUInt32(buffer, 0);
         }
 
-        private static byte[] MakeBuffer(byte[] bytes, int bufferSize)
+        private static byte[] MakeBuffer(IReadOnlyList<byte> bytes, int bufferSize)
         {
             var buffer = new byte[bufferSize];
-            int i = bytes.Length - 1;
-            int j = buffer.Length - 1;
+            var i = bytes.Count - 1;
+            var j = buffer.Length - 1;
             for (; i >= 0 && j >= 0; i--, j--)
             {
                 buffer[j] = bytes[i];

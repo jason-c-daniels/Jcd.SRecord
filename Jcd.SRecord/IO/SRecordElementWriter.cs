@@ -4,7 +4,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using Jcd.SRecord.IO;
 
 namespace Jcd.SRecord.IO
 {
@@ -58,11 +57,9 @@ namespace Jcd.SRecord.IO
         public void Write(SRecordElement element)
         {
             var formattedLine = _elementFormatter.Format(element);
-            if (formattedLine != null)
-            {
-                _textWriter.WriteLine(formattedLine);
-                _textWriter.Flush();
-            }
+            if (formattedLine == null) return;
+            _textWriter.WriteLine(formattedLine);
+            _textWriter.Flush();
         }
 
         /// <summary>

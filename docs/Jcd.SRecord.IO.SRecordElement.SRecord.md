@@ -6,7 +6,7 @@
 The SRecord parsed from the line (if any)
 
 ```csharp
-public Jcd.SRecord.SRecord SRecord { get; set; }
+public Jcd.SRecord.SRecord SRecord { get; }
 ```
 
 #### Property Value

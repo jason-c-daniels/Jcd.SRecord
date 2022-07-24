@@ -6,7 +6,7 @@
 Contains a parser specific error message associated with attempting to parse this line.
 
 ```csharp
-public string ErrorMessage { get; set; }
+public string ErrorMessage { get; }
 ```
 
 #### Property Value

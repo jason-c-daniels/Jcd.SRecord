@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Jcd.SRecord.IO;
+// ReSharper disable MemberCanBePrivate.Global
 
 namespace Jcd.SRecord.IO
 {
@@ -13,17 +14,17 @@ namespace Jcd.SRecord.IO
     /// </summary>
     public class SRecordDocument
     {
-        private readonly ISRecordElementParser _parser;
-        private readonly ISRecordElementFormatter _formatter;
-        
         /// <summary>
         /// Gets a mutable collection of <c>SRecordElement</c>s contained in this document.
         /// </summary>
+        [NotNull]
         public ObservableCollection<SRecordElement> Elements { get; } = new ObservableCollection<SRecordElement>();
 
         /// <summary>
         /// Gets an immutable collection of just the SRecord entries contained in the Elements collection.
         /// </summary>
+        [NotNull]
+        // ReSharper disable once UnusedMember.Global
         public IEnumerable<SRecord> SRecords => Elements
             .Where(x => x.ElementType.HasSRecord)
             .Select(x => x.SRecord);
@@ -31,12 +32,16 @@ namespace Jcd.SRecord.IO
         /// <summary>
         /// Gets the instance of the parser in use by this <c>SRecordDocument</c>. 
         /// </summary>
-        public ISRecordElementParser Parser => _parser;
+        [NotNull]
+        // ReSharper disable once MemberCanBePrivate.Global
+        public ISRecordElementParser Parser { get; }
 
         /// <summary>
         /// Gets the instance of the formatter used by this <c>SRecordDocument</c>.
         /// </summary>
-        public ISRecordElementFormatter Formatter => _formatter;
+        [NotNull]
+        // ReSharper disable once MemberCanBePrivate.Global
+        public ISRecordElementFormatter Formatter { get; }
 
 
         /// <summary>
@@ -44,10 +49,11 @@ namespace Jcd.SRecord.IO
         /// </summary>
         /// <param name="parser">The parser to use for parsing <c>SRecordElement</c> text. If null the default one is used.</param>
         /// <param name="formatter">The formatter to use when writing <c>SRecordElement</c>s. If null the default one is used.</param>
+        // ReSharper disable once MemberCanBePrivate.Global
         public SRecordDocument(ISRecordElementParser parser=null, ISRecordElementFormatter formatter=null)
         {
-            _parser = parser ?? SRecordElementParser.Default;
-            _formatter = formatter ?? SRecordElementFormatter.Default;
+            Parser = parser ?? SRecordElementParser.Default;
+            Formatter = formatter ?? SRecordElementFormatter.Default;
         }
         
         #region Read and ReadAsync
@@ -110,6 +116,7 @@ namespace Jcd.SRecord.IO
         /// <param name="parser">The parser. If null the default one is used.</param>
         /// <param name="formatter">The formatter to used. If null the default one is used.</param>
         /// <returns>The new <c>SRecordDocument</c> instance</returns>
+        [return: NotNull]
         public static SRecordDocument CreateFromFile(string filePath, ISRecordElementParser parser=null, ISRecordElementFormatter formatter=null)
         {
             var result = new SRecordDocument(parser,formatter);
@@ -125,6 +132,7 @@ namespace Jcd.SRecord.IO
         /// <param name="parser">The parser. If null the default one is used.</param>
         /// <param name="formatter">The formatter to used. If null the default one is used.</param>
         /// <returns>The new <c>SRecordDocument</c> instance</returns>
+        [return: NotNull]
         public static async Task<SRecordDocument> CreateFromFileAsync(string filePath, ISRecordElementParser parser=null, ISRecordElementFormatter formatter=null)
         {
             var result = new SRecordDocument(parser,formatter);
@@ -139,7 +147,8 @@ namespace Jcd.SRecord.IO
         /// <param name="filePath">The file to read.</param>
         public async Task LoadFileAsync(string filePath)
         {
-            await ReadAsync(CreateReaderFromFileName(filePath));
+            using var reader = CreateReaderFromFileName(filePath);
+            await ReadAsync(reader);
         }
         
         /// <summary>
@@ -149,7 +158,8 @@ namespace Jcd.SRecord.IO
         /// <param name="filePath">The file to read.</param>
         public void LoadFile(string filePath)
         {
-            Read(CreateReaderFromFileName(filePath));
+            using var reader = CreateReaderFromFileName(filePath);
+            Read(reader);
         }
 
         /// <summary>
@@ -159,7 +169,8 @@ namespace Jcd.SRecord.IO
         /// <param name="filePath">The path of the file to write.</param>
         public void WriteFile(string filePath)
         {
-            Write(CreateWriterFromFileName(filePath));
+            using var writer=CreateWriterFromFileName(filePath);
+            Write(writer);
         }
 
         /// <summary>
@@ -169,7 +180,8 @@ namespace Jcd.SRecord.IO
         /// <param name="filePath">The path of the file to write.</param>
         public async Task WriteFileAsync(string filePath)
         {
-            await WriteAsync(CreateWriterFromFileName(filePath));
+            using var writer = CreateWriterFromFileName(filePath);
+            await WriteAsync(writer);
         }
         
         private SRecordElementReader CreateReaderFromFileName(string filePath)
@@ -194,6 +206,7 @@ namespace Jcd.SRecord.IO
         /// <param name="parser">The parser. If null the default one is used.</param>
         /// <param name="formatter">The formatter to used. If null the default one is used.</param>
         /// <returns>The new <c>SRecordDocument</c> instance</returns>
+        [return: NotNull]
         public static SRecordDocument CreateFromString(string text, ISRecordElementParser parser=null, ISRecordElementFormatter formatter=null)
         {
             var result = new SRecordDocument(parser,formatter);
@@ -208,16 +221,17 @@ namespace Jcd.SRecord.IO
         /// <param name="text">The string to load.</param>
         public void LoadString(string text)
         {
-            Read(new SRecordElementReader(text, Parser));
+            using var reader = new SRecordElementReader(text, Parser);
+            Read(reader);
         }
-
 
         /// <inheritdoc />
         public override string ToString()
         {
-            var sr = new StringWriter();
-            Write(new SRecordElementWriter(sr, Formatter));
-            return sr.ToString();
+            var sw = new StringWriter();
+            using var writer = new SRecordElementWriter(sw, Formatter);
+            Write(writer);
+            return sw.ToString();
         }        
         
         #endregion

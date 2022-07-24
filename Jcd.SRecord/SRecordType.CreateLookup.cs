@@ -10,7 +10,7 @@ namespace Jcd.SRecord
         private const byte StrictDataByteSize = 32;
         private const byte MinS0S1S2S3S4DataBytes = 1;
 
-        private static Dictionary<byte, ReadOnlyDictionary<string, SRecordType>> _typeLookupCache
+        private static readonly Dictionary<byte, ReadOnlyDictionary<string, SRecordType>> TypeLookupCache
             = new Dictionary<byte, ReadOnlyDictionary<string, SRecordType>>
             {
                 { MaxS3DataBytes  , Flexible.TypeLookup },
@@ -29,10 +29,10 @@ namespace Jcd.SRecord
         /// <returns>Returns a lookup table for record types.</returns>
         public static ReadOnlyDictionary<string, SRecordType> CreateLookup(byte dataBytesPerRecord = MaxS3DataBytes)
         {
-            if (!_typeLookupCache.ContainsKey(dataBytesPerRecord))
-                _typeLookupCache.Add(dataBytesPerRecord, InternalCreate(dataBytesPerRecord));
+            if (!TypeLookupCache.ContainsKey(dataBytesPerRecord))
+                TypeLookupCache.Add(dataBytesPerRecord, InternalCreate(dataBytesPerRecord));
 
-            return _typeLookupCache[dataBytesPerRecord];
+            return TypeLookupCache[dataBytesPerRecord];
         }
 
         private static ReadOnlyDictionary<string, SRecordType> InternalCreate(byte dataBytesPerRecord)
@@ -67,7 +67,7 @@ namespace Jcd.SRecord
                     { s6.Key, s6 },
                     { s7.Key, s7 },
                     { s8.Key, s8 },
-                    { s9.Key, s9 },
+                    { s9.Key, s9 }
                 }
             );
         }

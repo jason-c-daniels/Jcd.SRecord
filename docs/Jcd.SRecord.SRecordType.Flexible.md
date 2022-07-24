@@ -16,7 +16,6 @@ Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.O
 
 | Fields | |
 | :--- | :--- |
-| [MaxDataLength](Jcd.SRecord.SRecordType.Flexible.MaxDataLength.md 'Jcd.SRecord.SRecordType.Flexible.MaxDataLength') | The maximum data any data bearing record may have |
 | [S0](Jcd.SRecord.SRecordType.Flexible.S0.md 'Jcd.SRecord.SRecordType.Flexible.S0') | The identifier for S0 records. Address is 2 bytes, should always be 0. Maximum data bytes allowed 252 bytes. |
 | [S1](Jcd.SRecord.SRecordType.Flexible.S1.md 'Jcd.SRecord.SRecordType.Flexible.S1') | The identifier for S1 records. Address is 2 bytes. Maximum data bytes allowed 252 bytes. |
 | [S2](Jcd.SRecord.SRecordType.Flexible.S2.md 'Jcd.SRecord.SRecordType.Flexible.S2') | The identifier for S2 records. Address is 3 bytes. Maximum data bytes allowed 251 bytes. |

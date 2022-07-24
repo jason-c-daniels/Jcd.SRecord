@@ -8,7 +8,7 @@ When false, OriginalLine should be populated with the extracted line of text, wi
 Also, ErrorMessage should be populated with the error encountered while trying to parse the line.
 
 ```csharp
-public Jcd.SRecord.IO.SRecordElementType ElementType { get; set; }
+public Jcd.SRecord.IO.SRecordElementType ElementType { get; }
 ```
 
 #### Property Value

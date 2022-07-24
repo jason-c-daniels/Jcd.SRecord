@@ -847,7 +847,8 @@
         </member>
         <member name="T:Jcd.SRecord.SRecord">
             <summary>
-            Represents a single SRecord entry in an srecord file. This is an immutable type. To edit the contents, create a new one with the altered data buffer, address, and/or type.
+            Represents a single <c>SRecord</c> entry in an s-record file. This is an immutable type.
+            To edit the contents, create a new one with the altered data buffer, address, and/or type.
             </summary>
             <remarks>
             Further reading about the SRecord format can be done
@@ -924,7 +925,7 @@
             <param name="data">The data for the data field, if any.</param>
             <returns>The checksum</returns>
         </member>
-        <member name="M:Jcd.SRecord.SRecord.ComputeChecksum(System.Byte[])">
+        <member name="M:Jcd.SRecord.SRecord.ComputeChecksum(System.Collections.Generic.IEnumerable{System.Byte})">
             <summary>
             Computes the checksum for the concatenated bytes contained in the address
             and data fields.
@@ -1110,11 +1111,6 @@
             configured to accept a flexible number of data bytes per record. The exact amount
             allowed varies per type and is 254 bytes minus the address length in bytes, for S0,
             S1, S2, S3, and S4. NOTE: S4 types always require special, implementation defined, handling.
-            </summary>
-        </member>
-        <member name="F:Jcd.SRecord.SRecordType.Flexible.MaxDataLength">
-            <summary>
-            The maximum data any data bearing record may have
             </summary>
         </member>
         <member name="F:Jcd.SRecord.SRecordType.Flexible.S0">

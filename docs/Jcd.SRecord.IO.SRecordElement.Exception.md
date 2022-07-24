@@ -6,7 +6,7 @@
 An exception that happened while trying to parse the line of text.
 
 ```csharp
-public System.Exception Exception { get; set; }
+public System.Exception Exception { get; }
 ```
 
 #### Property Value

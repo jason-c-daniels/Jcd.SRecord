@@ -13,10 +13,6 @@ namespace Jcd.SRecord
         /// </summary>
         public static class Flexible
         {
-            /// <summary>
-            /// The maximum data any data bearing record may have
-            /// </summary>
-            public const byte MaxDataLength = 32;
 
             /// <summary>
             /// The identifier for S0 records. Address is 2 bytes, should always be 0. Maximum data bytes allowed 252 bytes.
@@ -57,8 +53,9 @@ namespace Jcd.SRecord
             /// <remarks>
             /// Special handling required. This is vendor defined/reserved.
             /// </remarks>
-            public static readonly SRecordType S4 = new SRecordType("S4", 4, MaxDataLength, true);
+            public static readonly SRecordType S4 = new SRecordType("S4", 4, true);
 
+            // ReSharper disable once CommentTypo
             /// <summary>
             /// The identifier for S5 records. Address is 2 bytes. No data allowed.
             /// </summary>
@@ -125,7 +122,7 @@ namespace Jcd.SRecord
                         { S6.Key, S6 },
                         { S7.Key, S7 },
                         { S8.Key, S8 },
-                        { S9.Key, S9 },
+                        { S9.Key, S9 }
                     }
                 );
 
@@ -137,9 +134,9 @@ namespace Jcd.SRecord
             /// <returns>A matching <c>SRecordType</c> or a new instance with IsValid set to false.</returns>
             public static SRecordType FromKey(string key)
             {
-                if (TypeLookup.ContainsKey(key))
-                    return TypeLookup[key];
-                return new SRecordType(key, 0, 0, true, false);
+                return TypeLookup.ContainsKey(key) 
+                    ? TypeLookup[key] 
+                    : new SRecordType(key, 0, 0, true, false);
             }
         }
     }

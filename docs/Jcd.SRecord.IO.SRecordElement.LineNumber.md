@@ -6,7 +6,7 @@
 The line in the file where the text was found.
 
 ```csharp
-public int LineNumber { get; set; }
+public int LineNumber { get; }
 ```
 
 #### Property Value

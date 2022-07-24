@@ -6,7 +6,7 @@
 Computes the checksum for the record.
 
 ```csharp
-public static byte ComputeChecksum(Jcd.SRecord.SRecordType type, byte count, uint address, byte[] data=null);
+private static byte ComputeChecksum(Jcd.SRecord.SRecordType type, byte count, uint address, byte[] data=null);
 ```
 #### Parameters
 

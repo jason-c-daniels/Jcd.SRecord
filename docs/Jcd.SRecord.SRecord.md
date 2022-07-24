@@ -3,7 +3,8 @@
 
 ## SRecord Class
 
-Represents a single SRecord entry in an srecord file. This is an immutable type. To edit the contents, create a new one with the altered data buffer, address, and/or type.
+Represents a single `SRecord` entry in an s-record file. This is an immutable type.  
+To edit the contents, create a new one with the altered data buffer, address, and/or type.
 
 ```csharp
 public class SRecord
@@ -38,5 +39,5 @@ and [the wikipedia page](https://en.wikipedia.org/wiki/SREC_(file_format) 'https
 
 | Methods | |
 | :--- | :--- |
-| [ComputeChecksum(byte[])](Jcd.SRecord.SRecord.ComputeChecksum(byte[]).md 'Jcd.SRecord.SRecord.ComputeChecksum(byte[])') | Computes the checksum for the concatenated bytes contained in the address<br/>and data fields. |
 | [ComputeChecksum(SRecordType, byte, uint, byte[])](Jcd.SRecord.SRecord.ComputeChecksum(Jcd.SRecord.SRecordType,byte,uint,byte[]).md 'Jcd.SRecord.SRecord.ComputeChecksum(Jcd.SRecord.SRecordType, byte, uint, byte[])') | Computes the checksum for the record. |
+| [ComputeChecksum(IEnumerable&lt;byte&gt;)](Jcd.SRecord.SRecord.ComputeChecksum(System.Collections.Generic.IEnumerable_byte_).md 'Jcd.SRecord.SRecord.ComputeChecksum(System.Collections.Generic.IEnumerable<byte>)') | Computes the checksum for the concatenated bytes contained in the address<br/>and data fields. |

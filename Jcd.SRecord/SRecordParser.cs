@@ -29,8 +29,6 @@ namespace Jcd.SRecord
             Argument.HasItems(typeLookup, nameof(typeLookup), $"{nameof(typeLookup)} must contain at least one SRecord definition.");
             _typeLookup = typeLookup;
         }
-
-        private static Regex _nonHexCharacters = new Regex("[^0-9A-F]",RegexOptions.Compiled|RegexOptions.Singleline|RegexOptions.CultureInvariant|RegexOptions.IgnoreCase);
         
         /// <summary>
         /// Parses a line of text into an <c>SRecord, ignoring trailing whitespace.</c>
@@ -43,8 +41,7 @@ namespace Jcd.SRecord
         {
             Argument.IsNotNullWhitespaceOrEmpty(lineOfText, nameof(lineOfText));
             lineOfText = lineOfText.TrimEnd(); // remove any possible trailing whitespace, such as CRLF
-            var typeLookup=_typeLookup;
-            var minAddressByteLength = typeLookup.Values!.Min(t => t.AddressLengthInBytes);
+            var minAddressByteLength = _typeLookup.Values!.Min(t => t.AddressLengthInBytes);
             var minTextLength=SRecord.KeyCharLength + SRecord.CountByteLength*2 + SRecord.CheckSumByteLength*2 + minAddressByteLength * 2;
             Argument.IsGreaterThanOrEqual(lineOfText.Length,minTextLength, nameof(lineOfText), $"Length must be at least {minTextLength} characters in length.");
             if (lineOfText.Length % 2 != 0)
@@ -53,14 +50,14 @@ namespace Jcd.SRecord
             // grab the first two characters
             var key = lineOfText.Substring(0,SRecord.KeyCharLength);
             // validate we have a key we know about
-            if (!typeLookup.ContainsKey(key)) 
+            if (!_typeLookup.ContainsKey(key)) 
                 throw new ArgumentException($"Unknown SRecord type {key}");
-            var type = typeLookup[key];
+            var type = _typeLookup[key];
             // since we know the first two chars (type indicator) are valid, truncate the string to everything after the type indicator 
             var remainingText = lineOfText.Substring(SRecord.KeyCharLength);
             
             // validate that all the remaining characters are hexadecimal.
-            if (_nonHexCharacters.IsMatch(remainingText)) 
+            if (remainingText.ContainsNonHexData()) 
                 throw new ArgumentException("Non-hexadecimal characters detected in body of the SRecord.", nameof(remainingText));
 
             var countCharLength = SRecord.CountByteLength * 2;

@@ -1,5 +1,4 @@
 using System;
-using Jcd.SRecord.IO;
 
 namespace Jcd.SRecord.IO
 {

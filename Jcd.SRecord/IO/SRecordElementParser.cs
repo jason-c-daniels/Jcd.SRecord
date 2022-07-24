@@ -4,6 +4,8 @@ using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Jcd.SRecord.Extensions;
+// ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable UnusedMember.Global
 
 namespace Jcd.SRecord.IO
 {
@@ -13,7 +15,6 @@ namespace Jcd.SRecord.IO
     /// </summary>
     public class SRecordElementParser : ISRecordElementParser
     {
-        private readonly ISRecordParser _sRecordParser;
         private readonly char[] _commentCharacters;
 
         /// <summary>
@@ -32,7 +33,7 @@ namespace Jcd.SRecord.IO
         /// Gets the <c>ISRecordParser</c> instance used to parse the <c>SRecord</c> data
         /// from a line of text.
         /// </summary>
-        public ISRecordParser RecordParser => _sRecordParser;
+        public ISRecordParser RecordParser { get; }
 
         /// <summary>
         /// Gets a copy of the comment characters in use.
@@ -91,7 +92,7 @@ namespace Jcd.SRecord.IO
         public SRecordElementParser(ISRecordParser sRecordParser=null,
                                     IEnumerable<char> commentCharacters=null)
         {
-            _sRecordParser = sRecordParser ?? SRecordParser.Flexible;
+            RecordParser = sRecordParser ?? SRecordParser.Flexible;
             _commentCharacters = commentCharacters?.ToArray() ?? Array.Empty<char>();
 
             // ensure we're dealing with characters we're not already trying to parse elsewhere.
@@ -149,7 +150,7 @@ namespace Jcd.SRecord.IO
 
                 return ProcessResult(new SRecordElement(lineNumber,
                     elementType: comment == null ? SRecordElementType.SRecord : SRecordElementType.SRecordWithEndOfElementComment,
-                    sRecord: _sRecordParser.Parse(lineOfText), comment: comment, originalLine: originalLineOfText)
+                    sRecord: RecordParser.Parse(lineOfText), comment: comment, originalLine: originalLineOfText)
                 );
             }
             catch (Exception ex)

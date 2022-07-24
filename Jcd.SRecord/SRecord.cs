@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -9,7 +10,8 @@ using Jcd.Validations;
 namespace Jcd.SRecord
 {
     /// <summary>
-    /// Represents a single SRecord entry in an srecord file. This is an immutable type. To edit the contents, create a new one with the altered data buffer, address, and/or type.
+    /// Represents a single <c>SRecord</c> entry in an s-record file. This is an immutable type.
+    /// To edit the contents, create a new one with the altered data buffer, address, and/or type.
     /// </summary>
     /// <remarks>
     /// Further reading about the SRecord format can be done
@@ -57,6 +59,7 @@ namespace Jcd.SRecord
         /// The computed address of the last byte of data contained in this record.
         /// For records with 0 data length, this will contain the same value as Address. 
         /// </summary>
+        // ReSharper disable once UnusedMember.Global
         public long EndAddress => Address + Data.Count;
 
         /// <summary>
@@ -98,14 +101,13 @@ namespace Jcd.SRecord
         /// <param name="address">The data for the address field.</param>
         /// <param name="data">The data for the data field, if any.</param>
         /// <returns>The checksum</returns>
-        public static byte ComputeChecksum(SRecordType type, byte count ,uint address, byte[] data=null)
+        private static byte ComputeChecksum(SRecordType type, byte count ,uint address, byte[] data=null)
         {
             data ??= Array.Empty<byte>();
             return ComputeChecksum(
                 new []{count}
                     .Concat(address.ToBigEndianByteArray().TakeLast(type.AddressLengthInBytes))
-                    .Concat(data)
-                    .ToArray());
+                    .Concat(data));
         }
         
         /// <summary>
@@ -114,14 +116,10 @@ namespace Jcd.SRecord
         /// </summary>
         /// <param name="countAddressAndDataBytes">The concatenated list of bytes from the address and data.</param>
         /// <returns>The checksum</returns>
-        public static byte ComputeChecksum(byte[] countAddressAndDataBytes)
+        private static byte ComputeChecksum(IEnumerable<byte> countAddressAndDataBytes)
         {
-            ushort checksum = 0x00;
-            foreach (var b in countAddressAndDataBytes)
-            {
-                checksum += b;
-            }
-            return (byte)~((byte)(checksum & 0xFF));
+            var checksum = countAddressAndDataBytes.Aggregate<byte, ushort>(0x00, (current, b) => (ushort)(current + b));
+            return (byte)~(byte)(checksum & 0xFF);
         }
     }
 }

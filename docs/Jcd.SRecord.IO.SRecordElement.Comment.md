@@ -6,7 +6,7 @@
 The comment text (lines starting with a ';' '#' ...etc are comment lines.)
 
 ```csharp
-public string Comment { get; set; }
+public string Comment { get; }
 ```
 
 #### Property Value

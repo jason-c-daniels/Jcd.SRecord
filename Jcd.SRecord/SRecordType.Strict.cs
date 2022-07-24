@@ -136,9 +136,9 @@ namespace Jcd.SRecord
             /// <returns>A matching <c>SRecordType</c> or a new instance with IsValid set to false.</returns>
             public static SRecordType FromKey(string key)
             {
-                if (TypeLookup.ContainsKey(key))
-                    return TypeLookup[key];
-                return new SRecordType(key, 0, 0, true, false);
+                return TypeLookup.ContainsKey(key) 
+                    ? TypeLookup[key] 
+                    : new SRecordType(key, 0, 0, true, false);
             }
         }
     }

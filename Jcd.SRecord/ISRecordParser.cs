@@ -23,6 +23,7 @@ namespace Jcd.SRecord
         /// <param name="lineOfText">the text to try parsing.</param>
         /// <param name="sRecord">The result of parsing. null if not parsed.</param>
         /// <returns>true if successful</returns>
+        // ReSharper disable once UnusedMemberInSuper.Global
         bool TryParse(string lineOfText, out SRecord sRecord);
     }
 }

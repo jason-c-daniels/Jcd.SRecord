@@ -1,5 +1,4 @@
 using System;
-using Jcd.SRecord.IO;
 
 namespace Jcd.SRecord.IO
 {
@@ -24,11 +23,13 @@ namespace Jcd.SRecord.IO
         /// <summary>
         /// An event indicating that formatting has begun.
         /// </summary>
+        // ReSharper disable once EventNeverSubscribedTo.Global
         public event EventHandler<SRecordElementFormattingEventArgs> Formatting;
         
         /// <summary>
         /// An event that indicates formatting has finished.
         /// </summary>
+        // ReSharper disable once EventNeverSubscribedTo.Global
         public event EventHandler<SRecordElementFormattedEventArgs> Formatted;
 
     }

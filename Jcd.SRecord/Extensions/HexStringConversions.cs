@@ -26,6 +26,7 @@ namespace Jcd.SRecord.Extensions
         public static IEnumerable<byte> HexStringToBytes(this string hexString)
         {
             Argument.IsNotWhitespace(hexString, nameof(hexString));
+            // ReSharper disable once ConvertIfStatementToSwitchStatement
             if (hexString == null) return null;
             if (string.Empty == hexString) return Array.Empty<byte>();
             Argument.AreEqual(hexString.Length % 2, 0, nameof(hexString),
@@ -62,6 +63,7 @@ namespace Jcd.SRecord.Extensions
             
             var buffer = new char[count * 2];
             var i = 0;
+            // ReSharper disable once HeapView.ObjectAllocation.Possible
             foreach (var b in bytes)
             {
                 buffer[i++] = lookup[b >> 4 & 0xf];

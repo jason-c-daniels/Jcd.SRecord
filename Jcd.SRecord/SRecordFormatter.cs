@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using Jcd.SRecord.Extensions;
 
@@ -31,7 +30,7 @@ namespace Jcd.SRecord
         /// </summary>
         public static SRecordFormatter Default => UppercaseHex;
 
-        SRecordFormatter(bool emitHexNumbersInUpperCase=false)
+        private SRecordFormatter(bool emitHexNumbersInUpperCase=false)
         {
             EmitHexNumbersInUpperCase = emitHexNumbersInUpperCase;
         }

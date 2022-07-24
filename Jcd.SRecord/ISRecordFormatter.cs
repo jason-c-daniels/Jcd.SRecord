@@ -10,6 +10,7 @@ namespace Jcd.SRecord
         /// Indicates if the hex numbers should be uppercase (true)
         /// or lowercase (false).
         /// </summary>
+        // ReSharper disable once UnusedMemberInSuper.Global
         bool EmitHexNumbersInUpperCase { get; }
 
         /// <summary>

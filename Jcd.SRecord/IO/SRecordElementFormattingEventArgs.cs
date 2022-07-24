@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
-using Jcd.SRecord.IO;
 
 namespace Jcd.SRecord.IO
 {
