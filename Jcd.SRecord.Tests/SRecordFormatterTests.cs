@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using Jcd.SRecord.Extensions;
 using Xunit;
 
 namespace Jcd.SRecord.Tests

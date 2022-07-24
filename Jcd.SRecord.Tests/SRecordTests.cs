@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Jcd.SRecord.Extensions;
 using Xunit;
 
 namespace Jcd.SRecord.Tests

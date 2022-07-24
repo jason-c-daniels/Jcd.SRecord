@@ -1,3 +1,4 @@
+#### [Jcd.SRecord](index.md 'index')
 ### [Jcd.SRecord](Jcd.SRecord.md 'Jcd.SRecord').[SRecordType](Jcd.SRecord.SRecordType.md 'Jcd.SRecord.SRecordType').[Flexible](Jcd.SRecord.SRecordType.Flexible.md 'Jcd.SRecord.SRecordType.Flexible')
 
 ## SRecordType.Flexible.FromKey(string) Method

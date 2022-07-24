@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Jcd.SRecord.Extensions;
+using Jcd.SRecord.Parsers;
 using Xunit;
 
 namespace Jcd.SRecord.Tests
@@ -9,27 +11,6 @@ namespace Jcd.SRecord.Tests
     {
         private static readonly SRecordParser FlexibleParser = SRecordParser.Flexible;
         private static readonly SRecordParser StrictParser = SRecordParser.Strict;
-        private static readonly SRecordFormatter Formatter = SRecordFormatter.Default;
-
-        private static readonly SRecord StrictS0Record = new SRecord(SRecordType.Strict.S0, 0,
-            new byte[SRecordType.Strict.S0.MaximumDataBytesAllowed]);
-
-        private static readonly string FormattedStrictS0Record = Formatter.Format(StrictS0Record);
-        
-        private static readonly SRecord StrictS1Record = new SRecord(SRecordType.Strict.S1, 0,
-            new byte[SRecordType.Strict.S1.MaximumDataBytesAllowed]);
-
-        private static readonly string FormattedStrictS1Record = Formatter.Format(StrictS1Record);
-        
-        private static readonly SRecord FlexibleS0Record = new SRecord(SRecordType.Flexible.S0, 0,
-            new byte[SRecordType.Flexible.S0.MaximumDataBytesAllowed]);
-
-        private static readonly string FormattedFlexibleS0Record = Formatter.Format(FlexibleS0Record);
-        
-        private static readonly SRecord FlexibleS1Record = new SRecord(SRecordType.Flexible.S1, 0,
-            new byte[SRecordType.Flexible.S1.MaximumDataBytesAllowed]);
-
-        private static readonly string FormattedFlexibleS1Record = Formatter.Format(FlexibleS1Record);
 
         [Fact]
         public void Constructor_Throws_On_Null_Or_Empty_TypeLookup()
@@ -253,5 +234,36 @@ namespace Jcd.SRecord.Tests
             Assert.Null(record);
         }
 
+        [Theory]
+        [InlineData(251)]
+        [InlineData(252)]
+        [InlineData(253)]
+        [InlineData(254)]
+        [InlineData(255)]
+        public void Create_Returns_Existing_Instance_Of_Flexible_When_Given_A_Max_Byte_Count_Greater_Than_250(byte max)
+        {
+            var instance = SRecordParser.Create(max);
+            Assert.Same(SRecordParser.Flexible,instance);            
+        }
+        
+        [Fact]
+        public void Create_Returns_Existing_Instance_Of_Strict_When_Given_A_Max_Byte_Count_Is_32()
+        {
+            var instance = SRecordParser.Create(32);
+            Assert.Same(SRecordParser.Strict,instance);            
+        }
+        
+        [Theory]
+        [InlineData(25)]
+        [InlineData(64)]
+        [InlineData(128)]
+        public void Create_Returns_New_Instance_When_Called_Twice_In_A_Row_With_Same_Max_Bytes(byte max)
+        {
+            var instance1 = SRecordParser.Create(max);
+            var instance2 = SRecordParser.Create(max);
+            Assert.NotSame(instance1,instance2);            
+        }
+        
+        
     }
 }

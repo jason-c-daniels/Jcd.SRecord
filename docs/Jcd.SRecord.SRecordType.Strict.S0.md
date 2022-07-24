@@ -1,3 +1,4 @@
+#### [Jcd.SRecord](index.md 'index')
 ### [Jcd.SRecord](Jcd.SRecord.md 'Jcd.SRecord').[SRecordType](Jcd.SRecord.SRecordType.md 'Jcd.SRecord.SRecordType').[Strict](Jcd.SRecord.SRecordType.Strict.md 'Jcd.SRecord.SRecordType.Strict')
 
 ## SRecordType.Strict.S0 Field

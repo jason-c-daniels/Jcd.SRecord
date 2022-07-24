@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Jcd.SRecord.Parsers;
 
 namespace Jcd.SRecord.Examples
 {
@@ -26,7 +27,7 @@ namespace Jcd.SRecord.Examples
             }
 
 
-            Console.WriteLine("Initializing Parser");
+            Console.WriteLine("Initializing SRecordParser");
             for (var i = 0; i < 1000; i++)
                 SRecordParser.Flexible.Parse(l[i]);
 

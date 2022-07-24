@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Jcd.SRecord.Extensions;
 
 namespace Jcd.SRecord
 {
@@ -42,7 +43,13 @@ namespace Jcd.SRecord
         /// <returns>The formatted string (S0030000FC...etc)</returns>
         public string Format(SRecord sRecord)
         {
-            var sb = new StringBuilder();
+            var sb = new StringBuilder(
+                SRecordType.KeyLength +
+                SRecord.CountByteLength * 2 +
+                sRecord.Type.AddressLengthInBytes * 2 + 
+                sRecord.Type.MaximumDataBytesAllowed * 2 +
+                SRecord.CheckSumByteLength * 2
+            );
             sb.Append(sRecord.Type.Key);
             AppendByte(sb, sRecord.CountOfRemainingBytes);
             AppendAddress(sb, sRecord);

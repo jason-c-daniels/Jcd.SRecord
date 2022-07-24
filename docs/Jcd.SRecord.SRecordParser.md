@@ -1,3 +1,4 @@
+#### [Jcd.SRecord](index.md 'index')
 ### [Jcd.SRecord](Jcd.SRecord.md 'Jcd.SRecord')
 
 ## SRecordParser Class
@@ -17,10 +18,12 @@ Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.O
 
 | Fields | |
 | :--- | :--- |
+| [Default](Jcd.SRecord.SRecordParser.Default.md 'Jcd.SRecord.SRecordParser.Default') | An default instance. This is the same as Flexible. |
 | [Flexible](Jcd.SRecord.SRecordParser.Flexible.md 'Jcd.SRecord.SRecordParser.Flexible') | An instance configured to use Flexible definitions. |
 | [Strict](Jcd.SRecord.SRecordParser.Strict.md 'Jcd.SRecord.SRecordParser.Strict') | An instance configured to use Strict definitions. |
 
 | Methods | |
 | :--- | :--- |
+| [Create(byte)](Jcd.SRecord.SRecordParser.Create(byte).md 'Jcd.SRecord.SRecordParser.Create(byte)') | Creates a new instance of an SRecordParser configured to parse records<br/>containing the configured maxDataBytesPerRecord. |
 | [Parse(string)](Jcd.SRecord.SRecordParser.Parse(string).md 'Jcd.SRecord.SRecordParser.Parse(string)') | Parses a line of text into an `SRecord, ignoring trailing whitespace.` |
 | [TryParse(string, SRecord)](Jcd.SRecord.SRecordParser.TryParse(string,Jcd.SRecord.SRecord).md 'Jcd.SRecord.SRecordParser.TryParse(string, Jcd.SRecord.SRecord)') | Tries parsing a line of text into an `SRecord` |

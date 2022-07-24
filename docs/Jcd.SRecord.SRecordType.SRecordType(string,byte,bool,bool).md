@@ -1,3 +1,4 @@
+#### [Jcd.SRecord](index.md 'index')
 ### [Jcd.SRecord](Jcd.SRecord.md 'Jcd.SRecord').[SRecordType](Jcd.SRecord.SRecordType.md 'Jcd.SRecord.SRecordType')
 
 ## SRecordType(string, byte, bool, bool) Constructor

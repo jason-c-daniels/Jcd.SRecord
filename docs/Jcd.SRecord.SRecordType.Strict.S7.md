@@ -1,11 +1,10 @@
+#### [Jcd.SRecord](index.md 'index')
 ### [Jcd.SRecord](Jcd.SRecord.md 'Jcd.SRecord').[SRecordType](Jcd.SRecord.SRecordType.md 'Jcd.SRecord.SRecordType').[Strict](Jcd.SRecord.SRecordType.Strict.md 'Jcd.SRecord.SRecordType.Strict')
 
 ## SRecordType.Strict.S7 Field
 
-The identifier for S7 records. Address is 4 bytes. Maximum data bytes allowed 32 bytes.  
-This is used to terminate a series of S3 records. If a SRecord file is only used to program  
-a memory device and the execution location is ignored, then an address of zero could be  
-used.
+The identifier for S7 records. Address is 4 bytes. No data allowed.  
+This is used to terminate a series of S3 records.
 
 ```csharp
 public static readonly SRecordType S7;
@@ -15,3 +14,5 @@ public static readonly SRecordType S7;
 [SRecordType](Jcd.SRecord.SRecordType.md 'Jcd.SRecord.SRecordType')
 
 ### Remarks
+If an SRecord file is only used to program a memory device and the execution location  
+is ignored, then an address of zero could be used.

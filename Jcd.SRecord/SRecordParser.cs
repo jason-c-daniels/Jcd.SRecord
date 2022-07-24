@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Jcd.SRecord.Extensions;
 using Jcd.Validations;
 
 namespace Jcd.SRecord
@@ -14,6 +15,7 @@ namespace Jcd.SRecord
     /// </summary>
     public class SRecordParser
     {
+        
         [NotNull]
         private readonly IDictionary<string, SRecordType> _typeLookup;
         
@@ -86,8 +88,6 @@ namespace Jcd.SRecord
             // now confirm the parsed checksum and count match the data extracted from the text
             if (checkSum != record.Checksum) 
                 throw new ArgumentException("Computed checksum doesn't match checksum stored within the record.");
-            if (countOfRemainingBytes != record.CountOfRemainingBytes) 
-                throw new Exception("INTERNAL ERROR: CountOfRemainingBytes calculated incorrectly."); // this should never happen.
             return record;
         }
 
@@ -123,5 +123,24 @@ namespace Jcd.SRecord
         /// </summary>
         public static readonly SRecordParser Flexible = new SRecordParser(SRecordType.Flexible.TypeLookup);
 
+        /// <summary>
+        /// An default instance. This is the same as Flexible.
+        /// </summary>
+        public static readonly SRecordParser Default = Flexible;
+
+        /// <summary>
+        /// Creates a new instance of an SRecordParser configured to parse records
+        /// containing the configured maxDataBytesPerRecord.
+        /// </summary>
+        /// <remarks>When maxDataBytesPerRecord is greater than 250, the Flexible instance is used instead of creating a new one.</remarks>
+        /// <param name="maxDataBytesPerRecord"></param>
+        /// <returns></returns>
+        public static SRecordParser Create(byte maxDataBytesPerRecord = 0xFF) =>
+            maxDataBytesPerRecord switch
+            {
+                var a when a > 250 => Flexible,
+                32 => Strict,
+                _ => new SRecordParser(SRecordType.CreateLookup(maxDataBytesPerRecord))
+            };
     }
 }

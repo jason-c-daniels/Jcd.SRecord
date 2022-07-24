@@ -70,7 +70,7 @@ namespace Jcd.SRecord
             Argument.AreEqual( key[0],RecordStartCharacter, nameof(key), $"The first letter of {nameof(key)} must be '{RecordStartCharacter}' found '{key[0]}' instead.");
             Argument.InRange(key[1], '0', '9', nameof(key), $"The second letter of {nameof(key)} must be '0' to '9' found '{key[1]}' instead.");
             Argument.IsLessThanOrEqual(maximumDataBytesAllowed,
-                (SRecord.MaxValueForCount - addressLengthInBytes - SRecord.CheckSumByteLength), nameof(maximumDataBytesAllowed),$"Total byte size for address({addressLengthInBytes}), checksum({SRecord.CheckSumByteLength}) and data({maximumDataBytesAllowed}) exceeds 255.");
+                (SRecord.MaxValueForCount - addressLengthInBytes - SRecord.CheckSumByteLength), nameof(maximumDataBytesAllowed),$"Total byte size for address({addressLengthInBytes}), checksum({SRecord.CheckSumByteLength}) and data({maximumDataBytesAllowed}) exceeds {SRecord.MaxValueForCount}.");
             Key = key;
             AddressLengthInBytes = addressLengthInBytes;
             MaximumDataBytesAllowed = maximumDataBytesAllowed;

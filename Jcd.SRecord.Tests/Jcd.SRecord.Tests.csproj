@@ -24,4 +24,16 @@
     <ProjectReference Include="..\Jcd.SRecord\Jcd.SRecord.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="SRecordType.Flexible.Tests.cs">
+      <DependentUpon>SRecordTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="SRecordType.Strict.Tests.cs">
+      <DependentUpon>SRecordTests.cs</DependentUpon>
+    </Compile>
+    <Compile Update="IO\SRecordLineFormatter.Options.Tests.cs">
+      <DependentUpon>SRecordLineFormatterTests.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 </Project>

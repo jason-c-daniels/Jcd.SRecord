@@ -4,20 +4,34 @@
         <name>Jcd.SRecord</name>
     </assembly>
     <members>
-        <member name="T:Jcd.SRecord.HexStringConversions">
+        <member name="M:Jcd.SRecord.Extensions.CharExtensions.IsHexDigit(System.Char)">
+            <summary>
+             Returns true if a character is a hexadecimal digit.
+            </summary>
+            <param name="character">the character to inspect.</param>
+            <returns>True if the character</returns>
+        </member>
+        <member name="M:Jcd.SRecord.Extensions.CharExtensions.ThrowArgumentExceptionIfNotValidForSRecordComment(System.Char)">
+            <summary>
+            Throws an ArgumentException if the character can't be used for an SRecord comment.
+            </summary>
+            <param name="character">the character to check.</param>
+            <exception cref="T:System.ArgumentException">Thrown if the character is invalid.</exception>
+        </member>
+        <member name="T:Jcd.SRecord.Extensions.HexStringConversions">
             <summary>
             A set of extension methods to help in converting
             to and from hexadecimal representations of bytes 
             </summary>
         </member>
-        <member name="M:Jcd.SRecord.HexStringConversions.HexStringToBytes(System.String)">
+        <member name="M:Jcd.SRecord.Extensions.HexStringConversions.HexStringToBytes(System.String)">
             <summary>
             Converts a sequence of hexadecimal characters into the equivalent bytes. 
             </summary>
             <param name="hexString">the text to convert.</param>
             <returns>The sequence of bytes represented by the hex string.</returns>
         </member>
-        <member name="M:Jcd.SRecord.HexStringConversions.BytesToHexString(System.Collections.Generic.IEnumerable{System.Byte},System.Boolean)">
+        <member name="M:Jcd.SRecord.Extensions.HexStringConversions.BytesToHexString(System.Collections.Generic.IEnumerable{System.Byte},System.Boolean)">
             <summary>
             Convert a sequence of bytes into a string of hexadecimal values. 
             </summary>
@@ -25,9 +39,460 @@
             <param name="makeUppercase">makes the A-F range uppercase when true, lowercase otherwise</param>
             <returns>The hexadecimal text representation</returns>
         </member>
+        <member name="T:Jcd.SRecord.IO.ISRecordLineFormatter">
+            <summary>
+            Defines the interface needed to format an <c>SRecordLine</c>
+            </summary>
+        </member>
+        <member name="M:Jcd.SRecord.IO.ISRecordLineFormatter.Format(Jcd.SRecord.Parsers.SRecordLine)">
+            <summary>
+            Formats an <c>SRecordLine</c> as a line of text.
+            </summary>
+            <param name="line">the line to format.</param>
+            <returns>
+            Null indicates no line was generated. String.Empty indicates
+            that a blank line was generated. <c>SRecordLineWriter</c>
+            will discard null results. Depending on options settings, it may write
+            blank lines.
+            </returns>
+        </member>
+        <member name="T:Jcd.SRecord.IO.SRecordLineFormatter">
+            <summary>
+            Encapsulates the logic necessary to format an <c>SRecordLine</c>
+            as a line of text.
+            </summary>
+        </member>
+        <member name="F:Jcd.SRecord.IO.SRecordLineFormatter.DefaultFormatter">
+            <summary>
+            Gets the default instance of <c>SRecordLineFormatter</c> 
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.IO.SRecordLineFormatter.CurrentOptions">
+            <summary>
+            Gets the currently configured options.
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.IO.SRecordLineFormatter.SRecordFormatter">
+            <summary>
+            Gets the currently configured SRecordFormatter
+            </summary>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordLineFormatter.#ctor(System.Nullable{Jcd.SRecord.IO.SRecordLineFormatter.Options},Jcd.SRecord.SRecordFormatter)">
+            <summary>
+            Constructs an instance of <c>SRecordLineFormatter</c> with the specified
+            options and SRecordFormatter.
+            </summary>
+            <param name="options">The options to use, if null, <c>Options.DefaultOptions</c> is used.</param>
+            <param name="sRecordFormatter">The SRecordFormatter to use. If null, <c>SRecordFormatter.UppercaseHex</c> is used.</param>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordLineFormatter.Format(Jcd.SRecord.Parsers.SRecordLine)">
+            <inheritdoc />
+        </member>
+        <member name="T:Jcd.SRecord.IO.SRecordLineFormatter.Options">
+            <summary>
+            Represents the formatting options desired when writing <c>SRecordLine</c> contents
+            to an <c>SRecordLineWriter</c>.
+            </summary>
+        </member>
+        <member name="F:Jcd.SRecord.IO.SRecordLineFormatter.Options.EmitOriginalText">
+            <summary>
+            Tells the formatter to ignore all other directives, and just emit the original line of text.
+            </summary>
+        </member>
+        <member name="F:Jcd.SRecord.IO.SRecordLineFormatter.Options.EmitComment">
+            <summary>
+            Tells the formatter if end of line comments should be emitted.
+            </summary>
+        </member>
+        <member name="F:Jcd.SRecord.IO.SRecordLineFormatter.Options.EmitSRecordContent">
+            <summary>
+            Tells the formatter to emit the SRecord when present. This is usually true.
+            </summary>
+        </member>
+        <member name="F:Jcd.SRecord.IO.SRecordLineFormatter.Options.EmitSpaceBeforeEndOfLineComment">
+            <summary>
+            Tells the formatter if a space should be emitted before an end of line comment.
+            </summary>
+        </member>
+        <member name="F:Jcd.SRecord.IO.SRecordLineFormatter.Options.EmitErrorLineAsCommentLine">
+            <summary>
+            Indicates if the formatter should emit an error line as a commented out line.
+            In order for a comment line to be emitted, EmitComment must also be true.
+            If false, a blank line or null will be generated for error lines (depending on blank line handling).
+            </summary>
+        </member>
+        <member name="F:Jcd.SRecord.IO.SRecordLineFormatter.Options.EmitBlankLineAsEmptyString">
+            <summary>
+            Indicates if the formatter should emit a blank line as an empty string or null.
+            When false, lines that would format to an empty string, become null instead.
+            </summary>
+        </member>
+        <member name="F:Jcd.SRecord.IO.SRecordLineFormatter.Options.CommentCharacter">
+            <summary>
+            The character to use when emitting a comment.
+            </summary>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordLineFormatter.Options.#ctor(System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Char)">
+            <summary>
+            Constructs a set of options to control the behavior of SRecordLineFormatter.
+            </summary>
+            <param name="emitSRecordContent">Tells the formatter to emit the SRecord when present.</param>
+            <param name="emitComment">Tells the formatter if end of line comments should be emitted.</param>
+            <param name="emitSpaceBeforeEndOfLineComment"></param>
+            <param name="emitOriginalText">Tells the formatter to ignore all other directives, and just emit the original line of text.</param>
+            <param name="emitBlankLineAsEmptyString"></param>
+            <param name="emitErrorLineAsCommentLine"></param>
+            <param name="commentCharacter"></param>
+        </member>
+        <member name="F:Jcd.SRecord.IO.SRecordLineFormatter.Options.OnlyEmitSRecordData">
+            <summary>
+            A convenience instance that is configured to only emit <c>SRecord</c> line and only the <c>SRecord</c> data.
+            </summary>
+        </member>
+        <member name="F:Jcd.SRecord.IO.SRecordLineFormatter.Options.OnlyEmitCommentData">
+            <summary>
+            A convenience instance that is configured to only emit comment data.
+            </summary>
+        </member>
+        <member name="F:Jcd.SRecord.IO.SRecordLineFormatter.Options.EmitSRecordAndCommentData">
+            <summary>
+            A convenience instance that is configured to emit <c>SRecord</c> line and comment data.
+            </summary>
+        </member>
+        <member name="F:Jcd.SRecord.IO.SRecordLineFormatter.Options.EmitSRecordAndCommentDataWithSpace">
+            <summary>
+            A convenience instance that is configured to emit <c>SRecord</c>
+            line and comment data. For end of line comments after <c>SRecord</c>
+            data, a space is inserted before the comment character.
+            </summary>
+        </member>
+        <member name="F:Jcd.SRecord.IO.SRecordLineFormatter.Options.CommentOutErrorLines">
+            <summary>
+            A convenience instance that is configured to emit <c>SRecord</c> line and comment data.
+            As well <c>SRecordLine</c>s flagged as having an error will be emitted as commented out
+            lines. (SRecordLine.OriginalLine is used, otherwise preserving the whole line.) 
+            </summary>
+        </member>
+        <member name="F:Jcd.SRecord.IO.SRecordLineFormatter.Options.OnlyEmitOriginalText">
+            <summary>
+            A convenience instance that is configured to only emit the original text.
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.IO.SRecordLineFormatter.Options.DefaultOptions">
+            <summary>
+            See <c>EmitSRecordAndCommentDataWithSpace</c>
+            </summary>
+        </member>
+        <member name="T:Jcd.SRecord.IO.SRecordLineParser">
+            <summary>
+            Provides a simplistic manner of parsing SRecords
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.IO.SRecordLineParser.CommentCharacters">
+            <summary>
+            Gets a copy of the comment characters in use.
+            </summary>
+        </member>
+        <member name="F:Jcd.SRecord.IO.SRecordLineParser.DefaultCommentCharacters">
+            <summary>
+            The default set of comment characeters we'll parse.
+            </summary>
+        </member>
+        <member name="F:Jcd.SRecord.IO.SRecordLineParser.Default">
+            <summary>
+            A default instance configured with reasonable, flexible, defaults. It should parse most any line.
+            </summary>
+        </member>
+        <member name="F:Jcd.SRecord.IO.SRecordLineParser.NoComments">
+            <summary>
+            A default instance configured with reasonable, flexible, defaults. It should parse most any line.
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.IO.SRecordLineParser.AllowComments">
+            <summary>
+            Indicates if comments are allowed. To Allow comments pass a set of
+            recognized comment characters in to the constructor. 
+            </summary>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordLineParser.#ctor(Jcd.SRecord.SRecordParser,System.Collections.Generic.IEnumerable{System.Char})">
+            <summary>
+            Constructs an SRecordLineParser from an <c>SRecordParser</c>
+            and an optional set of comment characters.
+            </summary>
+            <param name="sRecordParser"></param>
+            <param name="commentCharacters"></param>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordLineParser.Parse(System.Int32,System.String)">
+            <summary>
+            Parses a line of text into an SRecordLine.
+            </summary>
+            <param name="lineNumber">The line number.</param>
+            <param name="lineOfText">The raw text.</param>
+            <returns>an SRecordLine describing the parsing results.</returns>
+        </member>
+        <member name="T:Jcd.SRecord.IO.SRecordLineReader">
+            <summary>
+            A forward only SRecordLine stream/string reader.
+            This class always disposes its Stream/StreamReader when disposed.
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.IO.SRecordLineReader.CurrentLine">
+            <summary>
+            The line number of the most recently read line.
+            This is 0 if nothing has been read and number of the last line in the file,
+            if all lines have been read.
+            </summary>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordLineReader.#ctor(System.String,Jcd.SRecord.Parsers.ISRecordLineParser)">
+            <summary>
+            Constructs an <c>SRecordLineReader</c> from a block of text. The encoding is assumed to be UTF8.
+            </summary>
+            <param name="linesOfText">the block of text.</param>
+            <param name="parser">the line parser.</param>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordLineReader.#ctor(System.String,System.Text.Encoding,Jcd.SRecord.Parsers.ISRecordLineParser)">
+            <summary>
+            Constructs an <c>SRecordLineReader</c> from a block of text. The encoding is assumed to be UTF8.
+            </summary>
+            <param name="linesOfText">the block of text.</param>
+            <param name="parser">the line parser.</param>
+            <param name="encoding">The encoding to use for linesOfText.</param>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordLineReader.#ctor(System.IO.Stream,Jcd.SRecord.Parsers.ISRecordLineParser)">
+            <summary>
+            Constructs an <c>SRecordLineReader</c> from a stream.
+            </summary>
+            <param name="stream">The stream to read from.</param>
+            <param name="parser">The parser to use</param>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordLineReader.#ctor(System.IO.Stream,System.Text.Encoding,Jcd.SRecord.Parsers.ISRecordLineParser)">
+            <summary>
+            Constructs an <c>SRecordLineReader</c> from a stream.
+            </summary>
+            <param name="stream">The stream to read from.</param>
+            <param name="parser">The parser to use</param>
+            <param name="encoding">The text encoding to use.</param>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordLineReader.#ctor(System.IO.StreamReader,Jcd.SRecord.Parsers.ISRecordLineParser)">
+            <summary>
+            Constructs an <c>SRecordLineReader</c> from a stream reader and line parser.
+            </summary>
+            <param name="streamReader">The reader</param>
+            <param name="parser">The parser</param>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordLineReader.ReadRemainingLines">
+            <summary>
+            Get an enumerable of <c>SRecordLine</c>s from the input stream from the current position.
+            </summary>
+            <returns>an enumerable of <c>SRecordLine</c>s from the input stream</returns>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordLineReader.ReadRemainingLinesAsync">
+            <summary>
+            Get an enumerable of <c>SRecordLine</c>s from the input stream, asynchronously
+            </summary>
+            <returns>an enumerable of <c>SRecordLine</c>s from the input stream</returns>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordLineReader.ReadLine">
+            <summary>
+            Reads an <c>SRecordLine</c> from the stream.
+            </summary>
+            <returns>The <c>SRecordLine</c>, null if end of stream has been reached.</returns>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordLineReader.ReadLineAsync">
+            <summary>
+            Reads an <c>SRecordLine</c> from the stream.
+            </summary>
+            <returns>The <c>SRecordLine</c>, null if end of stream has been reached.</returns>
+        </member>
+        <member name="P:Jcd.SRecord.IO.SRecordLineReader.EndOfData">
+            <summary>
+            Indicates if all of the data has been read.
+            </summary>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordLineReader.Dispose">
+            <inheritdoc cref="M:System.IDisposable.Dispose"/>
+        </member>
+        <member name="F:Jcd.SRecord.IO.SRecordLineType.Comment">
+            <summary>
+            A single line comment.
+            </summary>
+        </member>
+        <member name="F:Jcd.SRecord.IO.SRecordLineType.SRecord">
+            <summary>
+            An SRecord without a comment.
+            </summary>
+        </member>
+        <member name="F:Jcd.SRecord.IO.SRecordLineType.SRecordWithEndOfLineComment">
+            <summary>
+            An SRecord with end of line comment.
+            </summary>
+        </member>
+        <member name="F:Jcd.SRecord.IO.SRecordLineType.Blank">
+            <summary>
+            A blank line (Empty or all whitespace.)
+            </summary>
+        </member>
+        <member name="F:Jcd.SRecord.IO.SRecordLineType.Error">
+            <summary>
+             Indicates if some error was detected while parsing the line.
+            </summary>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordLineType.Equals(Jcd.SRecord.IO.SRecordLineType)">
+            <summary>
+            Compares this instance to another.
+            </summary>
+            <param name="other">The other instance to compare to.</param>
+            <returns>true if equal.</returns>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordLineType.Equals(System.Object)">
+            <summary>
+            Compares this instance to another object.
+            </summary>
+            <param name="other">The other instance to compare to.</param>
+            <returns>true if equal.</returns>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordLineType.GetHashCode">
+            <summary>
+            Generates a hashcode for the instance.
+            </summary>
+            <returns>The hashcode</returns>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordLineType.op_Equality(Jcd.SRecord.IO.SRecordLineType,Jcd.SRecord.IO.SRecordLineType)">
+            <summary>
+            Compares two instances of <c>SRecordLineType</c> for equality.
+            </summary>
+            <param name="left">The left hand side of the comparison.</param>
+            <param name="right">The right hand side of the comparison.</param>
+            <returns>True if equal</returns>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordLineType.op_Inequality(Jcd.SRecord.IO.SRecordLineType,Jcd.SRecord.IO.SRecordLineType)">
+            <summary>
+            Compares two instances of <c>SRecordLineType</c> for inequality.
+            </summary>
+            <param name="left">The left hand side of the comparison.</param>
+            <param name="right">The right hand side of the comparison.</param>
+            <returns>True if not equal</returns>
+        </member>
+        <member name="T:Jcd.SRecord.IO.SRecordLineWriter">
+            <summary>
+            Writes <c>SRecordLine</c>s to a stream.
+            </summary>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordLineWriter.#ctor(System.IO.Stream,Jcd.SRecord.IO.ISRecordLineFormatter)">
+            <summary>
+            Constructs an instance from a stream and line formatter. 
+            </summary>
+            <param name="stream">The stream to write to.</param>
+            <param name="lineFormatter">The line formatter.</param>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordLineWriter.#ctor(System.IO.Stream,System.Text.Encoding,Jcd.SRecord.IO.ISRecordLineFormatter)">
+            <summary>
+            Constructs an instance from a stream, an encoding, and line formatter. 
+            </summary>
+            <param name="stream">The stream to write to.</param>
+            <param name="encoding">The encoding to use.</param>
+            <param name="lineFormatter">The line formatter.</param>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordLineWriter.#ctor(System.IO.StreamWriter,Jcd.SRecord.IO.ISRecordLineFormatter)">
+            <summary>
+            Constructs an instance from a <c>StreamWriter</c> and an <c>ISRecordLineFormatter</c>
+            </summary>
+            <param name="streamWriter">The StreamWriter</param>
+            <param name="lineFormatter">The line formatter</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when either parameter is null.</exception>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordLineWriter.WriteLine(Jcd.SRecord.Parsers.SRecordLine)">
+            <summary>
+            Format and write an SRecordLine to the stream.
+            </summary>
+            <param name="line">the line to format and write.</param>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordLineWriter.WriteLineAsync(Jcd.SRecord.Parsers.SRecordLine)">
+            <summary>
+            Formats and writes a line to the stream, asynchronously.
+            </summary>
+            <param name="line">The line to write.</param>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordLineWriter.WriteLines(System.Collections.Generic.IEnumerable{Jcd.SRecord.Parsers.SRecordLine})">
+            <summary>
+            Writes a set of lines to the stream.
+            </summary>
+            <param name="lines">The lines to write.</param>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordLineWriter.WriteLinesAsync(System.Collections.Generic.IEnumerable{Jcd.SRecord.Parsers.SRecordLine})">
+            <summary>
+            Writes a set of lines to a stream, asynchronously.
+            </summary>
+            <param name="lines">The lines to write.</param>
+        </member>
+        <member name="M:Jcd.SRecord.IO.SRecordLineWriter.Dispose">
+            <inheritdoc cref="M:System.IDisposable.Dispose"/>
+        </member>
+        <member name="M:Jcd.SRecord.Parsers.ISRecordLineParser.Parse(System.Int32,System.String)">
+            <summary>
+            Parses a line of text into an SRecordLine.
+            </summary>
+            <param name="lineNumber">The line number.</param>
+            <param name="lineOfText">The raw text.</param>
+            <returns>an SRecordLine describing the parsing results.</returns>
+        </member>
+        <member name="T:Jcd.SRecord.Parsers.SRecordLine">
+            <summary>
+            Represents a single line read and parsed from an <c>SRecordLineReader</c>.
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.Parsers.SRecordLine.LineNumber">
+            <summary>
+            The line in the file where the text was found.
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.Parsers.SRecordLine.SRecord">
+            <summary>
+            The SRecord parsed from the line (if any) 
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.Parsers.SRecordLine.Comment">
+            <summary>
+            The comment text (lines starting with a ';' '#' ...etc are comment lines.) 
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.Parsers.SRecordLine.LineType">
+            <summary>
+            True if the line recognized as an SRecord and/or comment. False otherwise.
+            When false, OriginalLine should be populated with the extracted line of text, without end of line character(s).
+            Also, ErrorMessage should be populated with the error encountered while trying to parse the line. 
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.Parsers.SRecordLine.OriginalLine">
+            <summary>
+            The original line of text. A well constructed parser will always provide this. The default one does.
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.Parsers.SRecordLine.ErrorMessage">
+            <summary>
+            Contains a parser specific error message associated with attempting to parse this line.
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.Parsers.SRecordLine.Exception">
+            <summary>
+            An exception that happened while trying to parse the line of text.
+            </summary>
+        </member>
+        <member name="M:Jcd.SRecord.Parsers.SRecordLine.#ctor(System.Int32,Jcd.SRecord.IO.SRecordLineType,Jcd.SRecord.SRecord,System.String,System.String,System.String,System.Exception)">
+            <summary>
+            Constructs an instance of an <c>SRecordLine</c>
+            </summary>
+            <param name="lineNumber">The line number in the file.</param>
+            <param name="lineType">The lineType of line.</param>
+            <param name="sRecord">the parsed and validated <c>SRecord</c> instance.</param>
+            <param name="comment">The comment text, without the comment character.</param>
+            <param name="originalLine">The original full text of the line.</param>
+            <param name="errorMessage">An error message, populated when lineType is false.</param>
+            <param name="exception">An exception that occurred during parsing of the SRecord entry.</param>
+        </member>
         <member name="T:Jcd.SRecord.SRecord">
             <summary>
-            Represents a single SRecord entry in an srec file.
+            Represents a single SRecord entry in an srecord file. This is an immutable type. To edit the contents, create a new one with the altered data buffer, address, and/or type.
             </summary>
             <remarks>
             Further reading about the SRecord format can be done
@@ -184,6 +649,20 @@
             An instance configured to use Flexible definitions.
             </summary>
         </member>
+        <member name="F:Jcd.SRecord.SRecordParser.Default">
+            <summary>
+            An default instance. This is the same as Flexible.
+            </summary>
+        </member>
+        <member name="M:Jcd.SRecord.SRecordParser.Create(System.Byte)">
+            <summary>
+            Creates a new instance of an SRecordParser configured to parse records
+            containing the configured maxDataBytesPerRecord.
+            </summary>
+            <remarks>When maxDataBytesPerRecord is greater than 250, the Flexible instance is used instead of creating a new one.</remarks>
+            <param name="maxDataBytesPerRecord"></param>
+            <returns></returns>
+        </member>
         <member name="T:Jcd.SRecord.SRecordType">
             <summary>
             Represents the information required to identify and process various types of SRecords
@@ -191,6 +670,13 @@
             as documented here
             </see>
             </summary>
+        </member>
+        <member name="M:Jcd.SRecord.SRecordType.CreateLookup(System.Byte)">
+            <summary>
+            Creates a lookup table of <c>SRecordType</c>s.
+            </summary>
+            <param name="dataBytesPerRecord">The number of data bytes you want any S1,S2, or S3 record to hold.</param>
+            <returns>Returns a lookup table for record types.</returns>
         </member>
         <member name="F:Jcd.SRecord.SRecordType.KeyLength">
             <summary>
@@ -271,9 +757,14 @@
             S1, S2, S3, and S4. NOTE: S4 types always require special, implementation defined, handling.
             </summary>
         </member>
+        <member name="F:Jcd.SRecord.SRecordType.Flexible.MaxDataLength">
+            <summary>
+            The maximum data any data bearing record may have
+            </summary>
+        </member>
         <member name="F:Jcd.SRecord.SRecordType.Flexible.S0">
             <summary>
-            The identifier for S0 records. Address is 2 bytes, should always be 0. 
+            The identifier for S0 records. Address is 2 bytes, should always be 0. Maximum data bytes allowed 252 bytes.
             </summary>
             <remarks>
             This record contains vendor specific ASCII text comment represented as a series of hex digit pairs.
@@ -282,77 +773,80 @@
         </member>
         <member name="F:Jcd.SRecord.SRecordType.Flexible.S1">
             <summary>
-            The identifier for S1 records. Address is 2 bytes. 
-            This record contains data that starts at the 16-bit address field.
+            The identifier for S1 records. Address is 2 bytes. Maximum data bytes allowed 252 bytes.
             </summary>
             <remarks>
+            This record type contains data that starts at the 16-bit address field.
             </remarks>
         </member>
         <member name="F:Jcd.SRecord.SRecordType.Flexible.S2">
             <summary>
-            The identifier for S2 records. Address is 3 bytes. Maximum data bytes allowed 32 bytes.
-            This record contains data that starts at a 24-bit address.
+            The identifier for S2 records. Address is 3 bytes. Maximum data bytes allowed 251 bytes.
             </summary>
             <remarks>
+            This record type contains data that starts at a 24-bit address.
             </remarks>
         </member>
         <member name="F:Jcd.SRecord.SRecordType.Flexible.S3">
             <summary>
-            The identifier for S3 records. Address is 4 bytes. Maximum data bytes allowed 32 bytes.
-            This record contains data that starts at a 32-bit address.
+            The identifier for S3 records. Address is 4 bytes. Maximum data bytes allowed 250 bytes.
             </summary>
             <remarks>
+            This record type contains data that starts at a 32-bit address.
             </remarks>
         </member>
         <member name="F:Jcd.SRecord.SRecordType.Flexible.S4">
             <summary>
-            The identifier for S4 records. Address is 4 bytes. Maximum data bytes allowed 32 bytes.
-            Special handling required. This is vendor defined/reserved.
+            The identifier for S4 records. Address is 4 bytes. Maximum data bytes allowed 250 bytes.
             </summary>
             <remarks>
+            Special handling required. This is vendor defined/reserved.
             </remarks>
         </member>
         <member name="F:Jcd.SRecord.SRecordType.Flexible.S5">
             <summary>
             The identifier for S5 records. Address is 2 bytes. No data allowed.
-            This contains a 16-bit count of all S1, S2, or S3 records.
-            This record is used if the record count is less than or equal to 0xFFFF.
             </summary>
             <remarks>
+            This record type is used to contain a 16-bit count of all S1, S2, or S3 records,
+            stored in the address field. There are no data bytes for this record type.
+            This record is used if the record count is less than or equal to 65,535 (0xFFFF).
             </remarks>
         </member>
         <member name="F:Jcd.SRecord.SRecordType.Flexible.S6">
             <summary>
             The identifier for S6 records. Address is 3 bytes. No data allowed.
-            This contains a 24-bit count of all S1, S2, or S3 records.
-            This record is used if the record count is less than or equal to 16,777,215 (0xFFFFFF) and 
-            greater than 65,535 (0xFFFF) records.
             </summary>
             <remarks>
+            This record type is used to contain a 24-bit count of all S1, S2, or S3 records,
+            stored in the address field. There are no data bytes for this record type.
+            This record is used if the record count is less than or equal to 16,777,215 (0xFFFFFF) and 
+            greater than 65,535 (0xFFFF) records.
             </remarks>
         </member>
         <member name="F:Jcd.SRecord.SRecordType.Flexible.S7">
             <summary>
-            The identifier for S7 records. Address is 4 bytes. 
-            This is used to terminate a series of S3 records. If a SRecord file is only used to program
-            a memory device and the execution location is ignored, then an address of zero could be
-            used.
+            The identifier for S7 records. Address is 4 bytes.  No data allowed.
+            This is used to terminate a series of S3 records. 
             </summary>
             <remarks>
+            If an SRecord file is only used to program a memory device and the execution location
+            is ignored, then an address of zero could be used.
             </remarks>
         </member>
         <member name="F:Jcd.SRecord.SRecordType.Flexible.S8">
             <summary>
-            The identifier for S8 records. Address is 3 bytes. 
-            This is used to terminate a series of S2 records. If a SRecord file is only used to program
-            a memory device and the execution location is ignored, then an address of zero could be used.
+            The identifier for S8 records. Address is 3 bytes. No data allowed.
+            This is used to terminate a series of S2 records.
             </summary>
             <remarks>
+            If an SRecord file is only used to program a memory device and the execution location
+            is ignored, then an address of zero could be used.
             </remarks>
         </member>
         <member name="F:Jcd.SRecord.SRecordType.Flexible.S9">
             <summary>
-            The identifier for S8 records. Address is 3 bytes. 
+            The identifier for S8 records. Address is 3 bytes. Maximum data bytes allowed 32 bytes.
             </summary>
             <remarks>
             This is used to terminate a series of S1 records. If a SRecord file is only used to program
@@ -361,7 +855,7 @@
         </member>
         <member name="F:Jcd.SRecord.SRecordType.Flexible.TypeLookup">
             <summary>
-            A key-based lookup for known Strict <c>SRecordType</c> instances.
+            A key-based lookup for known Flexible (250-252 byte data max depending on record type) <c>SRecordType</c> instances.
             </summary>
         </member>
         <member name="M:Jcd.SRecord.SRecordType.Flexible.FromKey(System.String)">
@@ -396,76 +890,79 @@
         <member name="F:Jcd.SRecord.SRecordType.Strict.S1">
             <summary>
             The identifier for S1 records. Address is 2 bytes. Maximum data bytes allowed 32 bytes.
-            This record contains data that starts at the 16-bit address field.
             </summary>
             <remarks>
+            This record type contains data that starts at the 16-bit address field.
             </remarks>
         </member>
         <member name="F:Jcd.SRecord.SRecordType.Strict.S2">
             <summary>
             The identifier for S2 records. Address is 3 bytes. Maximum data bytes allowed 32 bytes.
-            This record contains data that starts at a 24-bit address.
             </summary>
             <remarks>
+            This record type contains data that starts at a 24-bit address.
             </remarks>
         </member>
         <member name="F:Jcd.SRecord.SRecordType.Strict.S3">
             <summary>
             The identifier for S3 records. Address is 4 bytes. Maximum data bytes allowed 32 bytes.
-            This record contains data that starts at a 32-bit address.
             </summary>
             <remarks>
+            This record type contains data that starts at a 32-bit address.
             </remarks>
         </member>
         <member name="F:Jcd.SRecord.SRecordType.Strict.S4">
             <summary>
             The identifier for S4 records. Address is 4 bytes. Maximum data bytes allowed 32 bytes.
-            Special handling required. This is vendor defined/reserved.
             </summary>
             <remarks>
+            Special handling required. This is vendor defined/reserved.
             </remarks>
         </member>
         <member name="F:Jcd.SRecord.SRecordType.Strict.S5">
             <summary>
             The identifier for S5 records. Address is 2 bytes. No data allowed.
-            This contains a 16-bit count of all S1, S2, or S3 records.
-            This record is used if the record count is less than or equal to 0xFFFF.
             </summary>
             <remarks>
+            This record type is used to contain a 16-bit count of all S1, S2, or S3 records,
+            stored in the address field. There are no data bytes for this record type.
+            This record is used if the record count is less than or equal to 65,535 (0xFFFF).
             </remarks>
         </member>
         <member name="F:Jcd.SRecord.SRecordType.Strict.S6">
             <summary>
             The identifier for S6 records. Address is 3 bytes. No data allowed.
-            This contains a 24-bit count of all S1, S2, or S3 records.
-            This record is used if the record count is less than or equal to 16,777,215 (0xFFFFFF) and 
-            greater than 65,535 (0xFFFF) records.
             </summary>
             <remarks>
+            This record type is used to contain a 24-bit count of all S1, S2, or S3 records,
+            stored in the address field. There are no data bytes for this record type.
+            This record is used if the record count is less than or equal to 16,777,215 (0xFFFFFF) and 
+            greater than 65,535 (0xFFFF) records.
             </remarks>
         </member>
         <member name="F:Jcd.SRecord.SRecordType.Strict.S7">
             <summary>
-            The identifier for S7 records. Address is 4 bytes. Maximum data bytes allowed 32 bytes.
-            This is used to terminate a series of S3 records. If a SRecord file is only used to program
-            a memory device and the execution location is ignored, then an address of zero could be
-            used.
+            The identifier for S7 records. Address is 4 bytes. No data allowed.
+            This is used to terminate a series of S3 records. 
             </summary>
             <remarks>
+            If an SRecord file is only used to program a memory device and the execution location
+            is ignored, then an address of zero could be used.
             </remarks>
         </member>
         <member name="F:Jcd.SRecord.SRecordType.Strict.S8">
             <summary>
-            The identifier for S8 records. Address is 3 bytes. Maximum data bytes allowed 32 bytes.
-            This is used to terminate a series of S2 records. If a SRecord file is only used to program
-            a memory device and the execution location is ignored, then an address of zero could be used.
+            The identifier for S8 records. Address is 3 bytes.  No data allowed.
+            This is used to terminate a series of S2 records.
             </summary>
             <remarks>
+            If an SRecord file is only used to program a memory device and the execution location
+            is ignored, then an address of zero could be used.
             </remarks>
         </member>
         <member name="F:Jcd.SRecord.SRecordType.Strict.S9">
             <summary>
-            The identifier for S8 records. Address is 3 bytes. Maximum data bytes allowed 32 bytes.
+            The identifier for S8 records. Address is 3 bytes.  No data allowed.
             </summary>
             <remarks>
             This is used to terminate a series of S1 records. If a SRecord file is only used to program

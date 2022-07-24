@@ -2,13 +2,14 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Jcd.SRecord.Extensions;
 using Jcd.Validations;
 
 
 namespace Jcd.SRecord
 {
     /// <summary>
-    /// Represents a single SRecord entry in an srec file.
+    /// Represents a single SRecord entry in an srecord file. This is an immutable type. To edit the contents, create a new one with the altered data buffer, address, and/or type.
     /// </summary>
     /// <remarks>
     /// Further reading about the SRecord format can be done

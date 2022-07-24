@@ -1,9 +1,9 @@
+#### [Jcd.SRecord](index.md 'index')
 ### [Jcd.SRecord](Jcd.SRecord.md 'Jcd.SRecord').[SRecordType](Jcd.SRecord.SRecordType.md 'Jcd.SRecord.SRecordType').[Strict](Jcd.SRecord.SRecordType.Strict.md 'Jcd.SRecord.SRecordType.Strict')
 
 ## SRecordType.Strict.S3 Field
 
-The identifier for S3 records. Address is 4 bytes. Maximum data bytes allowed 32 bytes.  
-This record contains data that starts at a 32-bit address.
+The identifier for S3 records. Address is 4 bytes. Maximum data bytes allowed 32 bytes.
 
 ```csharp
 public static readonly SRecordType S3;
@@ -13,3 +13,4 @@ public static readonly SRecordType S3;
 [SRecordType](Jcd.SRecord.SRecordType.md 'Jcd.SRecord.SRecordType')
 
 ### Remarks
+This record type contains data that starts at a 32-bit address.

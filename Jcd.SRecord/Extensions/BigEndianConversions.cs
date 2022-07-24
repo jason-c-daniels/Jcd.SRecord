@@ -1,6 +1,6 @@
 using System;
 
-namespace Jcd.SRecord
+namespace Jcd.SRecord.Extensions
 {
     internal static class BigEndianConversions
     {

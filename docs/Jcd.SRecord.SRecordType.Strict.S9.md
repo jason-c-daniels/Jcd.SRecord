@@ -1,8 +1,9 @@
+#### [Jcd.SRecord](index.md 'index')
 ### [Jcd.SRecord](Jcd.SRecord.md 'Jcd.SRecord').[SRecordType](Jcd.SRecord.SRecordType.md 'Jcd.SRecord.SRecordType').[Strict](Jcd.SRecord.SRecordType.Strict.md 'Jcd.SRecord.SRecordType.Strict')
 
 ## SRecordType.Strict.S9 Field
 
-The identifier for S8 records. Address is 3 bytes. Maximum data bytes allowed 32 bytes.
+The identifier for S8 records. Address is 3 bytes.  No data allowed.
 
 ```csharp
 public static readonly SRecordType S9;

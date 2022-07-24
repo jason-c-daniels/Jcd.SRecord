@@ -1,8 +1,9 @@
+#### [Jcd.SRecord](index.md 'index')
 ### [Jcd.SRecord](Jcd.SRecord.md 'Jcd.SRecord').[SRecordType](Jcd.SRecord.SRecordType.md 'Jcd.SRecord.SRecordType').[Flexible](Jcd.SRecord.SRecordType.Flexible.md 'Jcd.SRecord.SRecordType.Flexible')
 
 ## SRecordType.Flexible.S0 Field
 
-The identifier for S0 records. Address is 2 bytes, should always be 0.
+The identifier for S0 records. Address is 2 bytes, should always be 0. Maximum data bytes allowed 252 bytes.
 
 ```csharp
 public static readonly SRecordType S0;

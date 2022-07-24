@@ -1,8 +1,9 @@
+#### [Jcd.SRecord](index.md 'index')
 ### [Jcd.SRecord](Jcd.SRecord.md 'Jcd.SRecord')
 
 ## SRecord Class
 
-Represents a single SRecord entry in an srec file.
+Represents a single SRecord entry in an srecord file. This is an immutable type. To edit the contents, create a new one with the altered data buffer, address, and/or type.
 
 ```csharp
 public class SRecord

@@ -1,3 +1,4 @@
+using System;
 using Xunit;
 using Sut=Jcd.SRecord.SRecordType.Flexible;
 
@@ -48,5 +49,13 @@ namespace Jcd.SRecord.Tests
             Assert.Equal(key,result.Key);
             Assert.True(result.IsValid);
         }
+        
+        [Theory]
+        [InlineData("SX")]
+        [InlineData("Z9")]
+        public void FromKey_Throws_When_Given_A_Bad_Key(string key)
+        {
+            Assert.ThrowsAny<Exception>(() => { var _ = Sut.FromKey(key);});
+        }        
     }
 }

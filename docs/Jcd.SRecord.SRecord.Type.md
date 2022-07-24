@@ -1,3 +1,4 @@
+#### [Jcd.SRecord](index.md 'index')
 ### [Jcd.SRecord](Jcd.SRecord.md 'Jcd.SRecord').[SRecord](Jcd.SRecord.SRecord.md 'Jcd.SRecord.SRecord')
 
 ## SRecord.Type Property
