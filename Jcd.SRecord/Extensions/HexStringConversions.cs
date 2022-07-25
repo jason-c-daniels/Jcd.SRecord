@@ -33,7 +33,6 @@ namespace Jcd.SRecord.Extensions
             var bufferMax = hexString.Length / 2;
             var bytes = new byte[bufferMax];
             var j = 0;
-            // TODO: rework this for performance and memory allocations.
             var hb = new char[2];  
             for (var i = 0; i < hexString.Length; i += 2)
             {
