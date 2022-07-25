@@ -20,7 +20,7 @@ namespace Jcd.SRecord
         /// <summary>
         /// Constructs an SRecordParser from a defined sRecord type lookup table.
         /// </summary>
-        /// <param name="typeLookup"></param>
+        /// <param name="typeLookup">The S0-S9 definitions used during parsing.</param>
         public SRecordParser(IDictionary<string, SRecordType> typeLookup)
         {
             if (typeLookup?.Count == 0)
@@ -127,7 +127,7 @@ namespace Jcd.SRecord
         /// </summary>
         /// <remarks>When maxDataBytesPerRecord is greater than 250, the Flexible instance is used instead of creating a new one.</remarks>
         /// <param name="maxDataBytesPerRecord"></param>
-        /// <returns></returns>
+        /// <returns>The new, or stock, instance of the SRecordParser</returns>
         public static SRecordParser Create(byte maxDataBytesPerRecord = 0xFF) =>
             maxDataBytesPerRecord switch
             {
