@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
-using Jcd.SRecord.Extensions;
 using Jcd.Validations;
 
 
@@ -102,26 +100,23 @@ namespace Jcd.SRecord
         /// <param name="address">The data for the address field.</param>
         /// <param name="data">The data for the data field, if any.</param>
         /// <returns>The checksum</returns>
-        private static byte ComputeChecksum(SRecordType type, byte count ,uint address, byte[] data=null)
+        private static byte ComputeChecksum(SRecordType type, byte count, uint address, [NotNull]byte[] data=null)
         {
             data ??= Array.Empty<byte>();
-            var n = type.AddressLengthInBytes;
-            return ComputeChecksum(
-                new []{count}
-                    // TODO: Refactor buffer building so that we don't allocate enumerators.
-                    .Concat(address.ToBigEndianByteArray()[^n..])
-                    .Concat(data));
-        }
-        
-        /// <summary>
-        /// Computes the checksum for the concatenated bytes contained in the address
-        /// and data fields.
-        /// </summary>
-        /// <param name="countAddressAndDataBytes">The concatenated list of bytes from the address and data.</param>
-        /// <returns>The checksum</returns>
-        private static byte ComputeChecksum(IEnumerable<byte> countAddressAndDataBytes)
-        {
-            var checksum = countAddressAndDataBytes.Aggregate<byte, ushort>(0x00, (current, b) => (ushort)(current + b));
+            ushort checksum = count;
+            checksum += (byte)(address & 0xFF);
+            if (type.AddressLengthInBytes > 1)
+            {
+                address >>= 8;
+                checksum += (byte)(address & 0xFF);
+            }
+            if (type.AddressLengthInBytes > 2)
+            {
+                address >>= 8;
+                checksum += (byte)(address & 0xFF);
+            }
+            
+            checksum = data.Aggregate(checksum, (current, b) => (ushort)(current + b));
             return (byte)~(byte)(checksum & 0xFF);
         }
     }

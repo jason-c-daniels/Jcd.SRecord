@@ -36,7 +36,7 @@
             <param name="hexString">the text to convert.</param>
             <returns>The sequence of bytes represented by the hex string.</returns>
         </member>
-        <member name="M:Jcd.SRecord.Extensions.HexStringConversions.BytesToHexString(System.Collections.Generic.IEnumerable{System.Byte},System.Boolean)">
+        <member name="M:Jcd.SRecord.Extensions.HexStringConversions.BytesToHexString(System.Collections.Generic.IReadOnlyCollection{System.Byte},System.Boolean)">
             <summary>
             Convert a sequence of bytes into a string of hexadecimal values. 
             </summary>
@@ -923,14 +923,6 @@
             <param name="count">The count of bytes following</param>
             <param name="address">The data for the address field.</param>
             <param name="data">The data for the data field, if any.</param>
-            <returns>The checksum</returns>
-        </member>
-        <member name="M:Jcd.SRecord.SRecord.ComputeChecksum(System.Collections.Generic.IEnumerable{System.Byte})">
-            <summary>
-            Computes the checksum for the concatenated bytes contained in the address
-            and data fields.
-            </summary>
-            <param name="countAddressAndDataBytes">The concatenated list of bytes from the address and data.</param>
             <returns>The checksum</returns>
         </member>
         <member name="T:Jcd.SRecord.SRecordFormatter">

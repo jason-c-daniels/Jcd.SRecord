@@ -66,7 +66,7 @@ namespace Jcd.SRecord
             remainingText = remainingText[countCharLength..];
             
             // convert to byte array
-            var remainingBytes = remainingText.HexStringToBytes().ToArray();
+            var remainingBytes = remainingText.HexStringToBytes();
             if (countOfRemainingBytes != remainingBytes.Length) 
                 throw new ArgumentException($"Actual remaining byte count ({remainingBytes.Length}) does not match stored remaining byte count ({countOfRemainingBytes})");
 

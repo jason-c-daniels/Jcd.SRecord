@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using Jcd.Validations;
 
 namespace Jcd.SRecord.Extensions
@@ -23,7 +22,7 @@ namespace Jcd.SRecord.Extensions
         /// </summary>
         /// <param name="hexString">the text to convert.</param>
         /// <returns>The sequence of bytes represented by the hex string.</returns>
-        public static IEnumerable<byte> HexStringToBytes(this string hexString)
+        public static byte[] HexStringToBytes(this string hexString)
         {
             Argument.IsNotWhitespace(hexString, nameof(hexString));
             // ReSharper disable once ConvertIfStatementToSwitchStatement
@@ -53,10 +52,10 @@ namespace Jcd.SRecord.Extensions
         /// <param name="bytes">the bytes to convert</param>
         /// <param name="makeUppercase">makes the A-F range uppercase when true, lowercase otherwise</param>
         /// <returns>The hexadecimal text representation</returns>
-        public static string BytesToHexString(this IEnumerable<byte> bytes, bool makeUppercase=true)
+        public static string BytesToHexString(this IReadOnlyCollection<byte> bytes, bool makeUppercase=true)
         {
             if (bytes == null) return null;
-            var count = bytes.Count();
+            var count = bytes.Count;
             if (count == 0) return string.Empty;
             
             var lookup = makeUppercase ? UppercaseHexLookup : LowercaseHexLookup;

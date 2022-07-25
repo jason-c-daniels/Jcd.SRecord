@@ -40,4 +40,3 @@ and [the wikipedia page](https://en.wikipedia.org/wiki/SREC_(file_format) 'https
 | Methods | |
 | :--- | :--- |
 | [ComputeChecksum(SRecordType, byte, uint, byte[])](Jcd.SRecord.SRecord.ComputeChecksum(Jcd.SRecord.SRecordType,byte,uint,byte[]).md 'Jcd.SRecord.SRecord.ComputeChecksum(Jcd.SRecord.SRecordType, byte, uint, byte[])') | Computes the checksum for the record. |
-| [ComputeChecksum(IEnumerable&lt;byte&gt;)](Jcd.SRecord.SRecord.ComputeChecksum(System.Collections.Generic.IEnumerable_byte_).md 'Jcd.SRecord.SRecord.ComputeChecksum(System.Collections.Generic.IEnumerable<byte>)') | Computes the checksum for the concatenated bytes contained in the address<br/>and data fields. |

@@ -5,28 +5,12 @@ namespace Jcd.SRecord.Extensions
 {
     internal static class BigEndianConversions
     {
-        #region ToBigEndianByteArray
-        
-        // ReSharper disable once ReturnTypeCanBeEnumerable.Global
-        public static byte[] ToBigEndianByteArray(this uint value)
-        {    
-            // Value in bytes... in your system's endianness (let's say: little endian)
-            var bytes = BitConverter.GetBytes(value);
-
-            // If it was little endian, reverse it
-            if (BitConverter.IsLittleEndian)
-                Array.Reverse(bytes); 
-
-            return bytes;
-        }
-        
-        #endregion
-        
         #region Ints from Big Endian Byte Array
         
         public static uint UInt32FromBigEndianByteArray(this byte[] bytes)
         {
             var buffer = MakeBuffer(bytes, 4);
+
             // If the system architecture is little-endian (that is, little end first),
             // reverse the byte array.
             if (BitConverter.IsLittleEndian)

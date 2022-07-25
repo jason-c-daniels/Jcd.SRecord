@@ -64,7 +64,7 @@ namespace Jcd.SRecord
             sb.Append(value.ToString(format));
         }
 
-        private void AppendBytes(StringBuilder sb, IEnumerable<byte> bytes)
+        private void AppendBytes(StringBuilder sb, IReadOnlyCollection<byte> bytes)
         {
             sb.Append(bytes.BytesToHexString(EmitHexNumbersInUpperCase));
         }
