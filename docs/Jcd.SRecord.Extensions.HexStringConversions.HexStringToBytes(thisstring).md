@@ -6,7 +6,7 @@
 Converts a sequence of hexadecimal characters into the equivalent bytes.
 
 ```csharp
-public static System.Collections.Generic.IEnumerable<byte> HexStringToBytes(this string hexString);
+public static byte[] HexStringToBytes(this string hexString);
 ```
 #### Parameters
 
@@ -17,5 +17,5 @@ public static System.Collections.Generic.IEnumerable<byte> HexStringToBytes(this
 the text to convert.
 
 #### Returns
-[System.Collections.Generic.IEnumerable&lt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1 'System.Collections.Generic.IEnumerable`1')[System.Byte](https://docs.microsoft.com/en-us/dotnet/api/System.Byte 'System.Byte')[&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1 'System.Collections.Generic.IEnumerable`1')  
+[System.Byte](https://docs.microsoft.com/en-us/dotnet/api/System.Byte 'System.Byte')[[]](https://docs.microsoft.com/en-us/dotnet/api/System.Array 'System.Array')  
 The sequence of bytes represented by the hex string.

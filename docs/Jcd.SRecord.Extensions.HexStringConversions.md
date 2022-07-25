@@ -14,5 +14,5 @@ Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.O
 
 | Methods | |
 | :--- | :--- |
-| [BytesToHexString(this IEnumerable&lt;byte&gt;, bool)](Jcd.SRecord.Extensions.HexStringConversions.BytesToHexString(thisSystem.Collections.Generic.IEnumerable_byte_,bool).md 'Jcd.SRecord.Extensions.HexStringConversions.BytesToHexString(this System.Collections.Generic.IEnumerable<byte>, bool)') | Convert a sequence of bytes into a string of hexadecimal values. |
+| [BytesToHexString(this IReadOnlyCollection&lt;byte&gt;, bool)](Jcd.SRecord.Extensions.HexStringConversions.BytesToHexString(thisSystem.Collections.Generic.IReadOnlyCollection_byte_,bool).md 'Jcd.SRecord.Extensions.HexStringConversions.BytesToHexString(this System.Collections.Generic.IReadOnlyCollection<byte>, bool)') | Convert a sequence of bytes into a string of hexadecimal values. |
 | [HexStringToBytes(this string)](Jcd.SRecord.Extensions.HexStringConversions.HexStringToBytes(thisstring).md 'Jcd.SRecord.Extensions.HexStringConversions.HexStringToBytes(this string)') | Converts a sequence of hexadecimal characters into the equivalent bytes. |
