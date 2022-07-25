@@ -23,20 +23,23 @@ namespace Jcd.SRecord.Examples
             {
                 var bytes = BitConverter.GetBytes(i);
                 bytes.CopyTo(data, i % 28);
-                l.Add(SRecordFormatter.Default.Format(new SRecord(type, i, data)));
+                l.Add($"{SRecordFormatter.Default.Format(new SRecord(type, i, data))} # with comment.");
             }
-
-
-            Console.WriteLine("Initializing SRecordParser");
+            
+            Console.WriteLine("Initializing SRecordElementParser");
             for (var i = 0; i < 1000; i++)
-                SRecordParser.Flexible.Parse(l[i]);
+            {
+                SRecordElementParser.Default.Parse(i,l[i]);
+            }
 
             Console.WriteLine("Timing performance.");
             var sw = new Stopwatch();
             sw.Start();
+            var j = 0;
             foreach (var s in l)
             {
-                SRecordParser.Flexible.Parse(s);
+                j++;
+                SRecordElementParser.Default.Parse(j,s);
             }
 
             sw.Stop();
