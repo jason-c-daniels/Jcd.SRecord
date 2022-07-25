@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
-using Jcd.Validations;
 
 
 namespace Jcd.SRecord
@@ -81,9 +80,10 @@ namespace Jcd.SRecord
         public SRecord(SRecordType type, uint address, byte[] data=null)
         {
             data ??= Array.Empty<byte>();
-            Argument.IsLessThanOrEqual(data.Length, type.MaximumDataBytesAllowed, 
-                $"{nameof(data)}.Length",
-                $"{type.Key} records must contain at most {type.MaximumDataBytesAllowed.ToString(CultureInfo.InvariantCulture)} bytes of data {data.Length.ToString(CultureInfo.InvariantCulture)} bytes were provided.");
+            if (data.Length > type.MaximumDataBytesAllowed) throw new ArgumentException(
+                    $"{type.Key} records must contain at most {type.MaximumDataBytesAllowed.ToString(CultureInfo.InvariantCulture)} bytes of data {data.Length.ToString(CultureInfo.InvariantCulture)} bytes were provided.",
+                    $"{nameof(data)}.Length"
+                );
             
             Type = type;
             Address = address;

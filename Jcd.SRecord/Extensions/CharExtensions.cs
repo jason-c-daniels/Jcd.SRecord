@@ -45,6 +45,15 @@ namespace Jcd.SRecord.Extensions
                 throw new ArgumentException($"'\\u+{Convert.ToUInt16(character):X4}' is cannot be used as a comment character. Invalid Unicode Category: {char.GetUnicodeCategory(character)}.");
         }
 
-        internal static bool ContainsNonHexData(this IEnumerable<char> chars) => chars.Any(c => !c.IsHexDigit());
+        internal static bool ContainsNonHexData(this string chars)
+        {
+            
+            for(int i=0;i<chars.Length;i++)
+            {
+                if (!chars[i].IsHexDigit()) return true;
+            }
+
+            return false;
+        }
     }
 }

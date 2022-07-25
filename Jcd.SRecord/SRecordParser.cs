@@ -4,7 +4,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using Jcd.SRecord.Extensions;
-using Jcd.Validations;
 
 namespace Jcd.SRecord
 {
@@ -24,9 +23,9 @@ namespace Jcd.SRecord
         /// <param name="typeLookup"></param>
         public SRecordParser(IDictionary<string, SRecordType> typeLookup)
         {
-            Argument.IsNotNull(typeLookup, nameof(typeLookup), $"{nameof(typeLookup)} cannot be null.");
-            Argument.HasItems(typeLookup, nameof(typeLookup), $"{nameof(typeLookup)} must contain at least one SRecord definition.");
-            _typeLookup = typeLookup;
+            if (typeLookup?.Count == 0)
+                throw new ArgumentException($"{nameof(typeLookup)} must had at least one entry", nameof(typeLookup));
+            _typeLookup = typeLookup ?? throw new ArgumentNullException(nameof(typeLookup));
         }
         
         /// <summary>
@@ -38,11 +37,13 @@ namespace Jcd.SRecord
         /// <exception cref="Exception"></exception>
         public SRecord Parse(string lineOfText)
         {
-            Argument.IsNotNullWhitespaceOrEmpty(lineOfText, nameof(lineOfText));
-            lineOfText = lineOfText.TrimEnd(); // remove any possible trailing whitespace, such as CRLF
+            if (string.IsNullOrWhiteSpace(lineOfText)) 
+                throw new ArgumentException("Cannot parse an SRecord from blank data.", nameof(lineOfText));
+            lineOfText = lineOfText.TrimEnd(); // remove any possible trailing whitespace, such as CRLF, or spaced before a comment character.
             var minAddressByteLength = _typeLookup.Values!.Min(t => t.AddressLengthInBytes);
             var minTextLength=SRecord.KeyCharLength + SRecord.CountByteLength*2 + SRecord.CheckSumByteLength*2 + minAddressByteLength * 2;
-            Argument.IsGreaterThanOrEqual(lineOfText.Length,minTextLength, nameof(lineOfText), $"Length must be at least {minTextLength.ToString(CultureInfo.InvariantCulture)} characters in length.");
+            if (lineOfText.Length<minTextLength) 
+                throw new ArgumentException($"Length must be at least {minTextLength.ToString(CultureInfo.InvariantCulture)} characters in length.", nameof(lineOfText));
             if (lineOfText.Length % 2 != 0)
                 throw new ArgumentException($"{nameof(lineOfText)} must be composed of an even number of characters.", nameof(lineOfText));
             

@@ -24,15 +24,16 @@ namespace Jcd.SRecord.Extensions
         /// <returns>The sequence of bytes represented by the hex string.</returns>
         public static byte[] HexStringToBytes(this string hexString)
         {
-            Argument.IsNotWhitespace(hexString, nameof(hexString));
             // ReSharper disable once ConvertIfStatementToSwitchStatement
             if (hexString == null) return null;
             if (string.Empty == hexString) return Array.Empty<byte>();
-            Argument.AreEqual(hexString.Length % 2, 0, nameof(hexString),
-                $"{nameof(hexString)}.Length must contain an even number of hexadecimal characters.");
+            if (hexString.Length % 2!= 0)  
+                throw new ArgumentException($"{nameof(hexString)}.Length must contain an even number of hexadecimal characters.", nameof(hexString));
+            
             var bufferMax = hexString.Length / 2;
             var bytes = new byte[bufferMax];
             var j = 0;
+            // TODO: rework this for performance and memory allocations.
             var hb = new char[2];  
             for (var i = 0; i < hexString.Length; i += 2)
             {
