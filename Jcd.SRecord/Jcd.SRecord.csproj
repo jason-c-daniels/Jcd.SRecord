@@ -42,13 +42,16 @@
 
     <ItemGroup>
       <Compile Update="SRecordDataType.Flexible.cs">
-        <DependentUpon>SRecordType.cs</DependentUpon>
+        <DependentUpon>SRecordDataType.cs</DependentUpon>
       </Compile>
       <Compile Update="SRecordDataType.CreateLookup.cs">
-        <DependentUpon>SRecordType.cs</DependentUpon>
+        <DependentUpon>SRecordDataType.cs</DependentUpon>
       </Compile>
       <Compile Update="SRecordDataType.Strict.cs">
-        <DependentUpon>SRecordType.cs</DependentUpon>
+        <DependentUpon>SRecordDataType.cs</DependentUpon>
+      </Compile>
+      <Compile Update="SRecordElementFormatter.Options.cs">
+        <DependentUpon>SRecordElementFormatter.cs</DependentUpon>
       </Compile>
     </ItemGroup>
 
