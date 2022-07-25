@@ -39,7 +39,7 @@ namespace Jcd.SRecord.Extensions
             {
                 hb[0] = hexString[i];
                 hb[1] = hexString[i + 1];
-                var b=byte.Parse(hb,NumberStyles.HexNumber);
+                var b = MakeByte(hb[0], hb[1]);
                 bytes[j] = b;
                 j++;
             }
@@ -72,5 +72,21 @@ namespace Jcd.SRecord.Extensions
 
             return new string(buffer);
         }
+        
+        /// <summary>
+        /// Given a pair of hexadecimal characters, convert them into the single
+        /// byte equivalent.
+        /// </summary>
+        /// <param name="highNybble"></param>
+        /// <param name="lowNybble"></param>
+        /// <returns>The converted value.</returns>
+        public static byte MakeByte(char highNybble, char lowNybble)
+        {
+            var nyb0 = highNybble.GetHexValue();
+            var nyb1 = lowNybble.GetHexValue();
+
+            var v= (byte)((byte)(nyb0 << 4) + nyb1);
+            return v;
+        }        
     }
 }

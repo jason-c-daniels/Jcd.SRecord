@@ -19,7 +19,7 @@ namespace Jcd.SRecord.Examples
             var l = new List<string>();
             Console.WriteLine($"Generating test data for {type.Key} with {type.MaximumDataBytesAllowed} bytes of data each.");
             var data = new byte[type.MaximumDataBytesAllowed];
-            for (uint i = 0; i < 100_000; i++)
+            for (uint i = 0; i < 1_000_000; i++)
             {
                 var bytes = BitConverter.GetBytes(i);
                 bytes.CopyTo(data, i % 28);

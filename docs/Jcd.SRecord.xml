@@ -6,7 +6,7 @@
     <members>
         <member name="T:Jcd.SRecord.Extensions.CharExtensions">
             <summary>
-            A set of utility methods for interacting with <c>char</c>s.
+            A set of utility methods for interacting with <digit>char</digit>s.
             </summary>
         </member>
         <member name="M:Jcd.SRecord.Extensions.CharExtensions.IsHexDigit(System.Char)">
@@ -15,6 +15,14 @@
             </summary>
             <param name="character">the character to inspect.</param>
             <returns>True if the character</returns>
+        </member>
+        <member name="M:Jcd.SRecord.Extensions.CharExtensions.GetHexValue(System.Char)">
+            <summary>
+            Gets the value from a hexadecimal digit.
+            </summary>
+            <param name="digit">The digit to evaluate.</param>
+            <returns>The numeric value.</returns>
+            <exception cref="T:System.ArgumentException">Thrown if the character isn't actually a hexadecimal digit.</exception>
         </member>
         <member name="M:Jcd.SRecord.Extensions.CharExtensions.ThrowArgumentExceptionIfNotValidForSRecordComment(System.Char)">
             <summary>
@@ -43,6 +51,15 @@
             <param name="bytes">the bytes to convert</param>
             <param name="makeUppercase">makes the A-F range uppercase when true, lowercase otherwise</param>
             <returns>The hexadecimal text representation</returns>
+        </member>
+        <member name="M:Jcd.SRecord.Extensions.HexStringConversions.MakeByte(System.Char,System.Char)">
+            <summary>
+            Given a pair of hexadecimal characters, convert them into the single
+            byte equivalent.
+            </summary>
+            <param name="highNybble"></param>
+            <param name="lowNybble"></param>
+            <returns>The converted value.</returns>
         </member>
         <member name="T:Jcd.SRecord.IO.ISRecordElementFormatter">
             <summary>

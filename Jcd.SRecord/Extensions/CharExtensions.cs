@@ -5,7 +5,7 @@ using System.Linq;
 namespace Jcd.SRecord.Extensions
 {
     /// <summary>
-    /// A set of utility methods for interacting with <c>char</c>s.
+    /// A set of utility methods for interacting with <digit>char</digit>s.
     /// </summary>
     public static class CharExtensions
     {
@@ -21,6 +21,21 @@ namespace Jcd.SRecord.Extensions
                    (character >= 'a' && character <= 'f');
         }
 
+        /// <summary>
+        /// Gets the value from a hexadecimal digit.
+        /// </summary>
+        /// <param name="digit">The digit to evaluate.</param>
+        /// <returns>The numeric value.</returns>
+        /// <exception cref="ArgumentException">Thrown if the character isn't actually a hexadecimal digit.</exception>
+        public static byte GetHexValue(this char digit)
+        {
+            if (!digit.IsHexDigit())
+                throw new ArgumentException($"'{digit}' is not a hexadecimal digit.", nameof(digit));
+
+            if (digit >= '0' && digit <= '9') return (byte)((ushort)digit - '0');
+            if (digit >= 'A' && digit <= 'F') return (byte)(10+(ushort)digit - 'A');
+            return (byte)(10+(ushort)digit - 'a');
+        }
 
         /// <summary>
         /// Throws an ArgumentException if the character can't be used for an SRecord comment.
@@ -43,17 +58,6 @@ namespace Jcd.SRecord.Extensions
                 char.IsHighSurrogate(character) ||
                 char.IsLowSurrogate(character))
                 throw new ArgumentException($"'\\u+{Convert.ToUInt16(character):X4}' is cannot be used as a comment character. Invalid Unicode Category: {char.GetUnicodeCategory(character)}.");
-        }
-
-        internal static bool ContainsNonHexData(this string chars)
-        {
-            
-            for(int i=0;i<chars.Length;i++)
-            {
-                if (!chars[i].IsHexDigit()) return true;
-            }
-
-            return false;
         }
     }
 }

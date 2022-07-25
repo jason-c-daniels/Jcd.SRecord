@@ -57,8 +57,8 @@ namespace Jcd.SRecord
             var remainingText = lineOfText[SRecord.KeyCharLength..];
             
             // validate that all the remaining characters are hexadecimal.
-            if (remainingText.ContainsNonHexData()) 
-                throw new ArgumentException("Non-hexadecimal characters detected in body of the SRecord.", nameof(remainingText));
+            // if (remainingText.ContainsNonHexData()) 
+            //     throw new ArgumentException("Non-hexadecimal characters detected in body of the SRecord.", nameof(remainingText));
 
             const int countCharLength = SRecord.CountByteLength * 2;
             var countOfRemainingBytes = byte.Parse(remainingText[..countCharLength],NumberStyles.HexNumber);
