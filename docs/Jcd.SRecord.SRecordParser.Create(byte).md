@@ -16,7 +16,8 @@ public static Jcd.SRecord.SRecordParser Create(byte maxDataBytesPerRecord=byte.M
 `maxDataBytesPerRecord` [System.Byte](https://docs.microsoft.com/en-us/dotnet/api/System.Byte 'System.Byte')
 
 #### Returns
-[SRecordParser](Jcd.SRecord.SRecordParser.md 'Jcd.SRecord.SRecordParser')
+[SRecordParser](Jcd.SRecord.SRecordParser.md 'Jcd.SRecord.SRecordParser')  
+The new, or stock, instance of the SRecordParser
 
 ### Remarks
 When maxDataBytesPerRecord is greater than 250, the Flexible instance is used instead of creating a new one.

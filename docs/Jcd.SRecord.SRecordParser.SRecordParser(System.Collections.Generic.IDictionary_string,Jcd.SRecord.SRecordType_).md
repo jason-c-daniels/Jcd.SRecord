@@ -13,3 +13,5 @@ public SRecordParser(System.Collections.Generic.IDictionary<string,Jcd.SRecord.S
 <a name='Jcd.SRecord.SRecordParser.SRecordParser(System.Collections.Generic.IDictionary_string,Jcd.SRecord.SRecordType_).typeLookup'></a>
 
 `typeLookup` [System.Collections.Generic.IDictionary&lt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IDictionary-2 'System.Collections.Generic.IDictionary`2')[System.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System.String')[,](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IDictionary-2 'System.Collections.Generic.IDictionary`2')[SRecordType](Jcd.SRecord.SRecordType.md 'Jcd.SRecord.SRecordType')[&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IDictionary-2 'System.Collections.Generic.IDictionary`2')
+
+The S0-S9 definitions used during parsing.

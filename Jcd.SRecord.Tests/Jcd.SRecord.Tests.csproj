@@ -37,7 +37,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="_TestData" />
+    <None Update="_TestData\FakeFirmware.s19">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="_TestData\FakeFirmware.s37">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="_TestData\BadFirmware-corrupt-checksum-with-eol-comment.s37">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="_TestData\BadFirmware-corrupt-checksum-with-eol-comment-line-removed.s37">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
