@@ -41,17 +41,14 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="SRecordType.Flexible.cs">
+      <Compile Update="SRecordDataType.Flexible.cs">
         <DependentUpon>SRecordType.cs</DependentUpon>
       </Compile>
-      <Compile Update="SRecordType.CreateLookup.cs">
+      <Compile Update="SRecordDataType.CreateLookup.cs">
         <DependentUpon>SRecordType.cs</DependentUpon>
       </Compile>
-      <Compile Update="SRecordType.Strict.cs">
+      <Compile Update="SRecordDataType.Strict.cs">
         <DependentUpon>SRecordType.cs</DependentUpon>
-      </Compile>
-      <Compile Update="IO\SRecordElementFormatter.Options.cs">
-        <DependentUpon>SRecordLineFormatter.cs</DependentUpon>
       </Compile>
     </ItemGroup>
 

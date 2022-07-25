@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Jcd.SRecord.Extensions
 {
@@ -32,13 +30,13 @@ namespace Jcd.SRecord.Extensions
             if (!digit.IsHexDigit())
                 throw new ArgumentException($"'{digit}' is not a hexadecimal digit.", nameof(digit));
 
-            if (digit >= '0' && digit <= '9') return (byte)((ushort)digit - '0');
-            if (digit >= 'A' && digit <= 'F') return (byte)(10+(ushort)digit - 'A');
-            return (byte)(10+(ushort)digit - 'a');
+            if (digit >= '0' && digit <= '9') return (byte)(digit - '0');
+            if (digit >= 'A' && digit <= 'F') return (byte)(10+digit - 'A');
+            return (byte)(10+digit - 'a');
         }
 
         /// <summary>
-        /// Throws an ArgumentException if the character can't be used for an SRecord comment.
+        /// Throws an ArgumentException if the character can't be used for an SRecordData comment.
         /// </summary>
         /// <param name="character">the character to check.</param>
         /// <exception cref="ArgumentException">Thrown if the character is invalid.</exception>

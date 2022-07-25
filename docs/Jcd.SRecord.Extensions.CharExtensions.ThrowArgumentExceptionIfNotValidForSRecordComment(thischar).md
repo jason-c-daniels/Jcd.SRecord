@@ -3,7 +3,7 @@
 
 ## CharExtensions.ThrowArgumentExceptionIfNotValidForSRecordComment(this char) Method
 
-Throws an ArgumentException if the character can't be used for an SRecord comment.
+Throws an ArgumentException if the character can't be used for an SRecordData comment.
 
 ```csharp
 public static void ThrowArgumentExceptionIfNotValidForSRecordComment(this char character);

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using Jcd.SRecord.IO;
 
 namespace Jcd.SRecord.Examples
 {
@@ -10,11 +9,11 @@ namespace Jcd.SRecord.Examples
         private static void Main()
         {
             
-            DoPerfTest(SRecordType.Flexible.S3);
-            DoPerfTest(SRecordType.Strict.S3);
+            DoPerfTest(SRecordDataType.Flexible.S3);
+            DoPerfTest(SRecordDataType.Strict.S3);
         }
 
-        private static void DoPerfTest(SRecordType type)
+        private static void DoPerfTest(SRecordDataType type)
         {
             var l = new List<string>();
             Console.WriteLine($"Generating test data for {type.Key} with {type.MaximumDataBytesAllowed} bytes of data each.");
@@ -23,7 +22,7 @@ namespace Jcd.SRecord.Examples
             {
                 var bytes = BitConverter.GetBytes(i);
                 bytes.CopyTo(data, i % 28);
-                l.Add($"{SRecordFormatter.Default.Format(new SRecord(type, i, data))} # with comment.");
+                l.Add($"{SRecordDataFormatter.Default.Format(new SRecordData(type, i, data))} # with comment.");
             }
             
             Console.WriteLine("Initializing SRecordElementParser");

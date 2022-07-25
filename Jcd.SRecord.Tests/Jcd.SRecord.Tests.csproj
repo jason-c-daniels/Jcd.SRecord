@@ -25,14 +25,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="SRecordType.Flexible.Tests.cs">
-      <DependentUpon>SRecordTests.cs</DependentUpon>
+    <Compile Update="SRecordDataTypeTests.Flexible.cs">
+      <DependentUpon>SRecordDataTypeTests.cs</DependentUpon>
     </Compile>
-    <Compile Update="SRecordType.Strict.Tests.cs">
-      <DependentUpon>SRecordTests.cs</DependentUpon>
-    </Compile>
-    <Compile Update="IO\SRecordElementFormatter.Options.Tests.cs">
-      <DependentUpon>SRecordElementFormatterTests.cs</DependentUpon>
+    <Compile Update="SRecordDataTypeTests.Strict.cs">
+      <DependentUpon>SRecordDataTypeTests.cs</DependentUpon>
     </Compile>
   </ItemGroup>
 
