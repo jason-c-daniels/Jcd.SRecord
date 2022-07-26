@@ -20,7 +20,7 @@ namespace Jcd.SRecord.Extensions
         /// </summary>
         /// <param name="hexString">the text to convert.</param>
         /// <returns>The sequence of bytes represented by the hex string.</returns>
-        public static byte[] HexStringToBytes(this string hexString)
+        public static byte[] HexStringToBytes(this ReadOnlySpan<char> hexString)
         {
             // ReSharper disable once ConvertIfStatementToSwitchStatement
             if (hexString == null) return null;
@@ -42,6 +42,16 @@ namespace Jcd.SRecord.Extensions
             }
 
             return bytes;
+        }
+        
+        /// <summary>
+        /// Converts a sequence of hexadecimal characters into the equivalent bytes. 
+        /// </summary>
+        /// <param name="hexString">the text to convert.</param>
+        /// <returns>The sequence of bytes represented by the hex string.</returns>
+        public static byte[] HexStringToBytes(this string hexString)
+        {
+            return hexString.AsSpan().HexStringToBytes();
         }
 
         /// <summary>

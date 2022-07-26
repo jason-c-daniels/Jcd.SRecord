@@ -16,7 +16,7 @@ namespace Jcd.SRecord
         /// <summary>
         /// Indicates that the parsed data contains <c>SRecordData</c> data.
         /// </summary>
-        public readonly bool HasSRecord;
+        public readonly bool HasSRecordData;
         
         /// <summary>
         /// Indicates that the parsed line was blank.
@@ -36,7 +36,7 @@ namespace Jcd.SRecord
         /// <summary>
         /// An SRecordData without a comment.
         /// </summary>
-        public static readonly SRecordElementType SRecord = new SRecordElementType(hasSRecord:true);
+        public static readonly SRecordElementType SRecord = new SRecordElementType(hasSRecordData:true);
 
         /// <summary>
         /// An SRecordData with end of line comment.
@@ -51,12 +51,12 @@ namespace Jcd.SRecord
         /// <summary>
         ///  Indicates if some error was detected while parsing the line.
         /// </summary>
-        public static readonly SRecordElementType Error = new SRecordElementType(hasError:true,hasComment:false,hasSRecord:false,isBlank:false);
+        public static readonly SRecordElementType Error = new SRecordElementType(hasError:true,hasComment:false,hasSRecordData:false,isBlank:false);
 
-        private SRecordElementType(bool hasComment=false, bool hasSRecord=false, bool isBlank=false, bool hasError=false)
+        private SRecordElementType(bool hasComment=false, bool hasSRecordData=false, bool isBlank=false, bool hasError=false)
         {
             HasComment = hasComment;
-            HasSRecord = hasSRecord;
+            HasSRecordData = hasSRecordData;
             IsBlank = isBlank;
             HasError = hasError;
         }
@@ -69,7 +69,7 @@ namespace Jcd.SRecord
         /// <returns>true if equal.</returns>
         public bool Equals(SRecordElementType other)
         {
-            return HasComment == other.HasComment && HasSRecord == other.HasSRecord && IsBlank == other.IsBlank && HasError == other.HasError;
+            return HasComment == other.HasComment && HasSRecordData == other.HasSRecordData && IsBlank == other.IsBlank && HasError == other.HasError;
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace Jcd.SRecord
         /// <returns>The hashcode</returns>
         public override int GetHashCode()
         {
-            return HashCode.Combine(HasComment, HasSRecord, IsBlank, HasError);
+            return HashCode.Combine(HasComment, HasSRecordData, IsBlank, HasError);
         }
 
         /// <summary>

@@ -16,7 +16,7 @@ namespace Jcd.SRecord
     /// <see href="https://manpages.ubuntu.com/manpages/trusty/man5/srec.5.html"> at the Ubuntu manpage</see>
     /// and <see href="https://en.wikipedia.org/wiki/SREC_(file_format)">the wikipedia page</see>.
     /// </remarks>
-    public class SRecordData
+    public sealed class SRecordData
     {
         /// <summary>
         /// The length of the checksum, in bytes.
@@ -77,19 +77,42 @@ namespace Jcd.SRecord
         /// <param name="type">The type descriptor for the SRecordData</param>
         /// <param name="address">The data for the address field.</param>
         /// <param name="data">The data for the data field, if any.</param>
+        /// <exception cref="ArgumentException">
+        /// When various constraints are violated such as too big of an
+        /// address for a given record type. See the specification for details.
+        /// </exception>
         public SRecordData(SRecordDataType type, uint address, byte[] data=null)
         {
             data ??= Array.Empty<byte>();
             if (data.Length > type.MaximumDataBytesAllowed) throw new ArgumentException(
-                    $"{type.Key} records must contain at most {type.MaximumDataBytesAllowed.ToString(CultureInfo.InvariantCulture)} bytes of data {data.Length.ToString(CultureInfo.InvariantCulture)} bytes were provided.",
+                    $"{type.Key} records must contain at most " +
+                    $"{type.MaximumDataBytesAllowed.ToString(CultureInfo.InvariantCulture)} bytes of data. " +
+                    $"{data.Length.ToString(CultureInfo.InvariantCulture)} bytes were provided.",
                     $"{nameof(data)}.Length"
                 );
             
+            ValidateAddressLength(type, address);
             Type = type;
             Address = address;
             Data = Array.AsReadOnly(data);
             CountOfRemainingBytes = (byte)(type.AddressLengthInBytes + CheckSumByteLength + Data.Count);
             Checksum = ComputeChecksum(type, CountOfRemainingBytes, address, data);
+        }
+
+        private static void ValidateAddressLength(SRecordDataType type, uint address)
+        {
+            byte minBytesForAddress = 0;
+            while ((address & uint.MaxValue) != 0) // is any bit set? keep shifting if so.
+            {
+                minBytesForAddress++;
+                address >>= 8;
+            }
+
+            if (minBytesForAddress > type.AddressLengthInBytes)
+                throw new ArgumentException(
+                    $"{type.Key} can only contain an address of " +
+                    $"{type.AddressLengthInBytes} bytes. The address specified " +
+                    $"requires {minBytesForAddress} bytes.");
         }
 
         /// <summary>

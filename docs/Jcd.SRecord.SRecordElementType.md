@@ -20,7 +20,7 @@ Implements [System.IEquatable&lt;](https://docs.microsoft.com/en-us/dotnet/api/S
 | [Error](Jcd.SRecord.SRecordElementType.Error.md 'Jcd.SRecord.SRecordElementType.Error') | Indicates if some error was detected while parsing the line. |
 | [HasComment](Jcd.SRecord.SRecordElementType.HasComment.md 'Jcd.SRecord.SRecordElementType.HasComment') | Indicates that the parsed data contains a comment. (This may be an empty string) |
 | [HasError](Jcd.SRecord.SRecordElementType.HasError.md 'Jcd.SRecord.SRecordElementType.HasError') | Indicates that an error occurred during parsing. |
-| [HasSRecord](Jcd.SRecord.SRecordElementType.HasSRecord.md 'Jcd.SRecord.SRecordElementType.HasSRecord') | Indicates that the parsed data contains `SRecordData` data. |
+| [HasSRecordData](Jcd.SRecord.SRecordElementType.HasSRecordData.md 'Jcd.SRecord.SRecordElementType.HasSRecordData') | Indicates that the parsed data contains `SRecordData` data. |
 | [IsBlank](Jcd.SRecord.SRecordElementType.IsBlank.md 'Jcd.SRecord.SRecordElementType.IsBlank') | Indicates that the parsed line was blank. |
 | [SRecord](Jcd.SRecord.SRecordElementType.SRecord.md 'Jcd.SRecord.SRecordElementType.SRecord') | An SRecordData without a comment. |
 | [SRecordWithEndOfElementComment](Jcd.SRecord.SRecordElementType.SRecordWithEndOfElementComment.md 'Jcd.SRecord.SRecordElementType.SRecordWithEndOfElementComment') | An SRecordData with end of line comment. |

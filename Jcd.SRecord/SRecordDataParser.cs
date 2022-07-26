@@ -39,13 +39,13 @@ namespace Jcd.SRecord
         {
             if (string.IsNullOrWhiteSpace(lineOfText)) 
                 throw new ArgumentException("Cannot parse an SRecordData from blank data.", nameof(lineOfText));
-            lineOfText = lineOfText.TrimEnd(); // remove any possible trailing whitespace, such as CRLF, or spaced before a comment character.
+            lineOfText = lineOfText.TrimEnd(); // remove any possible trailing whitespace, such as CRLF, or spaces before a comment character.
             var minAddressByteLength = _typeLookup.Values!.Min(t => t.AddressLengthInBytes);
             var minTextLength=SRecordData.KeyCharLength + SRecordData.CountByteLength*2 + SRecordData.CheckSumByteLength*2 + minAddressByteLength * 2;
             if (lineOfText.Length<minTextLength) 
-                throw new ArgumentException($"Length must be at least {minTextLength.ToString(CultureInfo.InvariantCulture)} characters in length.", nameof(lineOfText));
+                throw new ArgumentException($"Length must be at least {minTextLength.ToString(CultureInfo.InvariantCulture)} characters in length. Actual length = {lineOfText.Length}", nameof(lineOfText));
             if (lineOfText.Length % 2 != 0)
-                throw new ArgumentException($"{nameof(lineOfText)} must be composed of an even number of characters.", nameof(lineOfText));
+                throw new ArgumentException($"{nameof(lineOfText)} must be composed of an even number of characters. {lineOfText.Length} found.\r\n{nameof(lineOfText)} = '{lineOfText}'", nameof(lineOfText));
             
             // grab the first two characters
             var key = lineOfText[..SRecordData.KeyCharLength];
@@ -54,7 +54,7 @@ namespace Jcd.SRecord
                 throw new ArgumentException($"Unknown SRecordData type {key}");
             var type = _typeLookup[key];
             // since we know the first two chars (type indicator) are valid, truncate the string to everything after the type indicator 
-            var remainingText = lineOfText[SRecordData.KeyCharLength..];
+            var remainingText = lineOfText.AsSpan(SRecordData.KeyCharLength); //lineOfText[SRecordData.KeyCharLength..];
             
             const int countCharLength = SRecordData.CountByteLength * 2;
             var countOfRemainingBytes = byte.Parse(remainingText[..countCharLength],NumberStyles.HexNumber);

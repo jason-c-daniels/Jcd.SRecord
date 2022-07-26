@@ -77,10 +77,10 @@ namespace Jcd.SRecord
 
             var sb = new StringBuilder();
 
-            if (element.ElementType.HasSRecord && options.EmitSRecordContent)
+            if (element.ElementType.HasSRecordData && options.EmitSRecordContent)
                 sb.Append(sRecordFormatter.Format(element.SRecordData));
             
-            if (element.ElementType.HasSRecord && element.ElementType.HasComment && options.EmitSpaceBeforeEndOfLineComment && options.EmitComment)
+            if (element.ElementType.HasSRecordData && element.ElementType.HasComment && options.EmitSpaceBeforeEndOfLineComment && options.EmitComment)
                 sb.Append(" ");
 
             if (element.ElementType.HasComment && options.EmitSpaceBeforeEndOfLineComment && options.EmitComment)

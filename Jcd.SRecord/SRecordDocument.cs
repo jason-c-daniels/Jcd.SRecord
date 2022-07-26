@@ -20,7 +20,7 @@ namespace Jcd.SRecord
         /// Gets a mutable collection of <c>SRecordElement</c>s contained in this document.
         /// </summary>
         [NotNull]
-        public ObservableCollection<SRecordElement> Elements { get; } = new ObservableCollection<SRecordElement>();
+        public List<SRecordElement> Elements { get; } = new List<SRecordElement>();
 
         /// <summary>
         /// Gets an immutable collection of just the SRecordData entries contained in the Elements collection.
@@ -28,7 +28,7 @@ namespace Jcd.SRecord
         [NotNull]
         // ReSharper disable once UnusedMember.Global
         public IEnumerable<SRecordData> SRecords => Elements
-            .Where(x => x.ElementType.HasSRecord)
+            .Where(x => x.ElementType.HasSRecordData)
             .Select(x => x.SRecordData);
 
         /// <summary>

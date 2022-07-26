@@ -11,7 +11,7 @@ namespace Jcd.SRecord.Tests
         {
             var element=SRecordElementParser.Default.Parse(1, lineOfText);
             var args = new SRecordElementParsedEventArgs(element);
-            Assert.Same(element,args.Element);
+            Assert.Equal(element,args.Element);
         }
     }
 }

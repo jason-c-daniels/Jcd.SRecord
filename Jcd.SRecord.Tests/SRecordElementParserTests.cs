@@ -31,7 +31,7 @@ namespace Jcd.SRecord.Tests
             var line = sut.Parse(lineNumber, text);
             Assert.Equal(hasComment,line.ElementType.HasComment);
             Assert.Equal(hasComment,line.Comment!=null);
-            Assert.Equal(hasRecord,line.ElementType.HasSRecord);
+            Assert.Equal(hasRecord,line.ElementType.HasSRecordData);
             Assert.Equal(hasRecord,line.SRecordData!=null);
             Assert.Equal(isBlank,line.ElementType.IsBlank);
             Assert.NotNull(line.OriginalLine);

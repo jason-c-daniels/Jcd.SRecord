@@ -1,12 +1,12 @@
 #### [Jcd.SRecord](index.md 'index')
 ### [Jcd.SRecord](Jcd.SRecord.md 'Jcd.SRecord').[SRecordElementType](Jcd.SRecord.SRecordElementType.md 'Jcd.SRecord.SRecordElementType')
 
-## SRecordElementType.HasSRecord Field
+## SRecordElementType.HasSRecordData Field
 
 Indicates that the parsed data contains `SRecordData` data.
 
 ```csharp
-public readonly bool HasSRecord;
+public readonly bool HasSRecordData;
 ```
 
 #### Field Value

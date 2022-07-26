@@ -37,6 +37,13 @@
             to and from hexadecimal representations of bytes 
             </summary>
         </member>
+        <member name="M:Jcd.SRecord.Extensions.HexStringConversions.HexStringToBytes(System.ReadOnlySpan{System.Char})">
+            <summary>
+            Converts a sequence of hexadecimal characters into the equivalent bytes. 
+            </summary>
+            <param name="hexString">the text to convert.</param>
+            <returns>The sequence of bytes represented by the hex string.</returns>
+        </member>
         <member name="M:Jcd.SRecord.Extensions.HexStringConversions.HexStringToBytes(System.String)">
             <summary>
             Converts a sequence of hexadecimal characters into the equivalent bytes. 
@@ -230,6 +237,10 @@
             <param name="type">The type descriptor for the SRecordData</param>
             <param name="address">The data for the address field.</param>
             <param name="data">The data for the data field, if any.</param>
+            <exception cref="T:System.ArgumentException">
+            When various constraints are violated such as too big of an
+            address for a given record type. See the specification for details.
+            </exception>
         </member>
         <member name="M:Jcd.SRecord.SRecordData.ComputeChecksum(Jcd.SRecord.SRecordDataType,System.Byte,System.UInt32,System.Byte[])">
             <summary>
@@ -326,6 +337,114 @@
             <remarks>When maxDataBytesPerRecord is greater than 250, the Flexible instance is used instead of creating a new one.</remarks>
             <param name="maxDataBytesPerRecord"></param>
             <returns>The new, or stock, instance of the SRecordDataParser</returns>
+        </member>
+        <member name="T:Jcd.SRecord.SRecordDataStatistics">
+            <summary>
+            Represents summary information about the contents of
+            an any collection of SRecordData.
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.SRecordDataStatistics.DataLengthCounts">
+            <summary>
+            A cache of the number of times a data bearing record
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.SRecordDataStatistics.S0Count">
+            <summary>
+            The count of all S0 records.
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.SRecordDataStatistics.S1Count">
+            <summary>
+            The count of all S1 records.
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.SRecordDataStatistics.S2Count">
+            <summary>
+            The count of all S2 records.
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.SRecordDataStatistics.S3Count">
+            <summary>
+            The count of all S3 records.
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.SRecordDataStatistics.S4Count">
+            <summary>
+            The count of all S4 records.
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.SRecordDataStatistics.S5Count">
+            <summary>
+            The count of all S5 records.
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.SRecordDataStatistics.S6Count">
+            <summary>
+            The count of all S6 records.
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.SRecordDataStatistics.S7Count">
+            <summary>
+            The count of all S7 records.
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.SRecordDataStatistics.S8Count">
+            <summary>
+            The count of all S0 records.
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.SRecordDataStatistics.S9Count">
+            <summary>
+            The count of all S0 records.
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.SRecordDataStatistics.MaximumDataLength">
+            <summary>
+            The maximum value of any SRecordData.Data.Length entry
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.SRecordDataStatistics.HeaderCount">
+            <summary>
+            The same as S0Count, a convenience getter.
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.SRecordDataStatistics.DataRecordCount">
+            <summary>
+            The count of all S1, S2, and S3 records.
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.SRecordDataStatistics.CounterRecordCount">
+            <summary>
+            The count of all S5 and S6 records. (Ideally 0 or 1!)
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.SRecordDataStatistics.StartAddressRecordCount">
+            <summary>
+            The count of all S7, S8 and S9 records. (Ideally only 1!)
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.SRecordDataStatistics.TotalSRecordDataCount">
+            <summary>
+            A count of all the SRecord entries these statistics account for.
+            </summary>
+        </member>
+        <member name="M:Jcd.SRecord.SRecordDataStatistics.Reset">
+            <summary>
+            Resets all properties to 0;
+            </summary>
+        </member>
+        <member name="M:Jcd.SRecord.SRecordDataStatistics.Increment(Jcd.SRecord.SRecordData)">
+            <summary>
+            Increments the statistics based on the passed in record.
+            </summary>
+            <param name="record">record</param>
+        </member>
+        <member name="M:Jcd.SRecord.SRecordDataStatistics.Decrement(Jcd.SRecord.SRecordData)">
+            <summary>
+            Decrements the statistics based on the passed in record.
+            </summary>
+            <param name="record"></param>
         </member>
         <member name="T:Jcd.SRecord.SRecordDataType">
             <summary>
@@ -1194,6 +1313,66 @@
         <member name="M:Jcd.SRecord.SRecordElementReader.Dispose">
             <inheritdoc cref="M:System.IDisposable.Dispose"/>
         </member>
+        <member name="T:Jcd.SRecord.SRecordElementStatistics">
+            <summary>
+            Represents a set of statistics about a set of <c>SRecordElement</c> instances.
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.SRecordElementStatistics.ErrorElementCount">
+            <summary>
+            The number of elements that were flagged as having an error.
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.SRecordElementStatistics.StandAloneCommentCount">
+            <summary>
+            The number of elements that just had comment data.
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.SRecordElementStatistics.SRecordDataWithCommentCount">
+            <summary>
+            The number of elements with both SRecordData and comments.
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.SRecordElementStatistics.ElementsWithCommentsCount">
+            <summary>
+            The total number of elements with comments.  
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.SRecordElementStatistics.BlankElementCount">
+            <summary>
+            The number of elements which were not in error but did not
+            parse comments or SRecordData
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.SRecordElementStatistics.ElementWithSRecordDataCount">
+            <summary>
+            The total number of elements that contained SRecordData
+            </summary>
+        </member>
+        <member name="P:Jcd.SRecord.SRecordElementStatistics.TotalElementsCount">
+            <summary>
+             The total number of elements evaluated.
+            </summary>
+        </member>
+        <member name="M:Jcd.SRecord.SRecordElementStatistics.Reset">
+            <summary>
+            Sets all datapoints to 0
+            </summary>
+        </member>
+        <member name="M:Jcd.SRecord.SRecordElementStatistics.Increment(Jcd.SRecord.SRecordElement)">
+            <summary>
+            Increments the this instance's statistics based on the
+            passed in element.
+            </summary>
+            <param name="element">The element to evaluate.</param>
+        </member>
+        <member name="M:Jcd.SRecord.SRecordElementStatistics.Decrement(Jcd.SRecord.SRecordElement)">
+            <summary>
+            Decrements the this instance's statistics based on the
+            passed in element.
+            </summary>
+            <param name="element">The element to evaluate.</param>
+        </member>
         <member name="T:Jcd.SRecord.SRecordElementType">
             <summary>
             Defines a set of flags that describe the results of parsing a line
@@ -1205,7 +1384,7 @@
             Indicates that the parsed data contains a comment. (This may be an empty string) 
             </summary>
         </member>
-        <member name="F:Jcd.SRecord.SRecordElementType.HasSRecord">
+        <member name="F:Jcd.SRecord.SRecordElementType.HasSRecordData">
             <summary>
             Indicates that the parsed data contains <c>SRecordData</c> data.
             </summary>

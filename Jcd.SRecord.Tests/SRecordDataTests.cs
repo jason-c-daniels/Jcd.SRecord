@@ -25,6 +25,22 @@ namespace Jcd.SRecord.Tests
         }
 
         [Theory]
+        [InlineData("S0")]
+        [InlineData("S1")]
+        [InlineData("S2")]
+        [InlineData("S4")]
+        [InlineData("S5")]
+        [InlineData("S6")]
+        [InlineData("S8")]
+        [InlineData("S9")]
+        public void Constructor_Throws_When_The_Address_Exceeds_The_Max_Bytes_For_The_Type(string key)
+        {
+            var type = SRecordDataType.Strict.FromKey(key);
+            Assert.Throws<ArgumentException>(()=> new SRecordData(type, 0xFFFFFFFF, new byte[type.MaximumDataBytesAllowed + 1]));
+        } 
+        
+        
+        [Theory]
         [InlineData("S0",0x0F,0x0000,"68656C6C6F20202020200000",0x3C)]
         [InlineData("S1",0x1F,0x0000,"7C0802A6900100049421FFF07C6C1B787C8C23783C60000038630000",0x26)]
         [InlineData("S1",0x1F,0x001C,"4BFFFFE5398000007D83637880010014382100107C0803A64E800020",0xE9)]
@@ -44,5 +60,6 @@ namespace Jcd.SRecord.Tests
             Assert.Equal(bytes,sr.Data.ToArray());
             Assert.Equal(checksum,sr.Checksum);            
         }
+        
     }
 }

@@ -7,7 +7,7 @@ Represents a single `SRecordData` entry in an s-record file. This is an immutabl
 To edit the contents, create a new one with the altered data buffer, address, and/or type.
 
 ```csharp
-public class SRecordData
+public sealed class SRecordData
 ```
 
 Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; SRecordData
