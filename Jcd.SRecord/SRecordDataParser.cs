@@ -54,7 +54,7 @@ namespace Jcd.SRecord
                 throw new ArgumentException($"Unknown SRecordData type {key}");
             var type = _typeLookup[key];
             // since we know the first two chars (type indicator) are valid, truncate the string to everything after the type indicator 
-            var remainingText = lineOfText.AsSpan(SRecordData.KeyCharLength); //lineOfText[SRecordData.KeyCharLength..];
+            var remainingText = lineOfText.AsSpan(SRecordData.KeyCharLength);
             
             const int countCharLength = SRecordData.CountByteLength * 2;
             var countOfRemainingBytes = byte.Parse(remainingText[..countCharLength],NumberStyles.HexNumber);
@@ -63,24 +63,24 @@ namespace Jcd.SRecord
             remainingText = remainingText[countCharLength..];
             
             // convert to byte array
-            var remainingBytes = remainingText.HexStringToBytes();
+            var remainingBytes = new ReadOnlyMemory<byte>(remainingText.HexStringToBytes());
             if (countOfRemainingBytes != remainingBytes.Length) 
                 throw new ArgumentException($"Actual remaining byte count ({remainingBytes.Length}) does not match stored remaining byte count ({countOfRemainingBytes})");
 
             // extract address
             var addressBytes = remainingBytes[..type.AddressLengthInBytes];
-            var address = addressBytes.UInt32FromBigEndianByteArray();
+            var address = addressBytes.Span.ToUInt32();
             remainingBytes = remainingBytes[type.AddressLengthInBytes..];
 
             // grab the data bytes and checksum from the remaining 
             var dataLength = countOfRemainingBytes - SRecordData.CheckSumByteLength - type.AddressLengthInBytes;
             var data = dataLength > 0 ? remainingBytes[..dataLength] : Array.Empty<byte>();
-            var checkSum = remainingBytes[^1];
+            var checkSum = remainingBytes.Span[^1];
             var record = new SRecordData(type, address, data);
 
             // now confirm the parsed checksum and count match the data extracted from the text
             if (checkSum != record.Checksum) 
-                throw new ArgumentException("Computed checksum doesn't match checksum stored within the record.");
+                throw new ArgumentException($"Computed checksum doesn't match checksum stored within the record. Expected {checkSum}. Found {record.Checksum}");
             return record;
         }
 

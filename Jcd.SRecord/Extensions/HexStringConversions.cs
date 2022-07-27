@@ -60,10 +60,10 @@ namespace Jcd.SRecord.Extensions
         /// <param name="bytes">the bytes to convert</param>
         /// <param name="makeUppercase">makes the A-F range uppercase when true, lowercase otherwise</param>
         /// <returns>The hexadecimal text representation</returns>
-        public static string BytesToHexString(this IReadOnlyCollection<byte> bytes, bool makeUppercase=true)
+        public static string BytesToHexString(this ReadOnlySpan<byte> bytes, bool makeUppercase=true)
         {
             if (bytes == null) return null;
-            var count = bytes.Count;
+            var count = bytes.Length;
             if (count == 0) return string.Empty;
             
             var lookup = makeUppercase ? UppercaseHexLookup : LowercaseHexLookup;

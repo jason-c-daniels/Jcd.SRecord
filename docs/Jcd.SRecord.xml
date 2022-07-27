@@ -51,7 +51,7 @@
             <param name="hexString">the text to convert.</param>
             <returns>The sequence of bytes represented by the hex string.</returns>
         </member>
-        <member name="M:Jcd.SRecord.Extensions.HexStringConversions.BytesToHexString(System.Collections.Generic.IReadOnlyCollection{System.Byte},System.Boolean)">
+        <member name="M:Jcd.SRecord.Extensions.HexStringConversions.BytesToHexString(System.ReadOnlySpan{System.Byte},System.Boolean)">
             <summary>
             Convert a sequence of bytes into a string of hexadecimal values. 
             </summary>
@@ -230,7 +230,7 @@
             The checksum for the type, address, and data.
             </summary>
         </member>
-        <member name="M:Jcd.SRecord.SRecordData.#ctor(Jcd.SRecord.SRecordDataType,System.UInt32,System.Byte[])">
+        <member name="M:Jcd.SRecord.SRecordData.#ctor(Jcd.SRecord.SRecordDataType,System.UInt32,System.Nullable{System.ReadOnlyMemory{System.Byte}})">
             <summary>
             Constructs a mew SRecordData instance.
             </summary>
@@ -242,7 +242,7 @@
             address for a given record type. See the specification for details.
             </exception>
         </member>
-        <member name="M:Jcd.SRecord.SRecordData.ComputeChecksum(Jcd.SRecord.SRecordDataType,System.Byte,System.UInt32,System.Byte[])">
+        <member name="M:Jcd.SRecord.SRecordData.ComputeChecksum(Jcd.SRecord.SRecordDataType,System.Byte,System.UInt32,System.ReadOnlyMemory{System.Byte})">
             <summary>
             Computes the checksum for the record.
             </summary>

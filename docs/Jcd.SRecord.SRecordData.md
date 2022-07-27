@@ -19,7 +19,7 @@ and [the wikipedia page](https://en.wikipedia.org/wiki/SREC_(file_format) 'https
 
 | Constructors | |
 | :--- | :--- |
-| [SRecordData(SRecordDataType, uint, byte[])](Jcd.SRecord.SRecordData.SRecordData(Jcd.SRecord.SRecordDataType,uint,byte[]).md 'Jcd.SRecord.SRecordData.SRecordData(Jcd.SRecord.SRecordDataType, uint, byte[])') | Constructs a mew SRecordData instance. |
+| [SRecordData(SRecordDataType, uint, Nullable&lt;ReadOnlyMemory&lt;byte&gt;&gt;)](Jcd.SRecord.SRecordData.SRecordData(Jcd.SRecord.SRecordDataType,uint,System.Nullable_System.ReadOnlyMemory_byte__).md 'Jcd.SRecord.SRecordData.SRecordData(Jcd.SRecord.SRecordDataType, uint, System.Nullable<System.ReadOnlyMemory<byte>>)') | Constructs a mew SRecordData instance. |
 
 | Fields | |
 | :--- | :--- |
@@ -39,4 +39,4 @@ and [the wikipedia page](https://en.wikipedia.org/wiki/SREC_(file_format) 'https
 
 | Methods | |
 | :--- | :--- |
-| [ComputeChecksum(SRecordDataType, byte, uint, byte[])](Jcd.SRecord.SRecordData.ComputeChecksum(Jcd.SRecord.SRecordDataType,byte,uint,byte[]).md 'Jcd.SRecord.SRecordData.ComputeChecksum(Jcd.SRecord.SRecordDataType, byte, uint, byte[])') | Computes the checksum for the record. |
+| [ComputeChecksum(SRecordDataType, byte, uint, ReadOnlyMemory&lt;byte&gt;)](Jcd.SRecord.SRecordData.ComputeChecksum(Jcd.SRecord.SRecordDataType,byte,uint,System.ReadOnlyMemory_byte_).md 'Jcd.SRecord.SRecordData.ComputeChecksum(Jcd.SRecord.SRecordDataType, byte, uint, System.ReadOnlyMemory<byte>)') | Computes the checksum for the record. |

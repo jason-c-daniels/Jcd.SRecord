@@ -139,7 +139,7 @@ namespace Jcd.SRecord
         
         private void IncrementDataLengthCount([NotNull]SRecordData record)
         {
-            var dataLength = record.Data.Count;
+            var dataLength = record.Data.Length;
             if (!DataLengthCounts.ContainsKey(dataLength))
                 DataLengthCounts.Add(dataLength, 0);
             DataLengthCounts[dataLength]++;
@@ -184,7 +184,7 @@ namespace Jcd.SRecord
         
         private void DecrementDataLengthCount([NotNull]SRecordData record)
         {
-            var dataLength = record.Data.Count;
+            var dataLength = record.Data.Length;
             if (!DataLengthCounts.ContainsKey(dataLength)) return;
             DataLengthCounts[dataLength]--;
             if (DataLengthCounts[dataLength] != 0) return;

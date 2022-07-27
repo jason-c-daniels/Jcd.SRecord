@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
@@ -64,9 +65,9 @@ namespace Jcd.SRecord
             sb.Append(value.ToString(format));
         }
 
-        private void AppendBytes(StringBuilder sb, IReadOnlyCollection<byte> bytes)
+        private void AppendBytes(StringBuilder sb, ReadOnlyMemory<byte> bytes)
         {
-            sb.Append(bytes.BytesToHexString(EmitHexNumbersInUpperCase));
+            sb.Append(bytes.Span.BytesToHexString(EmitHexNumbersInUpperCase));
         }
 
         private void AppendAddress(StringBuilder sb, SRecordData sRecord)

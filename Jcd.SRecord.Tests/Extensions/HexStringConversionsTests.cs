@@ -1,4 +1,5 @@
 using System;
+using System.Buffers;
 using System.Collections.Generic;
 using System.Linq;
 using Jcd.SRecord.Extensions;
@@ -56,7 +57,7 @@ namespace Jcd.SRecord.Tests.Extensions
         [MemberData(nameof(DataSet))]
         public void BytesToHexString_Converts_To_Correct_String(string expectedString, byte[] bytes, bool toUppercase)
         {
-            var actualString = bytes.BytesToHexString(toUppercase); 
+            var actualString = new ReadOnlySpan<byte>(bytes).BytesToHexString(toUppercase); 
             Assert.Equal(expectedString, actualString);
         }
 
@@ -66,7 +67,7 @@ namespace Jcd.SRecord.Tests.Extensions
         public void HexStringToBytes_BytesToHexString_Round_Trip_Works(string hexString)
         {
             var bytes = hexString.HexStringToBytes();
-            var newString = bytes.BytesToHexString();
+            var newString = new ReadOnlySpan<byte>(bytes).BytesToHexString();
             Assert.Equal(hexString,newString );
         }
 

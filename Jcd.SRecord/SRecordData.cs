@@ -58,13 +58,12 @@ namespace Jcd.SRecord
         /// For records with 0 data length, this will contain the same value as Address. 
         /// </summary>
         // ReSharper disable once UnusedMember.Global
-        public long EndAddress => Address + Data.Count;
+        public long EndAddress => Address + Data.Length;
 
         /// <summary>
         /// The data to be loaded into the address. (or in S0's case a descriptor for the file.)
         /// </summary>
-        [NotNull]
-        public ReadOnlyCollection<byte> Data { get; }
+        public ReadOnlyMemory<byte> Data { get; }
         
         /// <summary>
         /// The checksum for the type, address, and data.
@@ -81,22 +80,21 @@ namespace Jcd.SRecord
         /// When various constraints are violated such as too big of an
         /// address for a given record type. See the specification for details.
         /// </exception>
-        public SRecordData(SRecordDataType type, uint address, byte[] data=null)
+        public SRecordData(SRecordDataType type, uint address, ReadOnlyMemory<byte>? data)
         {
-            data ??= Array.Empty<byte>();
-            if (data.Length > type.MaximumDataBytesAllowed) throw new ArgumentException(
+            Data = data ?? ReadOnlyMemory<byte>.Empty;
+            if (Data.Length > type.MaximumDataBytesAllowed) throw new ArgumentException(
                     $"{type.Key} records must contain at most " +
                     $"{type.MaximumDataBytesAllowed.ToString(CultureInfo.InvariantCulture)} bytes of data. " +
-                    $"{data.Length.ToString(CultureInfo.InvariantCulture)} bytes were provided.",
+                    $"{Data.Length.ToString(CultureInfo.InvariantCulture)} bytes were provided.",
                     $"{nameof(data)}.Length"
                 );
             
             ValidateAddressLength(type, address);
             Type = type;
             Address = address;
-            Data = Array.AsReadOnly(data);
-            CountOfRemainingBytes = (byte)(type.AddressLengthInBytes + CheckSumByteLength + Data.Count);
-            Checksum = ComputeChecksum(type, CountOfRemainingBytes, address, data);
+            CountOfRemainingBytes = (byte)(type.AddressLengthInBytes + CheckSumByteLength + Data.Length);
+            Checksum = ComputeChecksum(type, CountOfRemainingBytes, address, Data);
         }
 
         private static void ValidateAddressLength(SRecordDataType type, uint address)
@@ -123,9 +121,8 @@ namespace Jcd.SRecord
         /// <param name="address">The data for the address field.</param>
         /// <param name="data">The data for the data field, if any.</param>
         /// <returns>The checksum</returns>
-        private static byte ComputeChecksum(SRecordDataType type, byte count, uint address, [NotNull]byte[] data=null)
+        private static byte ComputeChecksum(SRecordDataType type, byte count, uint address, ReadOnlyMemory<byte> data)
         {
-            data ??= Array.Empty<byte>();
             ushort checksum = count;
             checksum += (byte)(address & 0xFF);
             if (type.AddressLengthInBytes > 1)
@@ -139,8 +136,18 @@ namespace Jcd.SRecord
                 checksum += (byte)(address & 0xFF);
             }
             
-            checksum = data.Aggregate(checksum, (current, b) => (ushort)(current + b));
+            //checksum = data.ToArray().Aggregate(checksum, (current, b) => (ushort)(current + b));
+            checksum = Sum(checksum, data);
             return (byte)~(byte)(checksum & 0xFF);
+        }
+
+        private static ushort Sum(ushort seed, ReadOnlyMemory<byte> bytes)
+        {
+            var result = seed;
+            foreach(var b in bytes.Span)
+                result += b;
+
+            return result;
         }
     }
 }

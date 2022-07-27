@@ -3,33 +3,20 @@ using System.Collections.Generic;
 
 namespace Jcd.SRecord.Extensions
 {
-    internal static class BigEndianConversions
+    public static class BigEndianConversions
     {
         #region Ints from Big Endian Byte Array
         
-        public static uint UInt32FromBigEndianByteArray(this byte[] bytes)
+        public static uint ToUInt32(this ReadOnlySpan<byte> bytes)
         {
-            var buffer = MakeBuffer(bytes, 4);
-
-            // If the system architecture is little-endian (that is, little end first),
-            // reverse the byte array.
-            if (BitConverter.IsLittleEndian)
-                Array.Reverse(buffer);
-
-            return BitConverter.ToUInt32(buffer, 0);
-        }
-
-        private static byte[] MakeBuffer(IReadOnlyList<byte> bytes, int bufferSize)
-        {
-            var buffer = new byte[bufferSize];
-            var i = bytes.Count - 1;
-            var j = buffer.Length - 1;
-            for (; i >= 0 && j >= 0; i--, j--)
+            uint result = 0;
+            for(int i=0;i<bytes.Length;i++)
             {
-                buffer[j] = bytes[i];
+                result |= bytes[i];
+                if (i+1<bytes.Length) result <<= 8;
             }
 
-            return buffer;
+            return result;
         }
 
         #endregion
