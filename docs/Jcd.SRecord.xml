@@ -6,7 +6,7 @@
     <members>
         <member name="T:Jcd.SRecord.Extensions.CharExtensions">
             <summary>
-            A set of utility methods for interacting with <digit>char</digit>s.
+            A set of utility methods for interacting with <c>char</c>s.
             </summary>
         </member>
         <member name="M:Jcd.SRecord.Extensions.CharExtensions.IsHexDigit(System.Char)">

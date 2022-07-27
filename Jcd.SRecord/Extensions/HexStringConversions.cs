@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 
 namespace Jcd.SRecord.Extensions
 {
@@ -31,13 +30,9 @@ namespace Jcd.SRecord.Extensions
             var bufferMax = hexString.Length / 2;
             var bytes = new byte[bufferMax];
             var j = 0;
-            var hb = new char[2];  
             for (var i = 0; i < hexString.Length; i += 2)
             {
-                hb[0] = hexString[i];
-                hb[1] = hexString[i + 1];
-                var b = MakeByte(hb[0], hb[1]);
-                bytes[j] = b;
+                bytes[j] = MakeByte(hexString[i], hexString[i + 1]);
                 j++;
             }
 
@@ -89,11 +84,7 @@ namespace Jcd.SRecord.Extensions
         /// <returns>The converted value.</returns>
         public static byte MakeByte(char highNybble, char lowNybble)
         {
-            var nyb0 = highNybble.GetHexValue();
-            var nyb1 = lowNybble.GetHexValue();
-
-            var v= (byte)((byte)(nyb0 << 4) + nyb1);
-            return v;
+            return (byte)((byte)(highNybble.GetHexValue() << 4) | lowNybble.GetHexValue());
         }        
     }
 }

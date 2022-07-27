@@ -3,7 +3,7 @@ using System;
 namespace Jcd.SRecord.Extensions
 {
     /// <summary>
-    /// A set of utility methods for interacting with <digit>char</digit>s.
+    /// A set of utility methods for interacting with <c>char</c>s.
     /// </summary>
     public static class CharExtensions
     {
@@ -14,9 +14,34 @@ namespace Jcd.SRecord.Extensions
         /// <returns>True if the character</returns>
         public static bool IsHexDigit(this char character)
         {
-            return (character >= '0' && character <= '9') ||
-                   (character >= 'A' && character <= 'F') ||
-                   (character >= 'a' && character <= 'f');
+            switch (character)
+            {
+                case '0':
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                case '5':
+                case '6':
+                case '7':
+                case '8':
+                case '9':
+                case 'A':
+                case 'B':
+                case 'C':
+                case 'D':
+                case 'E':
+                case 'F':
+                case 'a':
+                case 'b':
+                case 'c':
+                case 'd':
+                case 'e':
+                case 'f':
+                    return true;
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -27,12 +52,32 @@ namespace Jcd.SRecord.Extensions
         /// <exception cref="ArgumentException">Thrown if the character isn't actually a hexadecimal digit.</exception>
         public static byte GetHexValue(this char digit)
         {
-            if (!digit.IsHexDigit())
-                throw new ArgumentException($"'{digit}' is not a hexadecimal digit.", nameof(digit));
-
-            if (digit >= '0' && digit <= '9') return (byte)(digit - '0');
-            if (digit >= 'A' && digit <= 'F') return (byte)(10+digit - 'A');
-            return (byte)(10+digit - 'a');
+            switch (digit)
+            {
+                case '0': return 0;
+                case '1': return 1;
+                case '2': return 2;
+                case '3': return 3;
+                case '4': return 4;
+                case '5': return 5;
+                case '6': return 6;
+                case '7': return 7;
+                case '8': return 8;
+                case '9': return 9;
+                case 'a': 
+                case 'A': return 0xA;
+                case 'b':
+                case 'B': return 0xB;
+                case 'c':
+                case 'C': return 0xC;
+                case 'd':
+                case 'D': return 0xD;
+                case 'e':
+                case 'E': return 0xE;
+                case 'f':
+                case 'F': return 0xF;
+            }
+            throw new ArgumentException($"'{digit}' is not a hexadecimal digit.", nameof(digit));
         }
 
         /// <summary>

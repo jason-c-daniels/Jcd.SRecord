@@ -7,7 +7,7 @@ namespace Jcd.SRecord.Examples
 {
     internal static class Program
     {
-        private const int RecordsToGenerate = 65536;
+        private const int RecordsToGenerate = 0xFFFF+1;
         private static void Main()
         {
             
