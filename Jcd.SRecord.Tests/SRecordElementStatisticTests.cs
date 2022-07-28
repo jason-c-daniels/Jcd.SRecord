@@ -89,12 +89,12 @@ namespace Jcd.SRecord.Tests
         [InlineData(8,"\t\r\n")]
         public void Resert_After_Increment_Twice_Then_Decrement_Once_Sets_All_Stats_To_Zero(int lineNumber,string text)
         {
-            var expectedRecordCount = 0;
-            var expectedErrorCount = 0;
-            var expectedCommentCount = 0;
-            var expectedBlankCount = 0;
-            var expectedSRecordDataWithCommentCount = 0;
-            var expectedStandAloneCommentCount = 0;
+            const int expectedRecordCount = 0;
+            const int expectedErrorCount = 0;
+            const int expectedCommentCount = 0;
+            const int expectedBlankCount = 0;
+            const int expectedSRecordDataWithCommentCount = 0;
+            const int expectedStandAloneCommentCount = 0;
             var sut = new SRecordElementStatistics();
             var parser = SRecordElementParser.Default;
             var line = parser.Parse(lineNumber, text);
