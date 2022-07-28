@@ -75,19 +75,19 @@ namespace Jcd.SRecord.Tests
         }
         
         [Theory]
-        [InlineData(1,"S123B600BDB653CC0800FD1018FD101AFD101CFD101EBDB665CC0002DD007F00067F001055", true, false, false)]
-        [InlineData(2,"S123B600BDB653CC0800FD1018FD101AFD101CFD101EBDB665CC0002DD007F00067F001055# a comment", true, true, false)]
-        [InlineData(3,"S123B600BDB653CC0800FD1018FD101AFD101CFD101EBDB665CC0002DD007F00067F001055 ; a comment", true, true, false)]
-        [InlineData(3,"Bad Data ; with a comment", false, true, false, true)]
-        [InlineData(3,"Bad Data no comment", false, false, false, true)]
-        [InlineData(4," ; a comment line", false, true, false)]
-        [InlineData(5,"# also a comment line", false, true, false)]
-        [InlineData(5,"#", false, true, false)]
-        [InlineData(5," ; #", false, true, false)]
-        [InlineData(6,"", false, false, true)]
-        [InlineData(7," ", false, false, true)]
-        [InlineData(8,"\t\r\n", false, false, true)]
-        public void Resert_After_Increment_Twice_Then_Decrement_Once_Sets_All_Stats_To_Zero(int lineNumber,string text, bool hasRecord, bool hasComment, bool isBlank, bool hasError=false)
+        [InlineData(1,"S123B600BDB653CC0800FD1018FD101AFD101CFD101EBDB665CC0002DD007F00067F001055")]
+        [InlineData(2,"S123B600BDB653CC0800FD1018FD101AFD101CFD101EBDB665CC0002DD007F00067F001055# a comment")]
+        [InlineData(3,"S123B600BDB653CC0800FD1018FD101AFD101CFD101EBDB665CC0002DD007F00067F001055 ; a comment")]
+        [InlineData(3,"Bad Data ; with a comment")]
+        [InlineData(3,"Bad Data no comment")]
+        [InlineData(4," ; a comment line")]
+        [InlineData(5,"# also a comment line")]
+        [InlineData(5,"#")]
+        [InlineData(5," ; #")]
+        [InlineData(6,"")]
+        [InlineData(7," ")]
+        [InlineData(8,"\t\r\n")]
+        public void Resert_After_Increment_Twice_Then_Decrement_Once_Sets_All_Stats_To_Zero(int lineNumber,string text)
         {
             var expectedRecordCount = 0;
             var expectedErrorCount = 0;
