@@ -6,7 +6,7 @@
 The total number of elements with comments.
 
 ```csharp
-public int ElementsWithCommentsCount { get; }
+public int ElementsWithCommentsCount { get; set; }
 ```
 
 #### Property Value

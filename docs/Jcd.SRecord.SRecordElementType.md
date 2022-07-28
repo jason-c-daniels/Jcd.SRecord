@@ -18,6 +18,7 @@ Implements [System.IEquatable&lt;](https://docs.microsoft.com/en-us/dotnet/api/S
 | [Blank](Jcd.SRecord.SRecordElementType.Blank.md 'Jcd.SRecord.SRecordElementType.Blank') | A blank line (Empty or all whitespace.) |
 | [Comment](Jcd.SRecord.SRecordElementType.Comment.md 'Jcd.SRecord.SRecordElementType.Comment') | A single line comment. |
 | [Error](Jcd.SRecord.SRecordElementType.Error.md 'Jcd.SRecord.SRecordElementType.Error') | Indicates if some error was detected while parsing the line. |
+| [ErrorWithComment](Jcd.SRecord.SRecordElementType.ErrorWithComment.md 'Jcd.SRecord.SRecordElementType.ErrorWithComment') | Indicates if some error was detected while parsing the line and an EOL comment was detected. |
 | [HasComment](Jcd.SRecord.SRecordElementType.HasComment.md 'Jcd.SRecord.SRecordElementType.HasComment') | Indicates that the parsed data contains a comment. (This may be an empty string) |
 | [HasError](Jcd.SRecord.SRecordElementType.HasError.md 'Jcd.SRecord.SRecordElementType.HasError') | Indicates that an error occurred during parsing. |
 | [HasSRecordData](Jcd.SRecord.SRecordElementType.HasSRecordData.md 'Jcd.SRecord.SRecordElementType.HasSRecordData') | Indicates that the parsed data contains `SRecordData` data. |

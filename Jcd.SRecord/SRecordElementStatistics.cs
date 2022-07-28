@@ -25,7 +25,7 @@ namespace Jcd.SRecord
         /// <summary>
         /// The total number of elements with comments.  
         /// </summary>
-        public int ElementsWithCommentsCount => StandAloneCommentCount + SRecordDataWithCommentCount;
+        public int ElementsWithCommentsCount { get; private set; }
 
         /// <summary>
         /// The number of elements which were not in error but did not
@@ -36,7 +36,7 @@ namespace Jcd.SRecord
         /// <summary>
         /// The total number of elements that contained SRecordData
         /// </summary>
-        public int ElementWithSRecordDataCount { get; private set; }
+        public int ElementsWithSRecordDataCount { get; private set; }
 
         /// <summary>
         ///  The total number of elements evaluated.
@@ -44,7 +44,7 @@ namespace Jcd.SRecord
         public int TotalElementsCount => BlankElementCount +         // elements tagged as blank.
                                          ErrorElementCount +         // elements flagged as in error.
                                          StandAloneCommentCount +    // elements containing just comments
-                                         ElementWithSRecordDataCount;// elements containing SRecordData and optionally comments.
+                                         ElementsWithSRecordDataCount;// elements containing SRecordData and optionally comments.
 
         /// <summary>
         /// Sets all datapoints to 0
@@ -55,7 +55,8 @@ namespace Jcd.SRecord
             StandAloneCommentCount = 0;
             SRecordDataWithCommentCount = 0;
             BlankElementCount = 0;
-            ElementWithSRecordDataCount = 0;
+            ElementsWithSRecordDataCount = 0;
+            ElementsWithCommentsCount = 0;
         }
 
         /// <summary>
@@ -68,9 +69,10 @@ namespace Jcd.SRecord
             var type = element.ElementType;
             if (type.IsBlank) BlankElementCount++;
             if (type.HasError) ErrorElementCount++;
-            if (type.HasSRecordData) ElementWithSRecordDataCount++;
-            if (type.HasComment && !type.HasSRecordData) SRecordDataWithCommentCount++;
-            if (type.HasComment && type.HasSRecordData) StandAloneCommentCount++;
+            if (type.HasSRecordData) ElementsWithSRecordDataCount++;
+            if (type.HasComment) ElementsWithCommentsCount++;
+            if (type.HasComment && type.HasSRecordData) SRecordDataWithCommentCount++;
+            if (type.HasComment && !type.HasSRecordData && !type.HasError) StandAloneCommentCount++;
         }
 
         /// <summary>
@@ -83,9 +85,10 @@ namespace Jcd.SRecord
             var type = element.ElementType;
             if (type.IsBlank) BlankElementCount--;
             if (type.HasError) ErrorElementCount--;
-            if (type.HasSRecordData) ElementWithSRecordDataCount--;
-            if (type.HasComment && !type.HasSRecordData) SRecordDataWithCommentCount--;
-            if (type.HasComment && type.HasSRecordData) StandAloneCommentCount--;
+            if (type.HasSRecordData) ElementsWithSRecordDataCount--;
+            if (type.HasComment) ElementsWithCommentsCount--;
+            if (type.HasComment && type.HasSRecordData) SRecordDataWithCommentCount--;
+            if (type.HasComment && !type.HasSRecordData && !type.HasError) StandAloneCommentCount--;
         }
     }
 }

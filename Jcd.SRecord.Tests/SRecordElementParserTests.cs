@@ -20,15 +20,18 @@ namespace Jcd.SRecord.Tests
         [InlineData(3,"S123B600BDB653CC0800FD1018FD101AFD101CFD101EBDB665CC0002DD007F00067F001055 ; a comment", true, true, false)]
         [InlineData(4," ; a comment line", false, true, false)]
         [InlineData(5,"# also a comment line", false, true, false)]
+        [InlineData(5,"Bad line # with a comment line", false, true, false, true)]
+        [InlineData(5,"Bad line without comment line", false, false, false, true)]
         [InlineData(5,"#", false, true, false)]
         [InlineData(5," ; #", false, true, false)]
         [InlineData(6,"", false, false, true)]
         [InlineData(7," ", false, false, true)]
         [InlineData(8,"\t\r\n", false, false, true)]
-        public void Default_Parse_Returns_A_Valid_Line_When_SRecord_Data_Comments_Or_Mixed_Line_Is_Passed_In(int lineNumber,string text, bool hasRecord, bool hasComment, bool isBlank)
+        public void Default_Parse_Returns_A_Valid_Line_When_SRecord_Data_Comments_Or_Mixed_Line_Is_Passed_In(int lineNumber,string text, bool hasRecord, bool hasComment, bool isBlank, bool hasError=false)
         {
             var sut = SRecordElementParser.Default;
             var line = sut.Parse(lineNumber, text);
+            Assert.Equal(hasError,line.ElementType.HasError);
             Assert.Equal(hasComment,line.ElementType.HasComment);
             Assert.Equal(hasComment,line.Comment!=null);
             Assert.Equal(hasRecord,line.ElementType.HasSRecordData);
@@ -40,7 +43,7 @@ namespace Jcd.SRecord.Tests
 
 
         [Theory]
-        [InlineData(1,"NON-SRECORD-DATA", false)]
+        [InlineData(1,"NON-SRECORD-DATA", true)]
         [InlineData(2,"S123B600BDB653CC0800FD1018FD101AFD101CFD101EBDB665CC0002DD007F00067F001051", true)] // corrupt checksum
         [InlineData(3,"S123B600BDB653CC0800FD1018FD101AFD101CFD101EBDB665CC0002DD007F00067F001051 # with comment", true)] // corrupt checksum
         [InlineData(3,"S123B600BDB653CC0800FD1018FD101AFD101CFD101EBDB665CC0002DD007F00067F001055 ! bad comment character", true)]

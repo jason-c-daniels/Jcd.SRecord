@@ -1350,7 +1350,7 @@
             parse comments or SRecordData
             </summary>
         </member>
-        <member name="P:Jcd.SRecord.SRecordElementStatistics.ElementWithSRecordDataCount">
+        <member name="P:Jcd.SRecord.SRecordElementStatistics.ElementsWithSRecordDataCount">
             <summary>
             The total number of elements that contained SRecordData
             </summary>
@@ -1428,6 +1428,11 @@
         <member name="F:Jcd.SRecord.SRecordElementType.Error">
             <summary>
              Indicates if some error was detected while parsing the line.
+            </summary>
+        </member>
+        <member name="F:Jcd.SRecord.SRecordElementType.ErrorWithComment">
+            <summary>
+             Indicates if some error was detected while parsing the line and an EOL comment was detected.
             </summary>
         </member>
         <member name="M:Jcd.SRecord.SRecordElementType.Equals(Jcd.SRecord.SRecordElementType)">

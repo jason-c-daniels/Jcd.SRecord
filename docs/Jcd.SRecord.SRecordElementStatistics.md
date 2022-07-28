@@ -15,7 +15,7 @@ Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.O
 | :--- | :--- |
 | [BlankElementCount](Jcd.SRecord.SRecordElementStatistics.BlankElementCount.md 'Jcd.SRecord.SRecordElementStatistics.BlankElementCount') | The number of elements which were not in error but did not<br/>parse comments or SRecordData |
 | [ElementsWithCommentsCount](Jcd.SRecord.SRecordElementStatistics.ElementsWithCommentsCount.md 'Jcd.SRecord.SRecordElementStatistics.ElementsWithCommentsCount') | The total number of elements with comments. |
-| [ElementWithSRecordDataCount](Jcd.SRecord.SRecordElementStatistics.ElementWithSRecordDataCount.md 'Jcd.SRecord.SRecordElementStatistics.ElementWithSRecordDataCount') | The total number of elements that contained SRecordData |
+| [ElementsWithSRecordDataCount](Jcd.SRecord.SRecordElementStatistics.ElementsWithSRecordDataCount.md 'Jcd.SRecord.SRecordElementStatistics.ElementsWithSRecordDataCount') | The total number of elements that contained SRecordData |
 | [ErrorElementCount](Jcd.SRecord.SRecordElementStatistics.ErrorElementCount.md 'Jcd.SRecord.SRecordElementStatistics.ErrorElementCount') | The number of elements that were flagged as having an error. |
 | [SRecordDataWithCommentCount](Jcd.SRecord.SRecordElementStatistics.SRecordDataWithCommentCount.md 'Jcd.SRecord.SRecordElementStatistics.SRecordDataWithCommentCount') | The number of elements with both SRecordData and comments. |
 | [StandAloneCommentCount](Jcd.SRecord.SRecordElementStatistics.StandAloneCommentCount.md 'Jcd.SRecord.SRecordElementStatistics.StandAloneCommentCount') | The number of elements that just had comment data. |

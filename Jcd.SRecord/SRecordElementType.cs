@@ -53,6 +53,11 @@ namespace Jcd.SRecord
         /// </summary>
         public static readonly SRecordElementType Error = new SRecordElementType(hasError:true,hasComment:false,hasSRecordData:false,isBlank:false);
 
+        /// <summary>
+        ///  Indicates if some error was detected while parsing the line and an EOL comment was detected.
+        /// </summary>
+        public static readonly SRecordElementType ErrorWithComment = new SRecordElementType(hasError:true,hasComment:true,hasSRecordData:false,isBlank:false);
+
         private SRecordElementType(bool hasComment=false, bool hasSRecordData=false, bool isBlank=false, bool hasError=false)
         {
             HasComment = hasComment;

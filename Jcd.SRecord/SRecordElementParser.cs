@@ -112,10 +112,10 @@ namespace Jcd.SRecord
         public SRecordElement Parse(int lineNumber, [NotNull]string lineOfText)
         {
             var originalLineOfText = lineOfText;
+            string comment = null;
             try
             {
                 RaiseParsingEvent(lineNumber, originalLineOfText);
-                string comment = null;
                 if (AllowComments)
                 {
                     (lineOfText, comment) = SplitLineOnComment(lineOfText);
@@ -141,13 +141,9 @@ namespace Jcd.SRecord
                         elementType: SRecordElementType.Comment, 
                         comment: comment, originalLine: originalLineOfText)
                     );
-                
+
                 if (!lineOfText![0].Equals(SRecordDataType.RecordStartCharacter))
-                    return ProcessResult(new SRecordElement(lineNumber,
-                        elementType: SRecordElementType.Error,
-                        originalLine: originalLineOfText,
-                        errorMessage: $"Unrecognized starting character: {lineOfText[0].ToString()}")
-                    );
+                    throw new ArgumentException($"Unrecognized starting character: {lineOfText[0].ToString()}");
 
                 return ProcessResult(new SRecordElement(lineNumber,
                     elementType: comment == null ? SRecordElementType.SRecord : SRecordElementType.SRecordWithEndOfElementComment,
@@ -157,7 +153,8 @@ namespace Jcd.SRecord
             catch (Exception ex)
             {
                 return ProcessResult(new SRecordElement(lineNumber, 
-                    elementType: SRecordElementType.Error, 
+                    elementType: comment !=null ? SRecordElementType.ErrorWithComment : SRecordElementType.Error, 
+                    comment: comment,
                     originalLine: originalLineOfText, 
                     errorMessage: "SRecordData structure is invalid.", 
                     exception: ex)
