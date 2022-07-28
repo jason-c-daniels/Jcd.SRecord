@@ -39,11 +39,12 @@ namespace Jcd.SRecord.Tests
             Assert.Throws<ArgumentException>(()=> new SRecordData(type, 0xFFFFFFFF, new byte[type.MaximumDataBytesAllowed + 1]));
         } 
         
-        
         [Theory]
         [InlineData("S0",0x0F,0x0000,"68656C6C6F20202020200000",0x3C)]
         [InlineData("S1",0x1F,0x0000,"7C0802A6900100049421FFF07C6C1B787C8C23783C60000038630000",0x26)]
         [InlineData("S1",0x1F,0x001C,"4BFFFFE5398000007D83637880010014382100107C0803A64E800020",0xE9)]
+        [InlineData("S2",0x20,0x001C,"4BFFFFE5398000007D83637880010014382100107C0803A64E800020",0xE8)]
+        [InlineData("S3",0x21,0x001C,"4BFFFFE5398000007D83637880010014382100107C0803A64E800020",0xE7)]
         [InlineData("S1",0x11,0x0038,"48656C6C6F20776F726C642E0A00",0x42)]
         [InlineData("S5",0x03,0x0003,null,0xF9)]
         [InlineData("S9",0x03,0x0000,null,0xFC)]
@@ -60,6 +61,5 @@ namespace Jcd.SRecord.Tests
             Assert.Equal(bytes,sr.Data.ToArray());
             Assert.Equal(checksum,sr.Checksum);            
         }
-        
     }
 }

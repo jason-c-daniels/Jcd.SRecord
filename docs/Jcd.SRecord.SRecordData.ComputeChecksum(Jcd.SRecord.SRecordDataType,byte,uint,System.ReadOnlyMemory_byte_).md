@@ -37,3 +37,10 @@ The data for the data field, if any.
 #### Returns
 [System.Byte](https://docs.microsoft.com/en-us/dotnet/api/System.Byte 'System.Byte')  
 The checksum
+
+### Remarks
+This checksum is a sum-complement type checksum which returns  
+            the one's complement of the least significant byte of the sum of  
+            all bytes after the record type indicator (S0...etc.).  
+            See [https://en.wikipedia.org/wiki/SREC_(file_format)](https://en.wikipedia.org/wiki/SREC_(file_format) 'https://en.wikipedia.org/wiki/SREC_(file_format)')  
+            for reading about this specific checksum algorithm.

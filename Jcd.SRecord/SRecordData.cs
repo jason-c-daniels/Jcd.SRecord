@@ -121,24 +121,40 @@ namespace Jcd.SRecord
         /// <param name="address">The data for the address field.</param>
         /// <param name="data">The data for the data field, if any.</param>
         /// <returns>The checksum</returns>
+        /// <remarks>This checksum is a sum-complement type checksum which returns
+        /// the one's complement of the least significant byte of the sum of
+        /// all bytes after the record type indicator (S0...etc.).
+        /// See <see href="https://en.wikipedia.org/wiki/SREC_(file_format)"/>
+        /// for reading about this specific checksum algorithm.
+        /// </remarks>
         private static byte ComputeChecksum(SRecordDataType type, byte count, uint address, ReadOnlyMemory<byte> data)
         {
-            ushort checksum = count;
-            checksum += (byte)(address & 0xFF);
+            var checksum = Sum(SumAddressBytesAndCount(type, address, count), data);
+            return (byte)~(byte)(checksum & 0xFF);
+        }
+
+        private static ushort SumAddressBytesAndCount(SRecordDataType type, uint address, ushort count)
+        {
+            var checksum = (ushort)(count + (byte)(address & 0xFF));
             if (type.AddressLengthInBytes > 1)
             {
                 address >>= 8;
                 checksum += (byte)(address & 0xFF);
             }
+
             if (type.AddressLengthInBytes > 2)
             {
                 address >>= 8;
                 checksum += (byte)(address & 0xFF);
             }
-            
-            //checksum = data.ToArray().Aggregate(checksum, (current, b) => (ushort)(current + b));
-            checksum = Sum(checksum, data);
-            return (byte)~(byte)(checksum & 0xFF);
+
+            if (type.AddressLengthInBytes > 3)
+            {
+                address >>= 8;
+                checksum += (byte)(address & 0xFF);
+            }
+
+            return checksum;
         }
 
         private static ushort Sum(ushort seed, ReadOnlyMemory<byte> bytes)

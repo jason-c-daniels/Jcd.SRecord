@@ -37,7 +37,6 @@ namespace Jcd.SRecord.Examples
         {
             var linesWithComments = new List<string>();
             var linesWithoutComments = new List<string>();
-            //Console.WriteLine($"Generating {RecordsToGenerate:n0} {type.Key} records of test data with {type.MaximumDataBytesAllowed} bytes of data each.");
             var linesOfTextWithComments=GenerateLines(linesWithComments,RecordsToGenerate, type,null,"{0} # some relatively brief comment.");
             var linesOfTextWithoutComments=GenerateLines(linesWithoutComments,RecordsToGenerate, type);
             var readerNoComments = new SRecordElementReader(linesOfTextWithoutComments, SRecordElementParser.Default);
