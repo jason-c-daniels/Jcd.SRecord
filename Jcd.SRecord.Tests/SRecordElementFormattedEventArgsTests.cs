@@ -14,7 +14,6 @@ namespace Jcd.SRecord.Tests
             Assert.Equal(succeeded,args.Succeeded);
             Assert.Same(element,args.Element);
             Assert.Equal(formattedText,args.FormattedText);
-            
         }
     }
 }

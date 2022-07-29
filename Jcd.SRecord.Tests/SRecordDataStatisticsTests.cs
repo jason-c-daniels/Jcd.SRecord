@@ -185,6 +185,5 @@ namespace Jcd.SRecord.Tests
             var record = new SRecordData(type, 0x01, new ReadOnlyMemory<byte>(buffer));
             return record;
         }
-        
     }
 }

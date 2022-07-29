@@ -13,7 +13,6 @@ namespace Jcd.SRecord.Tests
             Assert.Equal(SRecordElementParser.DefaultCommentCharacters.Count>0,sut.AllowComments);
         }
 
-
         [Theory]
         [InlineData(1,"S123B600BDB653CC0800FD1018FD101AFD101CFD101EBDB665CC0002DD007F00067F001055", true, false, false)]
         [InlineData(2,"S123B600BDB653CC0800FD1018FD101AFD101CFD101EBDB665CC0002DD007F00067F001055# a comment", true, true, false)]
@@ -40,7 +39,6 @@ namespace Jcd.SRecord.Tests
             Assert.NotNull(line.OriginalLine);
             Assert.Equal(text,line.OriginalLine);
         }
-
 
         [Theory]
         [InlineData(1,"NON-SRECORD-DATA", true)]

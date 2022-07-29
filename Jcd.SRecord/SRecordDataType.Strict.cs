@@ -92,7 +92,6 @@ namespace Jcd.SRecord
             /// </remarks>
             public static readonly SRecordDataType S8 = new SRecordDataType("S8", 3, 0);
 
-
             /// <summary>
             /// The identifier for S8 records. Address is 3 bytes.  No data allowed.
             /// </summary>

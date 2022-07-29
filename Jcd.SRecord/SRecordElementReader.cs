@@ -43,7 +43,6 @@ namespace Jcd.SRecord
         public SRecordElementReader(Stream stream, ISRecordElementParser parser)
             : this(new StreamReader(stream), parser)
         {
-            
         }
 
         /// <summary>
@@ -55,7 +54,6 @@ namespace Jcd.SRecord
         public SRecordElementReader(Stream stream, Encoding encoding, ISRecordElementParser parser)
             : this(new StreamReader(stream, encoding), parser)
         {
-            
         }
         
         /// <summary>

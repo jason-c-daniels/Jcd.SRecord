@@ -161,7 +161,6 @@ namespace Jcd.SRecord.Tests
             Assert.False(type2 != type1);
         }
         
-        
         public static IEnumerable<object[]> NonEquivalentTypes => MakeNonEquivalentTypes();
 
         private static IEnumerable<object[]> MakeNonEquivalentTypes()
@@ -176,8 +175,5 @@ namespace Jcd.SRecord.Tests
                 }
             }
         }
-
-        
-        
     }
 }

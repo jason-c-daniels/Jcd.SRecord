@@ -32,6 +32,5 @@ namespace Jcd.SRecord
         /// </summary>
         // ReSharper disable once EventNeverSubscribedTo.Global
         public event EventHandler<SRecordElementFormattedEventArgs> Formatted;
-
     }
 }

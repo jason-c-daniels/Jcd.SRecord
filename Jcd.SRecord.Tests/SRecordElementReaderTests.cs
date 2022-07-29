@@ -83,7 +83,6 @@ namespace Jcd.SRecord.Tests
             Assert.Equal(expectedLine, reader.CurrentLine);
         }
 
-        
         [Fact]
         public async void ReadLineAsync_Reads_A_Line_And_Increments_The_Line_Count()
         {
@@ -103,7 +102,6 @@ namespace Jcd.SRecord.Tests
             expectedLine++;
             Assert.Equal(expectedLine, reader.CurrentLine);
         }
-        
         
         [Theory]
         [InlineData("",0)]
@@ -150,6 +148,5 @@ namespace Jcd.SRecord.Tests
             Assert.Equal(expectedCount, lines.Count);
             mockParser.Verify(m => m.Parse(It.IsAny<int>(), It.IsAny<string>()), Times.Exactly(expectedCount));
         }
-        
     }
 }

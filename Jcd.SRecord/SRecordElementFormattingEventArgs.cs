@@ -17,7 +17,6 @@ namespace Jcd.SRecord
         /// Constructs a <c>SRecordElementFormattingEventArgs</c> instance.
         /// </summary>
         /// <param name="element">The element to be formatted.</param>
-
         public SRecordElementFormattingEventArgs([NotNull] SRecordElement element)
         {
             Element = element;

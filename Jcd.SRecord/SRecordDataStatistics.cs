@@ -99,7 +99,6 @@ namespace Jcd.SRecord
                                             DataRecordCount +
                                             S4Count +
                                             StartAddressRecordCount;
-
         
         /// <summary>
         /// Resets all properties to 0;

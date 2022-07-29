@@ -22,7 +22,6 @@ namespace Jcd.SRecord
         /// </summary>
         /// <param name="lineNumber">The line number.</param>
         /// <param name="originalLineOfText">The original line of text.</param>
-
         public SRecordElementParsingEventArgs(int lineNumber, string originalLineOfText)
         {
             LineNumber = lineNumber;

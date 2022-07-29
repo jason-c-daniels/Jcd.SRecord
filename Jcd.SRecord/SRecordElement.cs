@@ -66,6 +66,5 @@ namespace Jcd.SRecord
             ErrorMessage = errorMessage;
             Exception = exception;
         }
-        
     }
 }

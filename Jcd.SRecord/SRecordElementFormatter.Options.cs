@@ -121,7 +121,6 @@ namespace Jcd.SRecord
             /// See <c>EmitSRecordAndCommentDataWithSpace</c>
             /// </summary>
             public static Options DefaultOptions => EmitSRecordAndCommentDataWithSpace;
-
         }
     }
 }

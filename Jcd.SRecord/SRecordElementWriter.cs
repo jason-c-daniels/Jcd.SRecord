@@ -23,7 +23,6 @@ namespace Jcd.SRecord
         public SRecordElementWriter(Stream stream, ISRecordElementFormatter elementFormatter)
             : this(new StreamWriter(stream,new UTF8Encoding(false)),elementFormatter)
         {
-            
         } 
 
         /// <summary>
@@ -35,7 +34,6 @@ namespace Jcd.SRecord
         public SRecordElementWriter(Stream stream, Encoding encoding, ISRecordElementFormatter elementFormatter)
          : this(new StreamWriter(stream,encoding),elementFormatter)
         {
-            
         } 
         
         /// <summary>

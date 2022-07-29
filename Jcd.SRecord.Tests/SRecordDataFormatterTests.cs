@@ -25,6 +25,5 @@ namespace Jcd.SRecord.Tests
             var result = formatter.Format(sr);
             Assert.Equal(expectedText, result);
         }
-
     }
 }

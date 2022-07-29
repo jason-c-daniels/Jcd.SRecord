@@ -29,7 +29,6 @@ namespace Jcd.SRecord.Tests
             Assert.Equal(expectedSRecordCount,document.SRecords.Count());
         }
         
-        
         [Theory]
         [InlineData("#Line 1\r\n" +
                     "# Line 2\r\n" +
@@ -76,7 +75,6 @@ namespace Jcd.SRecord.Tests
             Assert.Equal(expectedSRecordCount, document.SRecords.Count());
         }
 
-
         [Theory]
         [InlineData(@"_TestData","FakeFirmware.s37", "s37-good.out", @"FakeFirmware.s37")]
         [InlineData(@"_TestData","FakeFirmware.s19", "s19-good.out", @"FakeFirmware.s19")]
@@ -119,7 +117,5 @@ namespace Jcd.SRecord.Tests
             var actualContent = (await File.ReadAllTextAsync(outputFilePath)).Trim().Replace("\r\n","\n");
             Assert.Equal(expectedContent,actualContent);
         }
-
-        
     }
 }
