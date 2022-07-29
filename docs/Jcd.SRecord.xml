@@ -1379,7 +1379,7 @@
         </member>
         <member name="M:Jcd.SRecord.SRecordElementStatistics.Reset">
             <summary>
-            Sets all datapoints to 0
+            Sets all data points to 0
             </summary>
         </member>
         <member name="M:Jcd.SRecord.SRecordElementStatistics.Increment(Jcd.SRecord.SRecordElement)">

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.ObjectModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using System.Linq;
 
 
 namespace Jcd.SRecord

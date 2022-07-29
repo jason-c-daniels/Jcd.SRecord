@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 
 namespace Jcd.SRecord.Extensions
 {
@@ -19,7 +18,7 @@ namespace Jcd.SRecord.Extensions
         public static uint ToUInt32(this ReadOnlySpan<byte> bytes)
         {
             uint result = 0;
-            for(int i=0;i<bytes.Length;i++)
+            for(var i=0;i<bytes.Length;i++)
             {
                 result |= bytes[i];
                 if (i+1<bytes.Length) result <<= 8;

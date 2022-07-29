@@ -28,4 +28,4 @@ This class cannot process more than int.MaxValue records without having Reset ca
 | :--- | :--- |
 | [Decrement(SRecordElement)](Jcd.SRecord.SRecordElementStatistics.Decrement(Jcd.SRecord.SRecordElement).md 'Jcd.SRecord.SRecordElementStatistics.Decrement(Jcd.SRecord.SRecordElement)') | Decrements the this instance's statistics based on the<br/>passed in element. |
 | [Increment(SRecordElement)](Jcd.SRecord.SRecordElementStatistics.Increment(Jcd.SRecord.SRecordElement).md 'Jcd.SRecord.SRecordElementStatistics.Increment(Jcd.SRecord.SRecordElement)') | Increments the this instance's statistics based on the<br/>passed in element. |
-| [Reset()](Jcd.SRecord.SRecordElementStatistics.Reset().md 'Jcd.SRecord.SRecordElementStatistics.Reset()') | Sets all datapoints to 0 |
+| [Reset()](Jcd.SRecord.SRecordElementStatistics.Reset().md 'Jcd.SRecord.SRecordElementStatistics.Reset()') | Sets all data points to 0 |

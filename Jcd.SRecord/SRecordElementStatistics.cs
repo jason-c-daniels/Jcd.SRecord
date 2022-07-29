@@ -48,7 +48,7 @@ namespace Jcd.SRecord
                                          ElementsWithSRecordDataCount;// elements containing SRecordData and optionally comments.
 
         /// <summary>
-        /// Sets all datapoints to 0
+        /// Sets all data points to 0
         /// </summary>
         public void Reset()
         {

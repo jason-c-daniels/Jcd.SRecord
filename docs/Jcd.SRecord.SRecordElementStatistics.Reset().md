@@ -3,7 +3,7 @@
 
 ## SRecordElementStatistics.Reset() Method
 
-Sets all datapoints to 0
+Sets all data points to 0
 
 ```csharp
 public void Reset();

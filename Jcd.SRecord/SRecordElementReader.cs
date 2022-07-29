@@ -21,7 +21,7 @@ namespace Jcd.SRecord
         /// <remarks>
         /// This is 0 if nothing has been read and number of the last line in the file, if all lines have been read.
         /// </remarks>
-        public int CurrentLine { get; protected set; }
+        public int CurrentLine { get; private set; }
 
         #region Constructors
         

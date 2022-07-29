@@ -127,6 +127,7 @@ namespace Jcd.SRecord
         public void Increment([NotNull] SRecordData record)
         {
             IncrementDataLengthCount(record);
+            // ReSharper disable ConvertIfStatementToSwitchStatement
             if (record.Type.Key == "S0") S0Count++;
             if (record.Type.Key == "S1") S1Count++;
             if (record.Type.Key == "S2") S2Count++;
@@ -137,6 +138,7 @@ namespace Jcd.SRecord
             if (record.Type.Key == "S7") S7Count++;
             if (record.Type.Key == "S8") S8Count++;
             if (record.Type.Key == "S9") S9Count++;
+            // ReSharper restore ConvertIfStatementToSwitchStatement
         }
         
         private void IncrementDataLengthCount([NotNull]SRecordData record)
@@ -154,6 +156,7 @@ namespace Jcd.SRecord
         /// <param name="record"></param>
         public void Decrement([NotNull] SRecordData record)
         {
+            // ReSharper disable ConvertIfStatementToSwitchStatement
             if (record.Type.Key == "S0") S0Count--;
             if (record.Type.Key == "S1") S1Count--;
             if (record.Type.Key == "S2") S2Count--;
@@ -164,6 +167,7 @@ namespace Jcd.SRecord
             if (record.Type.Key == "S7") S7Count--;
             if (record.Type.Key == "S8") S8Count--;
             if (record.Type.Key == "S9") S9Count--;
+            // ReSharper restore ConvertIfStatementToSwitchStatement
             DecrementDataLengthCount(record);
             ValidateCountsAfterDecrement();
         }
