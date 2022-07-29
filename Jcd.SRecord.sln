@@ -9,6 +9,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jcd.SRecord.Tests", "Jcd.SR
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jcd.SRecord.Examples", "Jcd.SRecord.Examples\Jcd.SRecord.Examples.csproj", "{232F5D91-F9D3-4B50-A6B9-B6F6FCDF8268}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "README and LICENSE", "README and LICENSE", "{FCCB67FC-8218-4AC6-8F52-75C9A873509A}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+		LICENSE = LICENSE
+		nuget.config = nuget.config
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
