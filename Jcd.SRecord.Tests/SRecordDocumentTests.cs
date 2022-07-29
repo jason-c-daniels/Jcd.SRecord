@@ -53,60 +53,70 @@ namespace Jcd.SRecord.Tests
         }
 
         [Theory]
-        [InlineData(@"_TestData\FakeFirmware.s37", 6, 6)]
-        [InlineData(@"_TestData\FakeFirmware.s19", 7 ,7)]
-        [InlineData(@"_TestData\BadFirmware-corrupt-checksum-with-eol-comment.s37", 6, 5)]
-        public void CreateFromFile_Reads_The_Expected_Number_Of_Elements(string fileName, int expectedElementCount, int expectedSRecordCount)
+        [InlineData(@"_TestData","FakeFirmware.s37", 6, 6)]
+        [InlineData(@"_TestData","FakeFirmware.s19", 7 ,7)]
+        [InlineData(@"_TestData","BadFirmware-corrupt-checksum-with-eol-comment.s37", 6, 5)]
+        public void CreateFromFile_Reads_The_Expected_Number_Of_Elements(string folder, string fileName, int expectedElementCount, int expectedSRecordCount)
         {
-            var document = SRecordDocument.CreateFromFile(fileName);
+            var filePath = Path.Combine(folder, fileName);
+            var document = SRecordDocument.CreateFromFile(filePath);
             Assert.Equal(expectedElementCount, document.Elements.Count);
             Assert.Equal(expectedSRecordCount, document.SRecords.Count());
         }
         
         [Theory]
-        [InlineData(@"_TestData\FakeFirmware.s37", 6, 6)]
-        [InlineData(@"_TestData\FakeFirmware.s19", 7 ,7)]
-        [InlineData(@"_TestData\BadFirmware-corrupt-checksum-with-eol-comment.s37", 6, 5)]
-        public async void CreateFromFileAsync_Reads_The_Expected_Number_Of_Elements(string fileName, int expectedElementCount, int expectedSRecordCount)
+        [InlineData(@"_TestData","FakeFirmware.s37", 6, 6)]
+        [InlineData(@"_TestData","FakeFirmware.s19", 7 ,7)]
+        [InlineData(@"_TestData","BadFirmware-corrupt-checksum-with-eol-comment.s37", 6, 5)]
+        public async void CreateFromFileAsync_Reads_The_Expected_Number_Of_Elements(string folder, string fileName, int expectedElementCount, int expectedSRecordCount)
         {
-            var document = await SRecordDocument.CreateFromFileAsync(fileName);
+            var filePath = Path.Combine(folder, fileName);
+            var document = await SRecordDocument.CreateFromFileAsync(filePath);
             Assert.Equal(expectedElementCount, document.Elements.Count);
             Assert.Equal(expectedSRecordCount, document.SRecords.Count());
         }
 
 
         [Theory]
-        [InlineData(@"_TestData\FakeFirmware.s37", "s37-good.out", @"_TestData\FakeFirmware.s37")]
-        [InlineData(@"_TestData\FakeFirmware.s19", "s19-good.out", @"_TestData\FakeFirmware.s19")]
-        [InlineData(@"_TestData\BadFirmware-corrupt-checksum-with-eol-comment.s37", "s37-bad.out", @"_TestData\BadFirmware-corrupt-checksum-with-eol-comment-line-removed.s37")]
-        public void WriteFile_Creates_The_Expected_File(string inputFile, string outputFileName, string nameOfFileWithExpectedContent)
+        [InlineData(@"_TestData","FakeFirmware.s37", "s37-good.out", @"FakeFirmware.s37")]
+        [InlineData(@"_TestData","FakeFirmware.s19", "s19-good.out", @"FakeFirmware.s19")]
+        [InlineData(@"_TestData","BadFirmware-corrupt-checksum-with-eol-comment.s37", "s37-bad.out", @"BadFirmware-corrupt-checksum-with-eol-comment-line-removed.s37")]
+        public void WriteFile_Creates_The_Expected_File(string folder,string inputFile, string outputFileName, string nameOfFileWithExpectedContent)
         {
-            if (File.Exists(outputFileName)) File.Delete(outputFileName);
-            var document = SRecordDocument.CreateFromFile(inputFile);
-            document.WriteFile(outputFileName);
-            Assert.True(File.Exists(outputFileName));
+            var inputFilePath = Path.Combine(folder, inputFile);
+            var outputFilePath = Path.Combine(folder, outputFileName);
+            var expectedContentPath = Path.Combine(folder, nameOfFileWithExpectedContent);
+            if (File.Exists(outputFilePath)) File.Delete(outputFilePath);
+            var document = SRecordDocument.CreateFromFile(inputFilePath);
+            document.WriteFile(outputFilePath);
+            Assert.True(File.Exists(outputFilePath));
             // now read and compare the file contents as string data.
+            // convert \r\n to \n to make this UT run correctly on any platform.
             // trim trailing CRLF pairs as those don't matter.
-            var expectedContent = File.ReadAllText(nameOfFileWithExpectedContent).Trim();
-            var actualContent = File.ReadAllText(outputFileName).Trim();
+            var expectedContent = File.ReadAllText(expectedContentPath).Trim().Replace("\r\n","\n");
+            var actualContent = File.ReadAllText(outputFilePath).Trim().Replace("\r\n","\n");
             Assert.Equal(expectedContent,actualContent);
         }
         
         
         [Theory]
-        [InlineData(@"_TestData\FakeFirmware.s37", "s37-good-a.out", @"_TestData\FakeFirmware.s37")]
-        [InlineData(@"_TestData\FakeFirmware.s19", "s19-good-a.out", @"_TestData\FakeFirmware.s19")]
-        [InlineData(@"_TestData\BadFirmware-corrupt-checksum-with-eol-comment.s37", "s37-bad-a.out", @"_TestData\BadFirmware-corrupt-checksum-with-eol-comment-line-removed.s37")]
-        public async void WriteFileAsync_Creates_The_Expected_File(string inputFile, string outputFileName, string nameOfFileWithExpectedContent)
+        [InlineData(@"_TestData","FakeFirmware.s37", "s37-good-a.out", @"FakeFirmware.s37")]
+        [InlineData(@"_TestData","FakeFirmware.s19", "s19-good-a.out", @"FakeFirmware.s19")]
+        [InlineData(@"_TestData","BadFirmware-corrupt-checksum-with-eol-comment.s37", "s37-bad-a.out", @"BadFirmware-corrupt-checksum-with-eol-comment-line-removed.s37")]
+        public async void WriteFileAsync_Creates_The_Expected_File(string folder, string inputFile, string outputFileName, string nameOfFileWithExpectedContent)
         {
-            if (File.Exists(outputFileName)) File.Delete(outputFileName);
-            var document = await SRecordDocument.CreateFromFileAsync(inputFile);
-            await document.WriteFileAsync(outputFileName);
-            Assert.True(File.Exists(outputFileName));
+            var inputFilePath = Path.Combine(folder, inputFile);
+            var outputFilePath = Path.Combine(folder, outputFileName);
+            var expectedContentPath = Path.Combine(folder, nameOfFileWithExpectedContent);
+            if (File.Exists(outputFilePath)) File.Delete(outputFilePath);
+            var document = await SRecordDocument.CreateFromFileAsync(inputFilePath);
+            await document.WriteFileAsync(outputFilePath);
+            Assert.True(File.Exists(outputFilePath));
             // now read and compare the file contents as string data.
+            // convert \r\n to \n to make this UT run correctly on any platform.
             // trim trailing CRLF pairs as those don't matter.
-            var expectedContent = (await File.ReadAllTextAsync(nameOfFileWithExpectedContent)).Trim();
-            var actualContent = (await File.ReadAllTextAsync(outputFileName)).Trim();
+            var expectedContent = (await File.ReadAllTextAsync(expectedContentPath)).Trim().Replace("\r\n","\n");
+            var actualContent = (await File.ReadAllTextAsync(outputFilePath)).Trim().Replace("\r\n","\n");
             Assert.Equal(expectedContent,actualContent);
         }
 
