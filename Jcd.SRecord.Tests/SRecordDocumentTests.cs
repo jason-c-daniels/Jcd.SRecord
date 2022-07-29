@@ -96,7 +96,6 @@ namespace Jcd.SRecord.Tests
             Assert.Equal(expectedContent,actualContent);
         }
         
-        
         [Theory]
         [InlineData(@"_TestData","FakeFirmware.s37", "s37-good-a.out", @"FakeFirmware.s37")]
         [InlineData(@"_TestData","FakeFirmware.s19", "s19-good-a.out", @"FakeFirmware.s19")]

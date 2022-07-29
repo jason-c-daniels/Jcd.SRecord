@@ -10,7 +10,6 @@ namespace Jcd.SRecord
         /// </summary>
         public static class Flexible
         {
-
             /// <summary>
             /// The identifier for S0 records. Address is 2 bytes, should always be 0. Maximum data bytes allowed 252 bytes.
             /// </summary>
