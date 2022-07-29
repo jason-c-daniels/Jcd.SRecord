@@ -3,7 +3,7 @@
 
 ## SRecordData(SRecordDataType, uint, Nullable<ReadOnlyMemory<byte>>) Constructor
 
-Constructs a mew SRecordData instance.
+Constructs a new SRecordData instance.
 
 ```csharp
 public SRecordData(Jcd.SRecord.SRecordDataType type, uint address, System.Nullable<System.ReadOnlyMemory<byte>> data);
@@ -31,5 +31,4 @@ The data for the data field, if any.
 #### Exceptions
 
 [System.ArgumentException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentException 'System.ArgumentException')  
-When various constraints are violated such as too big of an  
-address for a given record type. See the specification for details.
+When various constraints are violated such as too big of an address for a given record type. See the specification for details.

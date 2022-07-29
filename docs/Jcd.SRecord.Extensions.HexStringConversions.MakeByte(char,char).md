@@ -3,8 +3,7 @@
 
 ## HexStringConversions.MakeByte(char, char) Method
 
-Given a pair of hexadecimal characters, convert them into the single  
-byte equivalent.
+Given a pair of hexadecimal values encoded as chars, convert them into the single byte equivalent.
 
 ```csharp
 public static byte MakeByte(char highNybble, char lowNybble);
@@ -15,9 +14,13 @@ public static byte MakeByte(char highNybble, char lowNybble);
 
 `highNybble` [System.Char](https://docs.microsoft.com/en-us/dotnet/api/System.Char 'System.Char')
 
+the high nybble (leftmost digit)
+
 <a name='Jcd.SRecord.Extensions.HexStringConversions.MakeByte(char,char).lowNybble'></a>
 
 `lowNybble` [System.Char](https://docs.microsoft.com/en-us/dotnet/api/System.Char 'System.Char')
+
+the low nybble (rightmost digit)
 
 #### Returns
 [System.Byte](https://docs.microsoft.com/en-us/dotnet/api/System.Byte 'System.Byte')  

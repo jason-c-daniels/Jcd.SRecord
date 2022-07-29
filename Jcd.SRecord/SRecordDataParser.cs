@@ -8,8 +8,7 @@ using Jcd.SRecord.Extensions;
 namespace Jcd.SRecord
 {
     /// <summary>
-    /// Provides facilities for parsing the textual SRecordData format into its
-    /// binary representation.
+    /// Implements parsing of the textual SRecordData format into its binary representation.
     /// </summary>
     public class SRecordDataParser : ISRecordDataParser
     {
@@ -29,12 +28,11 @@ namespace Jcd.SRecord
         }
         
         /// <summary>
-        /// Parses a line of text into an <c>SRecordData, ignoring trailing whitespace.</c>
+        /// Parses a line of text into an <c>SRecordData</c>, ignoring trailing whitespace.
         /// </summary>
         /// <param name="lineOfText">The line of text to parse.</param>
         /// <returns>An <c>SRecordData</c> instance if it was successfully parsed.</returns>
-        /// <exception cref="ArgumentException"></exception>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="ArgumentException">When the passed in text can't be parsed for any reason.</exception>
         public SRecordData Parse(string lineOfText)
         {
             if (string.IsNullOrWhiteSpace(lineOfText)) 
@@ -122,11 +120,13 @@ namespace Jcd.SRecord
         public static readonly SRecordDataParser Default = Flexible;
 
         /// <summary>
-        /// Creates a new instance of an SRecordDataParser configured to parse records
-        /// containing the configured maxDataBytesPerRecord.
+        /// Creates a new instance of an SRecordDataParser configured to parse records containing the configured maximum data bytes per record.
         /// </summary>
-        /// <remarks>When maxDataBytesPerRecord is greater than 250, the Flexible instance is used instead of creating a new one.</remarks>
-        /// <param name="maxDataBytesPerRecord"></param>
+        /// <remarks>
+        /// When maxDataBytesPerRecord is greater than 250, the Flexible instance is returned instead of creating a new instance.
+        /// When maxDataBytesPerRecord is 32, the Strict instance is returned instead of creating a new instance.
+        /// </remarks>
+        /// <param name="maxDataBytesPerRecord">The maximum data bytes for any data-bearing record.</param>
         /// <returns>The new, or stock, instance of the SRecordDataParser</returns>
         public static SRecordDataParser Create(byte maxDataBytesPerRecord = 0xFF) =>
             maxDataBytesPerRecord switch

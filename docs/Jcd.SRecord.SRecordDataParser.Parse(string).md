@@ -3,7 +3,7 @@
 
 ## SRecordDataParser.Parse(string) Method
 
-Parses a line of text into an `SRecordData, ignoring trailing whitespace.`
+Parses a line of text into an `SRecordData`, ignoring trailing whitespace.
 
 ```csharp
 public Jcd.SRecord.SRecordData Parse(string lineOfText);
@@ -24,6 +24,5 @@ An `SRecordData` instance if it was successfully parsed.
 
 #### Exceptions
 
-[System.ArgumentException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentException 'System.ArgumentException')
-
-[System.Exception](https://docs.microsoft.com/en-us/dotnet/api/System.Exception 'System.Exception')
+[System.ArgumentException](https://docs.microsoft.com/en-us/dotnet/api/System.ArgumentException 'System.ArgumentException')  
+When the passed in text can't be parsed for any reason.

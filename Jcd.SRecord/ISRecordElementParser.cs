@@ -5,14 +5,12 @@ using System;
 namespace Jcd.SRecord
 {
     /// <summary>
-    /// Defines the operations necessary to parse <c>SRecordElement</c>s
-    /// from text.
+    /// Defines the operations necessary to parse <c>SRecordElement</c>s from text.
     /// </summary>
     public interface ISRecordElementParser
     {
         /// <summary>
-        /// A flag indicating if comments will be parsed and removed before interpreting
-        /// the <c>SRecordData</c> data.
+        /// A flag indicating if comments will be parsed and removed before interpreting the <c>SRecordData</c> data.
         /// </summary>
         bool AllowComments { get; }
 

@@ -5,9 +5,9 @@ using System.Diagnostics.CodeAnalysis;
 namespace Jcd.SRecord
 {
     /// <summary>
-    /// Represents summary information about the contents of
-    /// an any collection of SRecordData.
+    /// Represents summary information about the contents of an any collection of SRecordData.
     /// </summary>
+    /// <remarks>This class cannot process more than int.MaxValue records without having Reset called. If you need statistics on larger sets of data you'll need to build your own mechanism.</remarks>
     public class SRecordDataStatistics
     {
         /// <summary>

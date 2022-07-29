@@ -13,6 +13,4 @@ public static readonly SRecordDataType S5;
 [SRecordDataType](Jcd.SRecord.SRecordDataType.md 'Jcd.SRecord.SRecordDataType')
 
 ### Remarks
-This record type is used to contain a 16-bit count of all S1, S2, or S3 records,  
-stored in the address field. There are no data bytes for this record type.  
-This record is used if the record count is less than or equal to 65,535 (0xFFFF).
+This record type is used to contain a 16-bit count of all S1, S2, or S3 records, stored in the address field. There are no data bytes for this record type. This record is used if the record count is less than or equal to 65,535 (0xFFFF).

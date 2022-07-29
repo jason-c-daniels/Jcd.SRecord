@@ -3,8 +3,7 @@
 
 ## SRecordElementParser.RecordParser Property
 
-Gets the `ISRecordDataParser` instance used to parse the `SRecordData` data  
-from a line of text.
+Gets the `ISRecordDataParser` instance used to parse the `SRecordData` data from a line of text.
 
 ```csharp
 public Jcd.SRecord.ISRecordDataParser RecordParser { get; }

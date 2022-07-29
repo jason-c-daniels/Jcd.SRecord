@@ -13,13 +13,11 @@ public sealed class SRecordData
 Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; SRecordData
 
 ### Remarks
-Further reading about the SRecordData format can be done  
-[ at the Ubuntu manpage](https://manpages.ubuntu.com/manpages/trusty/man5/srec.5.html 'https://manpages.ubuntu.com/manpages/trusty/man5/srec.5.html')  
-and [the wikipedia page](https://en.wikipedia.org/wiki/SREC_(file_format) 'https://en.wikipedia.org/wiki/SREC_(file_format)').
+Further reading about the SRecordData format can be done [ at the Ubuntu manpage](https://manpages.ubuntu.com/manpages/trusty/man5/srec.5.html 'https://manpages.ubuntu.com/manpages/trusty/man5/srec.5.html') and [the wikipedia page](https://en.wikipedia.org/wiki/SREC_(file_format) 'https://en.wikipedia.org/wiki/SREC_(file_format)').
 
 | Constructors | |
 | :--- | :--- |
-| [SRecordData(SRecordDataType, uint, Nullable&lt;ReadOnlyMemory&lt;byte&gt;&gt;)](Jcd.SRecord.SRecordData.SRecordData(Jcd.SRecord.SRecordDataType,uint,System.Nullable_System.ReadOnlyMemory_byte__).md 'Jcd.SRecord.SRecordData.SRecordData(Jcd.SRecord.SRecordDataType, uint, System.Nullable<System.ReadOnlyMemory<byte>>)') | Constructs a mew SRecordData instance. |
+| [SRecordData(SRecordDataType, uint, Nullable&lt;ReadOnlyMemory&lt;byte&gt;&gt;)](Jcd.SRecord.SRecordData.SRecordData(Jcd.SRecord.SRecordDataType,uint,System.Nullable_System.ReadOnlyMemory_byte__).md 'Jcd.SRecord.SRecordData.SRecordData(Jcd.SRecord.SRecordDataType, uint, System.Nullable<System.ReadOnlyMemory<byte>>)') | Constructs a new SRecordData instance. |
 
 | Fields | |
 | :--- | :--- |

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Jcd.SRecord
 {
     /// <summary>
-    /// Writes <c>SRecordElement</c>s to a stream or <c>TextWriter</c>.
+    /// Provides the logic necessary to write <c>SRecordElement</c>s to a <c>Stream</c> or <c>TextWriter</c>.
     /// </summary>
     public class SRecordElementWriter : IDisposable
     {

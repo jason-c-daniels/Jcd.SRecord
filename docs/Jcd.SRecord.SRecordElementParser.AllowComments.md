@@ -3,8 +3,7 @@
 
 ## SRecordElementParser.AllowComments Property
 
-Indicates if comments are allowed. To Allow comments pass a set of  
-recognized comment characters in to the constructor.
+Indicates if comments are allowed. To Allow comments pass a set of recognized comment characters in to the constructor.
 
 ```csharp
 public bool AllowComments { get; }

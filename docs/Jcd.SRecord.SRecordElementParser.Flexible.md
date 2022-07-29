@@ -3,9 +3,7 @@
 
 ## SRecordElementParser.Flexible Field
 
-An `SRecordElementParser` configured to accept either '#' or ';' as comment  
-characters,  and to allow up to 250-252 (SRecordDataType dependent) data bytes in the  
-`SRecordData` data.
+An `SRecordElementParser` configured to accept either '#' or ';' as comment characters,  and to allow up to 250-252 (SRecordDataType dependent) data bytes in the `SRecordData` data.
 
 ```csharp
 public static readonly SRecordElementParser Flexible;

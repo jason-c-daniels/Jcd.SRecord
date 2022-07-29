@@ -3,8 +3,7 @@
 
 ## SRecordDataParser Class
 
-Provides facilities for parsing the textual SRecordData format into its  
-binary representation.
+Implements parsing of the textual SRecordData format into its binary representation.
 
 ```csharp
 public class SRecordDataParser :
@@ -27,6 +26,6 @@ Implements [ISRecordDataParser](Jcd.SRecord.ISRecordDataParser.md 'Jcd.SRecord.I
 
 | Methods | |
 | :--- | :--- |
-| [Create(byte)](Jcd.SRecord.SRecordDataParser.Create(byte).md 'Jcd.SRecord.SRecordDataParser.Create(byte)') | Creates a new instance of an SRecordDataParser configured to parse records<br/>containing the configured maxDataBytesPerRecord. |
-| [Parse(string)](Jcd.SRecord.SRecordDataParser.Parse(string).md 'Jcd.SRecord.SRecordDataParser.Parse(string)') | Parses a line of text into an `SRecordData, ignoring trailing whitespace.` |
+| [Create(byte)](Jcd.SRecord.SRecordDataParser.Create(byte).md 'Jcd.SRecord.SRecordDataParser.Create(byte)') | Creates a new instance of an SRecordDataParser configured to parse records containing the configured maximum data bytes per record. |
+| [Parse(string)](Jcd.SRecord.SRecordDataParser.Parse(string).md 'Jcd.SRecord.SRecordDataParser.Parse(string)') | Parses a line of text into an `SRecordData`, ignoring trailing whitespace. |
 | [TryParse(string, SRecordData)](Jcd.SRecord.SRecordDataParser.TryParse(string,Jcd.SRecord.SRecordData).md 'Jcd.SRecord.SRecordDataParser.TryParse(string, Jcd.SRecord.SRecordData)') | Tries parsing a line of text into an `SRecordData` |

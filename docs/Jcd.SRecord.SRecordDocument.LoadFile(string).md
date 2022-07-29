@@ -3,8 +3,8 @@
 
 ## SRecordDocument.LoadFile(string) Method
 
-Loads data from the specified file path into the current  
-`SRecordDocument`. This appends to any existing entries.
+Loads data from the specified file path into the current `SRecordDocument`.  
+This appends to any existing entries.
 
 ```csharp
 public void LoadFile(string filePath);

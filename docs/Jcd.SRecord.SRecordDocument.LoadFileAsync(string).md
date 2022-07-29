@@ -3,8 +3,8 @@
 
 ## SRecordDocument.LoadFileAsync(string) Method
 
-Asynchronously loads data from the specified file path into the current  
-`SRecordDocument`. This appends to any existing entries.
+Asynchronously loads data from the specified file path into the current `SRecordDocument`.  
+This appends to any existing entries.
 
 ```csharp
 public System.Threading.Tasks.Task LoadFileAsync(string filePath);

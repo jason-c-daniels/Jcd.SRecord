@@ -12,9 +12,7 @@ namespace Jcd.SRecord
     /// To edit the contents, create a new one with the altered data buffer, address, and/or type.
     /// </summary>
     /// <remarks>
-    /// Further reading about the SRecordData format can be done
-    /// <see href="https://manpages.ubuntu.com/manpages/trusty/man5/srec.5.html"> at the Ubuntu manpage</see>
-    /// and <see href="https://en.wikipedia.org/wiki/SREC_(file_format)">the wikipedia page</see>.
+    /// Further reading about the SRecordData format can be done <see href="https://manpages.ubuntu.com/manpages/trusty/man5/srec.5.html"> at the Ubuntu manpage</see> and <see href="https://en.wikipedia.org/wiki/SREC_(file_format)">the wikipedia page</see>.
     /// </remarks>
     public sealed class SRecordData
     {
@@ -71,15 +69,12 @@ namespace Jcd.SRecord
         public byte Checksum { get; }
         
         /// <summary>
-        /// Constructs a mew SRecordData instance.
+        /// Constructs a new SRecordData instance.
         /// </summary>
         /// <param name="type">The type descriptor for the SRecordData</param>
         /// <param name="address">The data for the address field.</param>
         /// <param name="data">The data for the data field, if any.</param>
-        /// <exception cref="ArgumentException">
-        /// When various constraints are violated such as too big of an
-        /// address for a given record type. See the specification for details.
-        /// </exception>
+        /// <exception cref="ArgumentException">When various constraints are violated such as too big of an address for a given record type. See the specification for details.</exception>
         public SRecordData(SRecordDataType type, uint address, ReadOnlyMemory<byte>? data)
         {
             Data = data ?? ReadOnlyMemory<byte>.Empty;
@@ -121,11 +116,9 @@ namespace Jcd.SRecord
         /// <param name="address">The data for the address field.</param>
         /// <param name="data">The data for the data field, if any.</param>
         /// <returns>The checksum</returns>
-        /// <remarks>This checksum is a sum-complement type checksum which returns
-        /// the one's complement of the least significant byte of the sum of
-        /// all bytes after the record type indicator (S0...etc.).
-        /// See <see href="https://en.wikipedia.org/wiki/SREC_(file_format)"/>
-        /// for reading about this specific checksum algorithm.
+        /// <remarks>This checksum is a sum-complement type of checksum.
+        /// The s-record algorithm computes the one's complement of the least significant byte of the sum of all bytes after the record type indicator (S0...etc.).
+        /// See <see href="https://en.wikipedia.org/wiki/SREC_(file_format)"/> for reading about this specific checksum algorithm.
         /// </remarks>
         private static byte ComputeChecksum(SRecordDataType type, byte count, uint address, ReadOnlyMemory<byte> data)
         {

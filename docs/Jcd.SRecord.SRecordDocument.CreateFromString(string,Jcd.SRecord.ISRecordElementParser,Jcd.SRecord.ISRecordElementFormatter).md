@@ -3,8 +3,7 @@
 
 ## SRecordDocument.CreateFromString(string, ISRecordElementParser, ISRecordElementFormatter) Method
 
-Creates a `SRecordDocument` using the provided parser and formatter  
-Then loads data from the string.
+Creates a `SRecordDocument` using the provided parser and formatter, then loads data from the string.
 
 ```csharp
 public static Jcd.SRecord.SRecordDocument CreateFromString(string text, Jcd.SRecord.ISRecordElementParser parser=null, Jcd.SRecord.ISRecordElementFormatter formatter=null);

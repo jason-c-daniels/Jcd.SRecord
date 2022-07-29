@@ -3,10 +3,7 @@
 
 ## SRecordDataType.Flexible Class
 
-Provides a collection and lookup mechanism for instances of [SRecordDataType](Jcd.SRecord.SRecordDataType.md 'Jcd.SRecord.SRecordDataType')  
-configured to accept a flexible number of data bytes per record. The exact amount  
-allowed varies per type and is 254 bytes minus the address length in bytes, for S0,  
-S1, S2, S3, and S4. NOTE: S4 types always require special, implementation defined, handling.
+Provides a collection and lookup mechanism for instances of [SRecordDataType](Jcd.SRecord.SRecordDataType.md 'Jcd.SRecord.SRecordDataType') configured to accept a flexible number of data bytes per record. The exact amount allowed varies per type and is 254 bytes minus the address length in bytes, for S0, S1, S2, S3, and S4. NOTE: S4 types always require special, implementation defined, handling.
 
 ```csharp
 public static class SRecordDataType.Flexible
@@ -30,4 +27,4 @@ Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.O
 
 | Methods | |
 | :--- | :--- |
-| [FromKey(string)](Jcd.SRecord.SRecordDataType.Flexible.FromKey(string).md 'Jcd.SRecord.SRecordDataType.Flexible.FromKey(string)') | Given a key, return an SRecordDataType instance describing it.<br/>Invalid keys will return |
+| [FromKey(string)](Jcd.SRecord.SRecordDataType.Flexible.FromKey(string).md 'Jcd.SRecord.SRecordDataType.Flexible.FromKey(string)') | Given a key, return an SRecordDataType instance describing it.<br/>Invalid keys will return an instance with IsValid of false. |

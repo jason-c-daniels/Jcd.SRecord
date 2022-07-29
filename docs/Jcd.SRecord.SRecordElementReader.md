@@ -24,7 +24,7 @@ Implements [System.IDisposable](https://docs.microsoft.com/en-us/dotnet/api/Syst
 
 | Properties | |
 | :--- | :--- |
-| [CurrentLine](Jcd.SRecord.SRecordElementReader.CurrentLine.md 'Jcd.SRecord.SRecordElementReader.CurrentLine') | The line number of the most recently read line.<br/>This is 0 if nothing has been read and number of the last line in the file,<br/>if all lines have been read. |
+| [CurrentLine](Jcd.SRecord.SRecordElementReader.CurrentLine.md 'Jcd.SRecord.SRecordElementReader.CurrentLine') | The line number of the most recently read line. |
 | [EndOfData](Jcd.SRecord.SRecordElementReader.EndOfData.md 'Jcd.SRecord.SRecordElementReader.EndOfData') | Indicates if all of the data has been read. |
 
 | Methods | |

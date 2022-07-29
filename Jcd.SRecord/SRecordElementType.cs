@@ -3,8 +3,7 @@ using System;
 namespace Jcd.SRecord
 {
     /// <summary>
-    /// Defines a set of flags that describe the results of parsing a line
-    /// of text from an <c>SRecordDocument</c> 
+    /// Defines a set of flags that describe the results of parsing a line of text from an <c>SRecordDocument</c> 
     /// </summary>
     public readonly struct SRecordElementType : IEquatable<SRecordElementType>
     {

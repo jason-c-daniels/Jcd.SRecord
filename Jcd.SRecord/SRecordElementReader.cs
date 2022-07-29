@@ -17,10 +17,11 @@ namespace Jcd.SRecord
         
         /// <summary>
         /// The line number of the most recently read line.
-        /// This is 0 if nothing has been read and number of the last line in the file,
-        /// if all lines have been read.
         /// </summary>
-        public int CurrentLine { get; private set; }
+        /// <remarks>
+        /// This is 0 if nothing has been read and number of the last line in the file, if all lines have been read.
+        /// </remarks>
+        public int CurrentLine { get; protected set; }
 
         #region Constructors
         
@@ -75,6 +76,9 @@ namespace Jcd.SRecord
         /// Get an enumerable of <c>SRecordElement</c>s from the input stream from the current position.
         /// </summary>
         /// <returns>an enumerable of <c>SRecordElement</c>s from the input stream</returns>
+        /// <remarks>
+        /// NOTE: This will overflow and depending on if it's used in an unchecked context, may or may not throw an exception if you try to parse more than int.MaxValue lines.
+        /// </remarks>
         public IEnumerable<SRecordElement> ReadToEnd()
         {
             while (!EndOfData)
@@ -87,6 +91,9 @@ namespace Jcd.SRecord
         /// Get an enumerable of <c>SRecordElement</c>s from the input stream, asynchronously
         /// </summary>
         /// <returns>an enumerable of <c>SRecordElement</c>s from the input stream</returns>
+        /// <remarks>
+        /// NOTE: This will overflow and depending on if it's used in an unchecked context, may or may not throw an exception if you try to parse more than int.MaxValue lines.
+        /// </remarks>
         public async IAsyncEnumerable<SRecordElement> ReadToEndAsync()
         {
             while (!EndOfData)
@@ -99,6 +106,9 @@ namespace Jcd.SRecord
         /// Reads an <c>SRecordElement</c> from the stream.
         /// </summary>
         /// <returns>The <c>SRecordElement</c>, null if end of stream has been reached.</returns>
+        /// <remarks>
+        /// NOTE: This will overflow and depending on if it's used in an unchecked context, may or may not throw an exception if you try to parse more than int.MaxValue lines.
+        /// </remarks>
         public SRecordElement Read()
         {
             var line = _textReader.ReadLine();
@@ -109,6 +119,9 @@ namespace Jcd.SRecord
         /// Reads an <c>SRecordElement</c> from the stream.
         /// </summary>
         /// <returns>The <c>SRecordElement</c>, null if end of stream has been reached.</returns>
+        /// <remarks>
+        /// NOTE: This will overflow and depending on if it's used in an unchecked context, may or may not throw an exception if you try to parse more than int.MaxValue lines.
+        /// </remarks>
         public async Task<SRecordElement> ReadAsync()
         {
             var line = await _textReader.ReadLineAsync();

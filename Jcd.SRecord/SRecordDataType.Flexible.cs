@@ -6,10 +6,7 @@ namespace Jcd.SRecord
     public readonly partial struct SRecordDataType
     {
         /// <summary>
-        /// Provides a collection and lookup mechanism for instances of <see cref="SRecordDataType"/>
-        /// configured to accept a flexible number of data bytes per record. The exact amount
-        /// allowed varies per type and is 254 bytes minus the address length in bytes, for S0,
-        /// S1, S2, S3, and S4. NOTE: S4 types always require special, implementation defined, handling.
+        /// Provides a collection and lookup mechanism for instances of <see cref="SRecordDataType"/> configured to accept a flexible number of data bytes per record. The exact amount allowed varies per type and is 254 bytes minus the address length in bytes, for S0, S1, S2, S3, and S4. NOTE: S4 types always require special, implementation defined, handling.
         /// </summary>
         public static class Flexible
         {
@@ -129,9 +126,9 @@ namespace Jcd.SRecord
 
             /// <summary>
             /// Given a key, return an SRecordDataType instance describing it.
-            /// Invalid keys will return  
+            /// Invalid keys will return an instance with IsValid of false.
             /// </summary>
-            /// <param name="key"></param>
+            /// <param name="key">The key to use for the lookup.</param>
             /// <returns>A matching <c>SRecordDataType</c> or a new instance with IsValid set to false.</returns>
             public static SRecordDataType FromKey(string key)
             {

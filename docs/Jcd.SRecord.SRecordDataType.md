@@ -3,10 +3,7 @@
 
 ## SRecordDataType Struct
 
-Represents the information required to identify and process various types of SRecords  
-[
-            as documented here
-            ](https://manpages.ubuntu.com/manpages/trusty/man5/srec.5.html 'https://manpages.ubuntu.com/manpages/trusty/man5/srec.5.html')
+Represents the information required to identify and process various types of SRecords [as documented here](https://manpages.ubuntu.com/manpages/trusty/man5/srec.5.html 'https://manpages.ubuntu.com/manpages/trusty/man5/srec.5.html')
 
 ```csharp
 public readonly struct SRecordDataType :
@@ -17,7 +14,7 @@ Implements [System.IEquatable&lt;](https://docs.microsoft.com/en-us/dotnet/api/S
 
 | Constructors | |
 | :--- | :--- |
-| [SRecordDataType(string, byte, bool, bool)](Jcd.SRecord.SRecordDataType.SRecordDataType(string,byte,bool,bool).md 'Jcd.SRecord.SRecordDataType.SRecordDataType(string, byte, bool, bool)') | Constructs an SRecordDataType, which identifies how to properly process and/or parse<br/>an SRecordData of the specified type, provided the key, address length. The maximum<br/>data length is computed from the following formula:<br/>MaximumDataBytesAllowed = SRecordData.MaxValueForCount - SRecordData.CheckSumByteLength - addressLengthInBytes; |
+| [SRecordDataType(string, byte, bool, bool)](Jcd.SRecord.SRecordDataType.SRecordDataType(string,byte,bool,bool).md 'Jcd.SRecord.SRecordDataType.SRecordDataType(string, byte, bool, bool)') | Constructs an SRecordDataType, which identifies how to properly process and/or parse an SRecordData of the specified type, provided the key, address length. |
 | [SRecordDataType(string, byte, byte, bool, bool)](Jcd.SRecord.SRecordDataType.SRecordDataType(string,byte,byte,bool,bool).md 'Jcd.SRecord.SRecordDataType.SRecordDataType(string, byte, byte, bool, bool)') | Constructs an SRecordDataType, which identifies how to properly process and/or parse<br/>an SRecordData of the specified type, provided the key, address length, and<br/>maximum data bytes allowed. |
 
 | Fields | |

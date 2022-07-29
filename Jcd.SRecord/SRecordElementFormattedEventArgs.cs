@@ -3,7 +3,9 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Jcd.SRecord
 {
-    /// <inheritdoc />
+    /// <summary>
+    /// Provides context for the SRecordElementFormatter.Formatted event.
+    /// </summary>
     public class SRecordElementFormattedEventArgs : EventArgs 
     {
         /// <summary>

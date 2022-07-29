@@ -3,13 +3,12 @@ using System;
 namespace Jcd.SRecord
 {
     /// <summary>
-    /// Defines the operations necessary in order to support parsing text into
-    /// <c>SRecordData</c> instances.
+    /// Defines the operations necessary in order to support parsing text into <c>SRecordData</c> instances.
     /// </summary>
     public interface ISRecordDataParser
     {
         /// <summary>
-        /// Parses a line of text into an <c>SRecordData, ignoring trailing whitespace.</c>
+        /// Parses a line of text into an <c>SRecordData</c>, ignoring trailing whitespace.
         /// </summary>
         /// <param name="lineOfText">The line of text to parse.</param>
         /// <returns>An <c>SRecordData</c> instance if it was successfully parsed.</returns>

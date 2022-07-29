@@ -3,7 +3,7 @@
 
 ## ISRecordDataParser.Parse(string) Method
 
-Parses a line of text into an `SRecordData, ignoring trailing whitespace.`
+Parses a line of text into an `SRecordData`, ignoring trailing whitespace.
 
 ```csharp
 Jcd.SRecord.SRecordData Parse(string lineOfText);

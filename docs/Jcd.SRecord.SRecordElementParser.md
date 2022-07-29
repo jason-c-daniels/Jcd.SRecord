@@ -3,8 +3,7 @@
 
 ## SRecordElementParser Class
 
-Provides a default mechanism for parsing a line of text into  
-an `SRecordElement`.
+Provides a default mechanism for parsing a line of text into an `SRecordElement`.
 
 ```csharp
 public class SRecordElementParser :
@@ -17,22 +16,22 @@ Implements [ISRecordElementParser](Jcd.SRecord.ISRecordElementParser.md 'Jcd.SRe
 
 | Constructors | |
 | :--- | :--- |
-| [SRecordElementParser(ISRecordDataParser, IEnumerable&lt;char&gt;)](Jcd.SRecord.SRecordElementParser.SRecordElementParser(Jcd.SRecord.ISRecordDataParser,System.Collections.Generic.IEnumerable_char_).md 'Jcd.SRecord.SRecordElementParser.SRecordElementParser(Jcd.SRecord.ISRecordDataParser, System.Collections.Generic.IEnumerable<char>)') | Constructs an `SRecordElementParser` from an `ISRecordDataParser`<br/>and an optional set of comment characters. |
+| [SRecordElementParser(ISRecordDataParser, IEnumerable&lt;char&gt;)](Jcd.SRecord.SRecordElementParser.SRecordElementParser(Jcd.SRecord.ISRecordDataParser,System.Collections.Generic.IEnumerable_char_).md 'Jcd.SRecord.SRecordElementParser.SRecordElementParser(Jcd.SRecord.ISRecordDataParser, System.Collections.Generic.IEnumerable<char>)') | Constructs an `SRecordElementParser` from an `ISRecordDataParser` and an optional set of comment characters. |
 
 | Fields | |
 | :--- | :--- |
 | [DefaultCommentCharacters](Jcd.SRecord.SRecordElementParser.DefaultCommentCharacters.md 'Jcd.SRecord.SRecordElementParser.DefaultCommentCharacters') | The default set of comment characters we'll parse. |
-| [Flexible](Jcd.SRecord.SRecordElementParser.Flexible.md 'Jcd.SRecord.SRecordElementParser.Flexible') | An `SRecordElementParser` configured to accept either '#' or ';' as comment<br/>characters,  and to allow up to 250-252 (SRecordDataType dependent) data bytes in the<br/>`SRecordData` data. |
-| [FlexibleNoComments](Jcd.SRecord.SRecordElementParser.FlexibleNoComments.md 'Jcd.SRecord.SRecordElementParser.FlexibleNoComments') | An `SRecordElementParser` configured to accept no comments, and to allow up<br/>to 250-252 (SRecordDataType dependent) data bytes in the `SRecordData` data. |
-| [Strict](Jcd.SRecord.SRecordElementParser.Strict.md 'Jcd.SRecord.SRecordElementParser.Strict') | An `SRecordElementParser` configured to accept either '#' or ';' as comment<br/>characters,  and to allow up to 32 (SRecordDataType dependent) data bytes in the<br/>`SRecordData` data. |
-| [StrictNoComments](Jcd.SRecord.SRecordElementParser.StrictNoComments.md 'Jcd.SRecord.SRecordElementParser.StrictNoComments') | An `SRecordElementParser` configured to accept no comments, and to allow up<br/>to 250-252 (SRecordDataType dependent) data bytes in the `SRecordData` data. |
+| [Flexible](Jcd.SRecord.SRecordElementParser.Flexible.md 'Jcd.SRecord.SRecordElementParser.Flexible') | An `SRecordElementParser` configured to accept either '#' or ';' as comment characters,  and to allow up to 250-252 (SRecordDataType dependent) data bytes in the `SRecordData` data. |
+| [FlexibleNoComments](Jcd.SRecord.SRecordElementParser.FlexibleNoComments.md 'Jcd.SRecord.SRecordElementParser.FlexibleNoComments') | An `SRecordElementParser` configured to accept no comments, and to allow up to 250-252 (SRecordDataType dependent) data bytes in the `SRecordData` data. |
+| [Strict](Jcd.SRecord.SRecordElementParser.Strict.md 'Jcd.SRecord.SRecordElementParser.Strict') | An `SRecordElementParser` configured to accept either '#' or ';' as comment characters,  and to allow up to 32 (SRecordDataType dependent) data bytes in the `SRecordData` data. |
+| [StrictNoComments](Jcd.SRecord.SRecordElementParser.StrictNoComments.md 'Jcd.SRecord.SRecordElementParser.StrictNoComments') | An `SRecordElementParser` configured to accept no comments, and to allow up to 250-252 (SRecordDataType dependent) data bytes in the `SRecordData` data. |
 
 | Properties | |
 | :--- | :--- |
-| [AllowComments](Jcd.SRecord.SRecordElementParser.AllowComments.md 'Jcd.SRecord.SRecordElementParser.AllowComments') | Indicates if comments are allowed. To Allow comments pass a set of<br/>recognized comment characters in to the constructor. |
+| [AllowComments](Jcd.SRecord.SRecordElementParser.AllowComments.md 'Jcd.SRecord.SRecordElementParser.AllowComments') | Indicates if comments are allowed. To Allow comments pass a set of recognized comment characters in to the constructor. |
 | [CommentCharacters](Jcd.SRecord.SRecordElementParser.CommentCharacters.md 'Jcd.SRecord.SRecordElementParser.CommentCharacters') | Gets a copy of the comment characters in use. |
-| [Default](Jcd.SRecord.SRecordElementParser.Default.md 'Jcd.SRecord.SRecordElementParser.Default') | A default instance configured with reasonable, flexible, defaults. It should parse<br/>most any line. |
-| [RecordParser](Jcd.SRecord.SRecordElementParser.RecordParser.md 'Jcd.SRecord.SRecordElementParser.RecordParser') | Gets the `ISRecordDataParser` instance used to parse the `SRecordData` data<br/>from a line of text. |
+| [Default](Jcd.SRecord.SRecordElementParser.Default.md 'Jcd.SRecord.SRecordElementParser.Default') | A default instance configured with reasonable, flexible, defaults. It should parse most any line. |
+| [RecordParser](Jcd.SRecord.SRecordElementParser.RecordParser.md 'Jcd.SRecord.SRecordElementParser.RecordParser') | Gets the `ISRecordDataParser` instance used to parse the `SRecordData` data from a line of text. |
 
 | Methods | |
 | :--- | :--- |

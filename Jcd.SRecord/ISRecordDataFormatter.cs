@@ -1,14 +1,12 @@
 namespace Jcd.SRecord
 {
     /// <summary>
-    /// Defines the operations necessary to support formatting an <c>SRecordData</c>
-    /// into text.
+    /// Defines the operations necessary to support formatting an <c>SRecordData</c> into text.
     /// </summary>
     public interface ISRecordDataFormatter
     {
         /// <summary>
-        /// Indicates if the hex numbers should be uppercase (true)
-        /// or lowercase (false).
+        /// Indicates if the hex numbers should be uppercase (true) or lowercase (false).
         /// </summary>
         // ReSharper disable once UnusedMemberInSuper.Global
         bool EmitHexNumbersInUpperCase { get; }

@@ -3,8 +3,7 @@
 
 ## SRecordElementType Struct
 
-Defines a set of flags that describe the results of parsing a line  
-of text from an `SRecordDocument`
+Defines a set of flags that describe the results of parsing a line of text from an `SRecordDocument`
 
 ```csharp
 public readonly struct SRecordElementType :

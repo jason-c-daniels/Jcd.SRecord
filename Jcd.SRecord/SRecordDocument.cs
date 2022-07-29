@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
@@ -11,9 +10,15 @@ using System.Threading.Tasks;
 namespace Jcd.SRecord
 {
     /// <summary>
-    /// Represents an SRecordData document. This is a simple document reader/writer.
-    /// No S37, or other semantics are enforced.
+    /// Represents an SRecordData document that contains all the records that were read.
     /// </summary>
+    /// <remarks>
+    /// 1. This is a simple document reader/writer. No S19, S28, or S37 semantics are enforced.
+    /// 2. Some statistics classes are provided to assist in enforcing those semantics should you find a need.
+    /// 3. Any one instance of this class can handle reading in no more than int.Maxvalue records.
+    ///   - This is intentional as the practical limit on allowed number of records in any one file is 0xFFFFFF. (Maximum for the S6 count)
+    ///   - To process more than int.MaxValue records, consider periodically creating a new instance of this class, or directly use an instance of <c>SRecordElementParse</c> if you really don't care about line numbers. 
+    /// </remarks>
     public class SRecordDocument
     {
         /// <summary>
@@ -111,8 +116,7 @@ namespace Jcd.SRecord
         #region File methods.
         
         /// <summary>
-        /// Creates a <c>SRecordDocument</c> using the provided parser and formatter
-        /// Then loads data from the specified file path.
+        /// Creates a <c>SRecordDocument</c> using the provided parser and formatter, then loads data from the specified file path.
         /// </summary>
         /// <param name="filePath">The file to read.</param>
         /// <param name="parser">The parser. If null the default one is used.</param>
@@ -127,8 +131,7 @@ namespace Jcd.SRecord
         }
 
         /// <summary>
-        /// Creates the <c>SRecordDocument</c> using the provided parser and formatter
-        /// Then asynchronously loads data from the specified file path.
+        /// Creates the <c>SRecordDocument</c> using the provided parser and formatter, then asynchronously loads data from the specified file path.
         /// </summary>
         /// <param name="filePath">The file to read.</param>
         /// <param name="parser">The parser. If null the default one is used.</param>
@@ -143,8 +146,8 @@ namespace Jcd.SRecord
         }
         
         /// <summary>
-        /// Asynchronously loads data from the specified file path into the current
-        /// <c>SRecordDocument</c>. This appends to any existing entries.
+        /// Asynchronously loads data from the specified file path into the current <c>SRecordDocument</c>.
+        /// This appends to any existing entries.
         /// </summary>
         /// <param name="filePath">The file to read.</param>
         public async Task LoadFileAsync(string filePath)
@@ -154,8 +157,8 @@ namespace Jcd.SRecord
         }
         
         /// <summary>
-        /// Loads data from the specified file path into the current
-        /// <c>SRecordDocument</c>. This appends to any existing entries.
+        /// Loads data from the specified file path into the current <c>SRecordDocument</c>.
+        /// This appends to any existing entries.
         /// </summary>
         /// <param name="filePath">The file to read.</param>
         public void LoadFile(string filePath)
@@ -165,8 +168,7 @@ namespace Jcd.SRecord
         }
 
         /// <summary>
-        /// Creates or replaces a file at the specified path and writes
-        /// all of the formatted <c>SRecordElement</c> data into the file.
+        /// Creates or replaces a file at the specified path and writes all of the formatted <c>SRecordElement</c> data into the file.
         /// </summary>
         /// <param name="filePath">The path of the file to write.</param>
         public void WriteFile(string filePath)
@@ -176,8 +178,7 @@ namespace Jcd.SRecord
         }
 
         /// <summary>
-        /// Asynchronously creates or replaces a file at the specified path and the
-        /// writes all of the formatted <c>SRecordElement</c> data into the file.
+        /// Asynchronously creates or replaces a file at the specified path and the writes all of the formatted <c>SRecordElement</c> data into the file.
         /// </summary>
         /// <param name="filePath">The path of the file to write.</param>
         public async Task WriteFileAsync(string filePath)
@@ -201,8 +202,7 @@ namespace Jcd.SRecord
         #region String methods
         
         /// <summary>
-        /// Creates a <c>SRecordDocument</c> using the provided parser and formatter
-        /// Then loads data from the string.
+        /// Creates a <c>SRecordDocument</c> using the provided parser and formatter, then loads data from the string.
         /// </summary>
         /// <param name="text">The string to load.</param>
         /// <param name="parser">The parser. If null the default one is used.</param>

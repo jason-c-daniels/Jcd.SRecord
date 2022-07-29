@@ -3,8 +3,7 @@
 
 ## ISRecordElementParser Interface
 
-Defines the operations necessary to parse `SRecordElement`s  
-from text.
+Defines the operations necessary to parse `SRecordElement`s from text.
 
 ```csharp
 public interface ISRecordElementParser
@@ -15,7 +14,7 @@ Derived
 
 | Properties | |
 | :--- | :--- |
-| [AllowComments](Jcd.SRecord.ISRecordElementParser.AllowComments.md 'Jcd.SRecord.ISRecordElementParser.AllowComments') | A flag indicating if comments will be parsed and removed before interpreting<br/>the `SRecordData` data. |
+| [AllowComments](Jcd.SRecord.ISRecordElementParser.AllowComments.md 'Jcd.SRecord.ISRecordElementParser.AllowComments') | A flag indicating if comments will be parsed and removed before interpreting the `SRecordData` data. |
 
 | Methods | |
 | :--- | :--- |

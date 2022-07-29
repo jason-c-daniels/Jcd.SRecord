@@ -3,8 +3,7 @@
 
 ## SRecordElementFormatter Class
 
-Encapsulates the logic necessary to format an `SRecordElement`  
-as a line of text.
+Encapsulates the logic necessary to format an `SRecordElement` as a line of text.
 
 ```csharp
 public class SRecordElementFormatter :
@@ -17,7 +16,7 @@ Implements [ISRecordElementFormatter](Jcd.SRecord.ISRecordElementFormatter.md 'J
 
 | Constructors | |
 | :--- | :--- |
-| [SRecordElementFormatter(Nullable&lt;Options&gt;, ISRecordDataFormatter)](Jcd.SRecord.SRecordElementFormatter.SRecordElementFormatter(System.Nullable_Jcd.SRecord.SRecordElementFormatter.Options_,Jcd.SRecord.ISRecordDataFormatter).md 'Jcd.SRecord.SRecordElementFormatter.SRecordElementFormatter(System.Nullable<Jcd.SRecord.SRecordElementFormatter.Options>, Jcd.SRecord.ISRecordDataFormatter)') | Constructs an instance of `SRecordElementFormatter` with the specified<br/>options and `ISRecordDataFormatter`. |
+| [SRecordElementFormatter(Nullable&lt;Options&gt;, ISRecordDataFormatter)](Jcd.SRecord.SRecordElementFormatter.SRecordElementFormatter(System.Nullable_Jcd.SRecord.SRecordElementFormatter.Options_,Jcd.SRecord.ISRecordDataFormatter).md 'Jcd.SRecord.SRecordElementFormatter.SRecordElementFormatter(System.Nullable<Jcd.SRecord.SRecordElementFormatter.Options>, Jcd.SRecord.ISRecordDataFormatter)') | Constructs an instance of `SRecordElementFormatter` with the specified options and `ISRecordDataFormatter`. |
 
 | Fields | |
 | :--- | :--- |

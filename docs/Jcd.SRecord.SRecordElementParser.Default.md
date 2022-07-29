@@ -3,8 +3,7 @@
 
 ## SRecordElementParser.Default Property
 
-A default instance configured with reasonable, flexible, defaults. It should parse  
-most any line.
+A default instance configured with reasonable, flexible, defaults. It should parse most any line.
 
 ```csharp
 public static Jcd.SRecord.SRecordElementParser Default { get; }

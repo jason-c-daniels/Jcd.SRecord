@@ -3,10 +3,7 @@
 
 ## SRecordDataType(string, byte, bool, bool) Constructor
 
-Constructs an SRecordDataType, which identifies how to properly process and/or parse  
-an SRecordData of the specified type, provided the key, address length. The maximum  
-data length is computed from the following formula:  
-MaximumDataBytesAllowed = SRecordData.MaxValueForCount - SRecordData.CheckSumByteLength - addressLengthInBytes;
+Constructs an SRecordDataType, which identifies how to properly process and/or parse an SRecordData of the specified type, provided the key, address length.
 
 ```csharp
 public SRecordDataType(string key, byte addressLengthInBytes, bool requiresSpecialHandling=false, bool isValid=true);
@@ -38,5 +35,7 @@ Indicates if the type requires special handling. (S4 does)
 Indicates if parsing recognized the key.
 
 ### Remarks
-This constructor is only intended to be used by people who will use it correctly.  
-Typically you'll want to use Strict.FromKey or Flexible.FromKey instead.
+- This constructor is only intended to be used by people who will use it correctly.  
+- Typically you'll want to use Strict.FromKey or Flexible.FromKey instead.  
+- The maximum data length is computed from the following formula:  
+-- MaximumDataBytesAllowed = SRecordData.MaxValueForCount - SRecordData.CheckSumByteLength - addressLengthInBytes;

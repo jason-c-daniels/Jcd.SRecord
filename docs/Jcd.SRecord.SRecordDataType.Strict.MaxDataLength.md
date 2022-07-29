@@ -3,7 +3,7 @@
 
 ## SRecordDataType.Strict.MaxDataLength Field
 
-The maximum data any data bearing record may have
+The maximum data any data bearing record may contain.
 
 ```csharp
 public const byte MaxDataLength = 32;

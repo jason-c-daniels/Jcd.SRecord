@@ -13,5 +13,4 @@ public static readonly SRecordDataType S9;
 [SRecordDataType](Jcd.SRecord.SRecordDataType.md 'Jcd.SRecord.SRecordDataType')
 
 ### Remarks
-This is used to terminate a series of S1 records. If a SRecordData file is only used to program  
-a memory device and the execution location is ignored, then an address of zero could be used.
+This is used to terminate a series of S1 records. If a SRecordData file is only used to program a memory device and the execution location is ignored, then an address of zero could be used.

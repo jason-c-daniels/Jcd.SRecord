@@ -3,7 +3,7 @@
 
 ## SRecordElementParsedEventArgs Class
 
-[System.EventArgs](https://docs.microsoft.com/en-us/dotnet/api/System.EventArgs 'System.EventArgs') is the base class for classes containing event data.
+Provides context for the SRecordElementParser.Parsed event.
 
 ```csharp
 public class SRecordElementParsedEventArgs : System.EventArgs
@@ -17,4 +17,4 @@ Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.O
 
 | Properties | |
 | :--- | :--- |
-| [Element](Jcd.SRecord.SRecordElementParsedEventArgs.Element.md 'Jcd.SRecord.SRecordElementParsedEventArgs.Element') | The parsed element containing the results of parsing.<br/>(successful, type parsed, error, error message, exception...etc.) |
+| [Element](Jcd.SRecord.SRecordElementParsedEventArgs.Element.md 'Jcd.SRecord.SRecordElementParsedEventArgs.Element') | The parsed element containing the results of parsing. (successful, type parsed, error, error message, exception...etc.) |

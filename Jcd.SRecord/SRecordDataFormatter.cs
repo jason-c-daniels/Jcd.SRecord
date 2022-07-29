@@ -7,8 +7,7 @@ using Jcd.SRecord.Extensions;
 namespace Jcd.SRecord
 {
     /// <summary>
-    /// Encapsulates the formatting logic required to emit a single SRecordData
-    /// with consistent hex value casing.
+    /// Implements the formatting logic required to emit a single SRecordData with consistent hex value casing.
     /// </summary>
     public class SRecordDataFormatter : ISRecordDataFormatter
     {

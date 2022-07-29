@@ -3,8 +3,7 @@
 
 ## SRecordElementFormatter(Nullable<Options>, ISRecordDataFormatter) Constructor
 
-Constructs an instance of `SRecordElementFormatter` with the specified  
-options and `ISRecordDataFormatter`.
+Constructs an instance of `SRecordElementFormatter` with the specified options and `ISRecordDataFormatter`.
 
 ```csharp
 public SRecordElementFormatter(System.Nullable<Jcd.SRecord.SRecordElementFormatter.Options> options=null, Jcd.SRecord.ISRecordDataFormatter recordFormatter=null);

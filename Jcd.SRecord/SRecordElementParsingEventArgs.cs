@@ -2,7 +2,9 @@ using System;
 
 namespace Jcd.SRecord
 {
-    /// <inheritdoc />
+    /// <summary>
+    /// Provides context for the SRecordElementParser.Parsing event.
+    /// </summary>
     public class SRecordElementParsingEventArgs : EventArgs
     {
         /// <summary>

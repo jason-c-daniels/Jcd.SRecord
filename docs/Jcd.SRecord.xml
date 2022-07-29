@@ -4,6 +4,19 @@
         <name>Jcd.SRecord</name>
     </assembly>
     <members>
+        <member name="T:Jcd.SRecord.Extensions.ByteSpanExtensions">
+            <summary>
+            Provides an extension method to convert data into a uint.
+            </summary>
+        </member>
+        <member name="M:Jcd.SRecord.Extensions.ByteSpanExtensions.ToUInt32(System.ReadOnlySpan{System.Byte})">
+            <summary>
+            Converts a ReadOnlySpan of bytes into a UInt32, regardless of the source number of bytes.
+            This is endian independent.
+            </summary>
+            <param name="bytes">The source of the bytes.</param>
+            <returns>The converted value.</returns>
+        </member>
         <member name="T:Jcd.SRecord.Extensions.CharExtensions">
             <summary>
             A set of utility methods for interacting with <c>char</c>s.
@@ -14,7 +27,7 @@
              Returns true if a character is a hexadecimal digit.
             </summary>
             <param name="character">the character to inspect.</param>
-            <returns>True if the character</returns>
+            <returns>True if the character is a hexadecimal digit.</returns>
         </member>
         <member name="M:Jcd.SRecord.Extensions.CharExtensions.GetHexValue(System.Char)">
             <summary>
@@ -33,8 +46,7 @@
         </member>
         <member name="T:Jcd.SRecord.Extensions.HexStringConversions">
             <summary>
-            A set of extension methods to help in converting
-            to and from hexadecimal representations of bytes 
+            A set of extension methods to help in converting to and from hexadecimal representations of bytes 
             </summary>
         </member>
         <member name="M:Jcd.SRecord.Extensions.HexStringConversions.HexStringToBytes(System.ReadOnlySpan{System.Char})">
@@ -61,23 +73,20 @@
         </member>
         <member name="M:Jcd.SRecord.Extensions.HexStringConversions.MakeByte(System.Char,System.Char)">
             <summary>
-            Given a pair of hexadecimal characters, convert them into the single
-            byte equivalent.
+            Given a pair of hexadecimal values encoded as chars, convert them into the single byte equivalent.
             </summary>
-            <param name="highNybble"></param>
-            <param name="lowNybble"></param>
+            <param name="highNybble">the high nybble (leftmost digit)</param>
+            <param name="lowNybble">the low nybble (rightmost digit)</param>
             <returns>The converted value.</returns>
         </member>
         <member name="T:Jcd.SRecord.ISRecordDataFormatter">
             <summary>
-            Defines the operations necessary to support formatting an <c>SRecordData</c>
-            into text.
+            Defines the operations necessary to support formatting an <c>SRecordData</c> into text.
             </summary>
         </member>
         <member name="P:Jcd.SRecord.ISRecordDataFormatter.EmitHexNumbersInUpperCase">
             <summary>
-            Indicates if the hex numbers should be uppercase (true)
-            or lowercase (false).
+            Indicates if the hex numbers should be uppercase (true) or lowercase (false).
             </summary>
         </member>
         <member name="M:Jcd.SRecord.ISRecordDataFormatter.Format(Jcd.SRecord.SRecordData)">
@@ -89,13 +98,12 @@
         </member>
         <member name="T:Jcd.SRecord.ISRecordDataParser">
             <summary>
-            Defines the operations necessary in order to support parsing text into
-            <c>SRecordData</c> instances.
+            Defines the operations necessary in order to support parsing text into <c>SRecordData</c> instances.
             </summary>
         </member>
         <member name="M:Jcd.SRecord.ISRecordDataParser.Parse(System.String)">
             <summary>
-            Parses a line of text into an <c>SRecordData, ignoring trailing whitespace.</c>
+            Parses a line of text into an <c>SRecordData</c>, ignoring trailing whitespace.
             </summary>
             <param name="lineOfText">The line of text to parse.</param>
             <returns>An <c>SRecordData</c> instance if it was successfully parsed.</returns>
@@ -112,8 +120,7 @@
         </member>
         <member name="T:Jcd.SRecord.ISRecordElementFormatter">
             <summary>
-            Defines the operations necessary to support formatting
-            <c>SRecordElement</c>s to lines of text.
+            Defines the operations necessary to support formatting <c>SRecordElement</c>s to lines of text.
             </summary>
         </member>
         <member name="M:Jcd.SRecord.ISRecordElementFormatter.Format(Jcd.SRecord.SRecordElement)">
@@ -122,11 +129,13 @@
             </summary>
             <param name="element">the element to format.</param>
             <returns>
-            Null indicates no element was generated. String.Empty indicates
-            that a blank element was generated. <c>SRecordElementWriter</c>
-            will discard null results. Depending on options settings, it may write
-            blank lines.
+            - Null indicates no element was generated.
+            - String.Empty indicates that a blank element was generated.
             </returns>
+            <remarks>NOTES:
+            1. <c>SRecordElementWriter</c> will discard null results and not emit them to the file/stream.
+            2. Depending on options settings, instances may write blank lines.
+            </remarks>
         </member>
         <member name="E:Jcd.SRecord.ISRecordElementFormatter.Formatting">
             <summary>
@@ -140,14 +149,12 @@
         </member>
         <member name="T:Jcd.SRecord.ISRecordElementParser">
             <summary>
-            Defines the operations necessary to parse <c>SRecordElement</c>s
-            from text.
+            Defines the operations necessary to parse <c>SRecordElement</c>s from text.
             </summary>
         </member>
         <member name="P:Jcd.SRecord.ISRecordElementParser.AllowComments">
             <summary>
-            A flag indicating if comments will be parsed and removed before interpreting
-            the <c>SRecordData</c> data.
+            A flag indicating if comments will be parsed and removed before interpreting the <c>SRecordData</c> data.
             </summary>
         </member>
         <member name="M:Jcd.SRecord.ISRecordElementParser.Parse(System.Int32,System.String)">
@@ -174,9 +181,7 @@
             To edit the contents, create a new one with the altered data buffer, address, and/or type.
             </summary>
             <remarks>
-            Further reading about the SRecordData format can be done
-            <see href="https://manpages.ubuntu.com/manpages/trusty/man5/srec.5.html"> at the Ubuntu manpage</see>
-            and <see href="https://en.wikipedia.org/wiki/SREC_(file_format)">the wikipedia page</see>.
+            Further reading about the SRecordData format can be done <see href="https://manpages.ubuntu.com/manpages/trusty/man5/srec.5.html"> at the Ubuntu manpage</see> and <see href="https://en.wikipedia.org/wiki/SREC_(file_format)">the wikipedia page</see>.
             </remarks>
         </member>
         <member name="F:Jcd.SRecord.SRecordData.CheckSumByteLength">
@@ -232,15 +237,12 @@
         </member>
         <member name="M:Jcd.SRecord.SRecordData.#ctor(Jcd.SRecord.SRecordDataType,System.UInt32,System.Nullable{System.ReadOnlyMemory{System.Byte}})">
             <summary>
-            Constructs a mew SRecordData instance.
+            Constructs a new SRecordData instance.
             </summary>
             <param name="type">The type descriptor for the SRecordData</param>
             <param name="address">The data for the address field.</param>
             <param name="data">The data for the data field, if any.</param>
-            <exception cref="T:System.ArgumentException">
-            When various constraints are violated such as too big of an
-            address for a given record type. See the specification for details.
-            </exception>
+            <exception cref="T:System.ArgumentException">When various constraints are violated such as too big of an address for a given record type. See the specification for details.</exception>
         </member>
         <member name="M:Jcd.SRecord.SRecordData.ComputeChecksum(Jcd.SRecord.SRecordDataType,System.Byte,System.UInt32,System.ReadOnlyMemory{System.Byte})">
             <summary>
@@ -251,17 +253,14 @@
             <param name="address">The data for the address field.</param>
             <param name="data">The data for the data field, if any.</param>
             <returns>The checksum</returns>
-            <remarks>This checksum is a sum-complement type checksum which returns
-            the one's complement of the least significant byte of the sum of
-            all bytes after the record type indicator (S0...etc.).
-            See <see href="https://en.wikipedia.org/wiki/SREC_(file_format)"/>
-            for reading about this specific checksum algorithm.
+            <remarks>This checksum is a sum-complement type of checksum.
+            The s-record algorithm computes the one's complement of the least significant byte of the sum of all bytes after the record type indicator (S0...etc.).
+            See <see href="https://en.wikipedia.org/wiki/SREC_(file_format)"/> for reading about this specific checksum algorithm.
             </remarks>
         </member>
         <member name="T:Jcd.SRecord.SRecordDataFormatter">
             <summary>
-            Encapsulates the formatting logic required to emit a single SRecordData
-            with consistent hex value casing.
+            Implements the formatting logic required to emit a single SRecordData with consistent hex value casing.
             </summary>
         </member>
         <member name="P:Jcd.SRecord.SRecordDataFormatter.EmitHexNumbersInUpperCase">
@@ -293,8 +292,7 @@
         </member>
         <member name="T:Jcd.SRecord.SRecordDataParser">
             <summary>
-            Provides facilities for parsing the textual SRecordData format into its
-            binary representation.
+            Implements parsing of the textual SRecordData format into its binary representation.
             </summary>
         </member>
         <member name="M:Jcd.SRecord.SRecordDataParser.#ctor(System.Collections.Generic.IDictionary{System.String,Jcd.SRecord.SRecordDataType})">
@@ -305,12 +303,11 @@
         </member>
         <member name="M:Jcd.SRecord.SRecordDataParser.Parse(System.String)">
             <summary>
-            Parses a line of text into an <c>SRecordData, ignoring trailing whitespace.</c>
+            Parses a line of text into an <c>SRecordData</c>, ignoring trailing whitespace.
             </summary>
             <param name="lineOfText">The line of text to parse.</param>
             <returns>An <c>SRecordData</c> instance if it was successfully parsed.</returns>
-            <exception cref="T:System.ArgumentException"></exception>
-            <exception cref="T:System.Exception"></exception>
+            <exception cref="T:System.ArgumentException">When the passed in text can't be parsed for any reason.</exception>
         </member>
         <member name="M:Jcd.SRecord.SRecordDataParser.TryParse(System.String,Jcd.SRecord.SRecordData@)">
             <summary>
@@ -337,18 +334,20 @@
         </member>
         <member name="M:Jcd.SRecord.SRecordDataParser.Create(System.Byte)">
             <summary>
-            Creates a new instance of an SRecordDataParser configured to parse records
-            containing the configured maxDataBytesPerRecord.
+            Creates a new instance of an SRecordDataParser configured to parse records containing the configured maximum data bytes per record.
             </summary>
-            <remarks>When maxDataBytesPerRecord is greater than 250, the Flexible instance is used instead of creating a new one.</remarks>
-            <param name="maxDataBytesPerRecord"></param>
+            <remarks>
+            When maxDataBytesPerRecord is greater than 250, the Flexible instance is returned instead of creating a new instance.
+            When maxDataBytesPerRecord is 32, the Strict instance is returned instead of creating a new instance.
+            </remarks>
+            <param name="maxDataBytesPerRecord">The maximum data bytes for any data-bearing record.</param>
             <returns>The new, or stock, instance of the SRecordDataParser</returns>
         </member>
         <member name="T:Jcd.SRecord.SRecordDataStatistics">
             <summary>
-            Represents summary information about the contents of
-            an any collection of SRecordData.
+            Represents summary information about the contents of an any collection of SRecordData.
             </summary>
+            <remarks>This class cannot process more than int.MaxValue records without having Reset called. If you need statistics on larger sets of data you'll need to build your own mechanism.</remarks>
         </member>
         <member name="P:Jcd.SRecord.SRecordDataStatistics.DataLengthCounts">
             <summary>
@@ -455,10 +454,7 @@
         </member>
         <member name="T:Jcd.SRecord.SRecordDataType">
             <summary>
-            Represents the information required to identify and process various types of SRecords
-            <see href="https://manpages.ubuntu.com/manpages/trusty/man5/srec.5.html">
-            as documented here
-            </see>
+            Represents the information required to identify and process various types of SRecords <see href="https://manpages.ubuntu.com/manpages/trusty/man5/srec.5.html">as documented here</see>
             </summary>
         </member>
         <member name="M:Jcd.SRecord.SRecordDataType.CreateLookup(System.Byte)">
@@ -525,14 +521,13 @@
         </member>
         <member name="M:Jcd.SRecord.SRecordDataType.#ctor(System.String,System.Byte,System.Boolean,System.Boolean)">
             <summary>
-            Constructs an SRecordDataType, which identifies how to properly process and/or parse
-            an SRecordData of the specified type, provided the key, address length. The maximum
-            data length is computed from the following formula:
-            MaximumDataBytesAllowed = SRecordData.MaxValueForCount - SRecordData.CheckSumByteLength - addressLengthInBytes;
+            Constructs an SRecordDataType, which identifies how to properly process and/or parse an SRecordData of the specified type, provided the key, address length.
             </summary>
             <remarks>
-            This constructor is only intended to be used by people who will use it correctly.
-            Typically you'll want to use Strict.FromKey or Flexible.FromKey instead.
+            - This constructor is only intended to be used by people who will use it correctly.
+            - Typically you'll want to use Strict.FromKey or Flexible.FromKey instead.
+            - The maximum data length is computed from the following formula:
+            -- MaximumDataBytesAllowed = SRecordData.MaxValueForCount - SRecordData.CheckSumByteLength - addressLengthInBytes;
             </remarks>
             <param name="key">The two character SRecordData identifier. (S0..S9)</param>
             <param name="addressLengthInBytes">The byte length of the address</param>
@@ -566,10 +561,7 @@
         </member>
         <member name="T:Jcd.SRecord.SRecordDataType.Flexible">
             <summary>
-            Provides a collection and lookup mechanism for instances of <see cref="T:Jcd.SRecord.SRecordDataType"/>
-            configured to accept a flexible number of data bytes per record. The exact amount
-            allowed varies per type and is 254 bytes minus the address length in bytes, for S0,
-            S1, S2, S3, and S4. NOTE: S4 types always require special, implementation defined, handling.
+            Provides a collection and lookup mechanism for instances of <see cref="T:Jcd.SRecord.SRecordDataType"/> configured to accept a flexible number of data bytes per record. The exact amount allowed varies per type and is 254 bytes minus the address length in bytes, for S0, S1, S2, S3, and S4. NOTE: S4 types always require special, implementation defined, handling.
             </summary>
         </member>
         <member name="F:Jcd.SRecord.SRecordDataType.Flexible.S0">
@@ -671,21 +663,19 @@
         <member name="M:Jcd.SRecord.SRecordDataType.Flexible.FromKey(System.String)">
             <summary>
             Given a key, return an SRecordDataType instance describing it.
-            Invalid keys will return  
+            Invalid keys will return an instance with IsValid of false.
             </summary>
-            <param name="key"></param>
+            <param name="key">The key to use for the lookup.</param>
             <returns>A matching <c>SRecordDataType</c> or a new instance with IsValid set to false.</returns>
         </member>
         <member name="T:Jcd.SRecord.SRecordDataType.Strict">
             <summary>
-            Provides a collection and lookup mechanism for instances of <see cref="T:Jcd.SRecord.SRecordDataType"/>
-            configured to accept a maximum of 32 data bytes per record for S0, S1, S2, S3, and S4
-            record types. NOTE: S4 types always require special, implementation defined, handling.
+            Provides a collection and lookup mechanism for instances of <see cref="T:Jcd.SRecord.SRecordDataType"/> configured to accept a maximum of 32 data bytes per record for S0, S1, S2, S3, and S4 record types. NOTE: S4 types always require special, implementation defined, handling.
             </summary>
         </member>
         <member name="F:Jcd.SRecord.SRecordDataType.Strict.MaxDataLength">
             <summary>
-            The maximum data any data bearing record may have
+            The maximum data any data bearing record may contain.
             </summary>
         </member>
         <member name="F:Jcd.SRecord.SRecordDataType.Strict.S0">
@@ -734,9 +724,7 @@
             The identifier for S5 records. Address is 2 bytes. No data allowed.
             </summary>
             <remarks>
-            This record type is used to contain a 16-bit count of all S1, S2, or S3 records,
-            stored in the address field. There are no data bytes for this record type.
-            This record is used if the record count is less than or equal to 65,535 (0xFFFF).
+            This record type is used to contain a 16-bit count of all S1, S2, or S3 records, stored in the address field. There are no data bytes for this record type. This record is used if the record count is less than or equal to 65,535 (0xFFFF).
             </remarks>
         </member>
         <member name="F:Jcd.SRecord.SRecordDataType.Strict.S6">
@@ -744,10 +732,7 @@
             The identifier for S6 records. Address is 3 bytes. No data allowed.
             </summary>
             <remarks>
-            This record type is used to contain a 24-bit count of all S1, S2, or S3 records,
-            stored in the address field. There are no data bytes for this record type.
-            This record is used if the record count is less than or equal to 16,777,215 (0xFFFFFF) and 
-            greater than 65,535 (0xFFFF) records.
+            This record type is used to contain a 24-bit count of all S1, S2, or S3 records, stored in the address field. There are no data bytes for this record type. This record is used if the record count is less than or equal to 16,777,215 (0xFFFFFF) and greater than 65,535 (0xFFFF) records.
             </remarks>
         </member>
         <member name="F:Jcd.SRecord.SRecordDataType.Strict.S7">
@@ -756,8 +741,7 @@
             This is used to terminate a series of S3 records. 
             </summary>
             <remarks>
-            If an SRecordData file is only used to program a memory device and the execution location
-            is ignored, then an address of zero could be used.
+            If an SRecordData file is only used to program a memory device and the execution location is ignored, then an address of zero could be used.
             </remarks>
         </member>
         <member name="F:Jcd.SRecord.SRecordDataType.Strict.S8">
@@ -766,8 +750,7 @@
             This is used to terminate a series of S2 records.
             </summary>
             <remarks>
-            If an SRecordData file is only used to program a memory device and the execution location
-            is ignored, then an address of zero could be used.
+            If an SRecordData file is only used to program a memory device and the execution location is ignored, then an address of zero could be used.
             </remarks>
         </member>
         <member name="F:Jcd.SRecord.SRecordDataType.Strict.S9">
@@ -775,8 +758,7 @@
             The identifier for S8 records. Address is 3 bytes.  No data allowed.
             </summary>
             <remarks>
-            This is used to terminate a series of S1 records. If a SRecordData file is only used to program
-            a memory device and the execution location is ignored, then an address of zero could be used.
+            This is used to terminate a series of S1 records. If a SRecordData file is only used to program a memory device and the execution location is ignored, then an address of zero could be used.
             </remarks>
         </member>
         <member name="F:Jcd.SRecord.SRecordDataType.Strict.TypeLookup">
@@ -787,16 +769,22 @@
         <member name="M:Jcd.SRecord.SRecordDataType.Strict.FromKey(System.String)">
             <summary>
             Given a key, return an SRecordDataType instance describing it.
-            Invalid keys will return  
+            Invalid keys will return an instance with IsValid of false.
             </summary>
-            <param name="key"></param>
+            <param name="key">The key to use for the lookup.</param>
             <returns>A matching <c>SRecordDataType</c> or a new instance with IsValid set to false.</returns>
         </member>
         <member name="T:Jcd.SRecord.SRecordDocument">
             <summary>
-            Represents an SRecordData document. This is a simple document reader/writer.
-            No S37, or other semantics are enforced.
+            Represents an SRecordData document that contains all the records that were read.
             </summary>
+            <remarks>
+            1. This is a simple document reader/writer. No S19, S28, or S37 semantics are enforced.
+            2. Some statistics classes are provided to assist in enforcing those semantics should you find a need.
+            3. Any one instance of this class can handle reading in no more than int.Maxvalue records.
+              - This is intentional as the practical limit on allowed number of records in any one file is 0xFFFFFF. (Maximum for the S6 count)
+              - To process more than int.MaxValue records, consider periodically creating a new instance of this class, or directly use an instance of <c>SRecordElementParse</c> if you really don't care about line numbers. 
+            </remarks>
         </member>
         <member name="P:Jcd.SRecord.SRecordDocument.Elements">
             <summary>
@@ -855,8 +843,7 @@
         </member>
         <member name="M:Jcd.SRecord.SRecordDocument.CreateFromFile(System.String,Jcd.SRecord.ISRecordElementParser,Jcd.SRecord.ISRecordElementFormatter)">
             <summary>
-            Creates a <c>SRecordDocument</c> using the provided parser and formatter
-            Then loads data from the specified file path.
+            Creates a <c>SRecordDocument</c> using the provided parser and formatter, then loads data from the specified file path.
             </summary>
             <param name="filePath">The file to read.</param>
             <param name="parser">The parser. If null the default one is used.</param>
@@ -865,8 +852,7 @@
         </member>
         <member name="M:Jcd.SRecord.SRecordDocument.CreateFromFileAsync(System.String,Jcd.SRecord.ISRecordElementParser,Jcd.SRecord.ISRecordElementFormatter)">
             <summary>
-            Creates the <c>SRecordDocument</c> using the provided parser and formatter
-            Then asynchronously loads data from the specified file path.
+            Creates the <c>SRecordDocument</c> using the provided parser and formatter, then asynchronously loads data from the specified file path.
             </summary>
             <param name="filePath">The file to read.</param>
             <param name="parser">The parser. If null the default one is used.</param>
@@ -875,36 +861,33 @@
         </member>
         <member name="M:Jcd.SRecord.SRecordDocument.LoadFileAsync(System.String)">
             <summary>
-            Asynchronously loads data from the specified file path into the current
-            <c>SRecordDocument</c>. This appends to any existing entries.
+            Asynchronously loads data from the specified file path into the current <c>SRecordDocument</c>.
+            This appends to any existing entries.
             </summary>
             <param name="filePath">The file to read.</param>
         </member>
         <member name="M:Jcd.SRecord.SRecordDocument.LoadFile(System.String)">
             <summary>
-            Loads data from the specified file path into the current
-            <c>SRecordDocument</c>. This appends to any existing entries.
+            Loads data from the specified file path into the current <c>SRecordDocument</c>.
+            This appends to any existing entries.
             </summary>
             <param name="filePath">The file to read.</param>
         </member>
         <member name="M:Jcd.SRecord.SRecordDocument.WriteFile(System.String)">
             <summary>
-            Creates or replaces a file at the specified path and writes
-            all of the formatted <c>SRecordElement</c> data into the file.
+            Creates or replaces a file at the specified path and writes all of the formatted <c>SRecordElement</c> data into the file.
             </summary>
             <param name="filePath">The path of the file to write.</param>
         </member>
         <member name="M:Jcd.SRecord.SRecordDocument.WriteFileAsync(System.String)">
             <summary>
-            Asynchronously creates or replaces a file at the specified path and the
-            writes all of the formatted <c>SRecordElement</c> data into the file.
+            Asynchronously creates or replaces a file at the specified path and the writes all of the formatted <c>SRecordElement</c> data into the file.
             </summary>
             <param name="filePath">The path of the file to write.</param>
         </member>
         <member name="M:Jcd.SRecord.SRecordDocument.CreateFromString(System.String,Jcd.SRecord.ISRecordElementParser,Jcd.SRecord.ISRecordElementFormatter)">
             <summary>
-            Creates a <c>SRecordDocument</c> using the provided parser and formatter
-            Then loads data from the string.
+            Creates a <c>SRecordDocument</c> using the provided parser and formatter, then loads data from the string.
             </summary>
             <param name="text">The string to load.</param>
             <param name="parser">The parser. If null the default one is used.</param>
@@ -923,7 +906,7 @@
         </member>
         <member name="T:Jcd.SRecord.SRecordElement">
             <summary>
-            Represents a single line in an <c>SRecordDocument</c>
+            Represents a single line in an <c>SRecordDocument</c>.
             </summary>
         </member>
         <member name="P:Jcd.SRecord.SRecordElement.LineNumber">
@@ -976,7 +959,9 @@
             <param name="exception">An exception that occurred during parsing of the SRecordData entry.</param>
         </member>
         <member name="T:Jcd.SRecord.SRecordElementFormattedEventArgs">
-            <inheritdoc />
+            <summary>
+            Provides context for the SRecordElementFormatter.Formatted event.
+            </summary>
         </member>
         <member name="P:Jcd.SRecord.SRecordElementFormattedEventArgs.Succeeded">
             <summary>
@@ -1003,8 +988,7 @@
         </member>
         <member name="T:Jcd.SRecord.SRecordElementFormatter">
             <summary>
-            Encapsulates the logic necessary to format an <c>SRecordElement</c>
-            as a line of text.
+            Encapsulates the logic necessary to format an <c>SRecordElement</c> as a line of text.
             </summary>
         </member>
         <member name="F:Jcd.SRecord.SRecordElementFormatter.Default">
@@ -1024,8 +1008,7 @@
         </member>
         <member name="M:Jcd.SRecord.SRecordElementFormatter.#ctor(System.Nullable{Jcd.SRecord.SRecordElementFormatter.Options},Jcd.SRecord.ISRecordDataFormatter)">
             <summary>
-            Constructs an instance of <c>SRecordElementFormatter</c> with the specified
-            options and <c>ISRecordDataFormatter</c>.
+            Constructs an instance of <c>SRecordElementFormatter</c> with the specified options and <c>ISRecordDataFormatter</c>.
             </summary>
             <param name="options">The options to use, if null, <c>Options.DefaultOptions</c> is used.</param>
             <param name="recordFormatter">The ISRecordDataFormatter to use. If null, <c>SRecordDataFormatter.UppercaseHex</c> is used.</param>
@@ -1135,7 +1118,9 @@
             </summary>
         </member>
         <member name="T:Jcd.SRecord.SRecordElementFormattingEventArgs">
-            <inheritdoc />
+            <summary>
+            Provides context for the SRecordElementFormatter.Formatting event.
+            </summary>
         </member>
         <member name="P:Jcd.SRecord.SRecordElementFormattingEventArgs.Element">
             <summary>
@@ -1149,12 +1134,13 @@
             <param name="element">The element to be formatted.</param>
         </member>
         <member name="T:Jcd.SRecord.SRecordElementParsedEventArgs">
-            <inheritdoc />
+            <summary>
+            Provides context for the SRecordElementParser.Parsed event.
+            </summary>
         </member>
         <member name="P:Jcd.SRecord.SRecordElementParsedEventArgs.Element">
             <summary>
-            The parsed element containing the results of parsing.
-            (successful, type parsed, error, error message, exception...etc.)
+            The parsed element containing the results of parsing. (successful, type parsed, error, error message, exception...etc.)
             </summary>
         </member>
         <member name="M:Jcd.SRecord.SRecordElementParsedEventArgs.#ctor(Jcd.SRecord.SRecordElement)">
@@ -1165,8 +1151,7 @@
         </member>
         <member name="T:Jcd.SRecord.SRecordElementParser">
             <summary>
-            Provides a default mechanism for parsing a line of text into
-            an <c>SRecordElement</c>.
+            Provides a default mechanism for parsing a line of text into an <c>SRecordElement</c>.
             </summary>
         </member>
         <member name="E:Jcd.SRecord.SRecordElementParser.Parsing">
@@ -1183,8 +1168,7 @@
         </member>
         <member name="P:Jcd.SRecord.SRecordElementParser.RecordParser">
             <summary>
-            Gets the <c>ISRecordDataParser</c> instance used to parse the <c>SRecordData</c> data
-            from a line of text.
+            Gets the <c>ISRecordDataParser</c> instance used to parse the <c>SRecordData</c> data from a line of text.
             </summary>
         </member>
         <member name="P:Jcd.SRecord.SRecordElementParser.CommentCharacters">
@@ -1199,46 +1183,37 @@
         </member>
         <member name="P:Jcd.SRecord.SRecordElementParser.Default">
             <summary>
-            A default instance configured with reasonable, flexible, defaults. It should parse
-            most any line.
+            A default instance configured with reasonable, flexible, defaults. It should parse most any line.
             </summary>
         </member>
         <member name="F:Jcd.SRecord.SRecordElementParser.Flexible">
             <summary>
-            An <c>SRecordElementParser</c> configured to accept either '#' or ';' as comment
-            characters,  and to allow up to 250-252 (SRecordDataType dependent) data bytes in the
-            <c>SRecordData</c> data.
+            An <c>SRecordElementParser</c> configured to accept either '#' or ';' as comment characters,  and to allow up to 250-252 (SRecordDataType dependent) data bytes in the <c>SRecordData</c> data.
             </summary>
         </member>
         <member name="F:Jcd.SRecord.SRecordElementParser.FlexibleNoComments">
             <summary>
-            An <c>SRecordElementParser</c> configured to accept no comments, and to allow up
-            to 250-252 (SRecordDataType dependent) data bytes in the <c>SRecordData</c> data.
+            An <c>SRecordElementParser</c> configured to accept no comments, and to allow up to 250-252 (SRecordDataType dependent) data bytes in the <c>SRecordData</c> data.
             </summary>
         </member>
         <member name="F:Jcd.SRecord.SRecordElementParser.Strict">
             <summary>
-            An <c>SRecordElementParser</c> configured to accept either '#' or ';' as comment
-            characters,  and to allow up to 32 (SRecordDataType dependent) data bytes in the
-            <c>SRecordData</c> data.
+            An <c>SRecordElementParser</c> configured to accept either '#' or ';' as comment characters,  and to allow up to 32 (SRecordDataType dependent) data bytes in the <c>SRecordData</c> data.
             </summary>
         </member>
         <member name="F:Jcd.SRecord.SRecordElementParser.StrictNoComments">
             <summary>
-            An <c>SRecordElementParser</c> configured to accept no comments, and to allow up
-            to 250-252 (SRecordDataType dependent) data bytes in the <c>SRecordData</c> data.
+            An <c>SRecordElementParser</c> configured to accept no comments, and to allow up to 250-252 (SRecordDataType dependent) data bytes in the <c>SRecordData</c> data.
             </summary>
         </member>
         <member name="P:Jcd.SRecord.SRecordElementParser.AllowComments">
             <summary>
-            Indicates if comments are allowed. To Allow comments pass a set of
-            recognized comment characters in to the constructor. 
+            Indicates if comments are allowed. To Allow comments pass a set of recognized comment characters in to the constructor. 
             </summary>
         </member>
         <member name="M:Jcd.SRecord.SRecordElementParser.#ctor(Jcd.SRecord.ISRecordDataParser,System.Collections.Generic.IEnumerable{System.Char})">
             <summary>
-            Constructs an <c>SRecordElementParser</c> from an <c>ISRecordDataParser</c>
-            and an optional set of comment characters.
+            Constructs an <c>SRecordElementParser</c> from an <c>ISRecordDataParser</c> and an optional set of comment characters.
             </summary>
             <param name="sRecordParser">The ISRecordDataParser instance to use.</param>
             <param name="commentCharacters">The comment characters to accept when parsing.</param>
@@ -1252,7 +1227,9 @@
             <returns>an SRecordElement describing the parsing results.</returns>
         </member>
         <member name="T:Jcd.SRecord.SRecordElementParsingEventArgs">
-            <inheritdoc />
+            <summary>
+            Provides context for the SRecordElementParser.Parsing event.
+            </summary>
         </member>
         <member name="P:Jcd.SRecord.SRecordElementParsingEventArgs.LineNumber">
             <summary>
@@ -1280,9 +1257,10 @@
         <member name="P:Jcd.SRecord.SRecordElementReader.CurrentLine">
             <summary>
             The line number of the most recently read line.
-            This is 0 if nothing has been read and number of the last line in the file,
-            if all lines have been read.
             </summary>
+            <remarks>
+            This is 0 if nothing has been read and number of the last line in the file, if all lines have been read.
+            </remarks>
         </member>
         <member name="M:Jcd.SRecord.SRecordElementReader.#ctor(System.String,Jcd.SRecord.ISRecordElementParser)">
             <summary>
@@ -1318,24 +1296,36 @@
             Get an enumerable of <c>SRecordElement</c>s from the input stream from the current position.
             </summary>
             <returns>an enumerable of <c>SRecordElement</c>s from the input stream</returns>
+            <remarks>
+            NOTE: This will overflow and depending on if it's used in an unchecked context, may or may not throw an exception if you try to parse more than int.MaxValue lines.
+            </remarks>
         </member>
         <member name="M:Jcd.SRecord.SRecordElementReader.ReadToEndAsync">
             <summary>
             Get an enumerable of <c>SRecordElement</c>s from the input stream, asynchronously
             </summary>
             <returns>an enumerable of <c>SRecordElement</c>s from the input stream</returns>
+            <remarks>
+            NOTE: This will overflow and depending on if it's used in an unchecked context, may or may not throw an exception if you try to parse more than int.MaxValue lines.
+            </remarks>
         </member>
         <member name="M:Jcd.SRecord.SRecordElementReader.Read">
             <summary>
             Reads an <c>SRecordElement</c> from the stream.
             </summary>
             <returns>The <c>SRecordElement</c>, null if end of stream has been reached.</returns>
+            <remarks>
+            NOTE: This will overflow and depending on if it's used in an unchecked context, may or may not throw an exception if you try to parse more than int.MaxValue lines.
+            </remarks>
         </member>
         <member name="M:Jcd.SRecord.SRecordElementReader.ReadAsync">
             <summary>
             Reads an <c>SRecordElement</c> from the stream.
             </summary>
             <returns>The <c>SRecordElement</c>, null if end of stream has been reached.</returns>
+            <remarks>
+            NOTE: This will overflow and depending on if it's used in an unchecked context, may or may not throw an exception if you try to parse more than int.MaxValue lines.
+            </remarks>
         </member>
         <member name="P:Jcd.SRecord.SRecordElementReader.EndOfData">
             <summary>
@@ -1349,6 +1339,7 @@
             <summary>
             Represents a set of statistics about a set of <c>SRecordElement</c> instances.
             </summary>
+            <remarks>This class cannot process more than int.MaxValue records without having Reset called. If you need statistics on larger sets of data you'll need to build your own mechanism.</remarks>
         </member>
         <member name="P:Jcd.SRecord.SRecordElementStatistics.ErrorElementCount">
             <summary>
@@ -1407,8 +1398,7 @@
         </member>
         <member name="T:Jcd.SRecord.SRecordElementType">
             <summary>
-            Defines a set of flags that describe the results of parsing a line
-            of text from an <c>SRecordDocument</c> 
+            Defines a set of flags that describe the results of parsing a line of text from an <c>SRecordDocument</c> 
             </summary>
         </member>
         <member name="F:Jcd.SRecord.SRecordElementType.HasComment">
@@ -1499,7 +1489,7 @@
         </member>
         <member name="T:Jcd.SRecord.SRecordElementWriter">
             <summary>
-            Writes <c>SRecordElement</c>s to a stream or <c>TextWriter</c>.
+            Provides the logic necessary to write <c>SRecordElement</c>s to a <c>Stream</c> or <c>TextWriter</c>.
             </summary>
         </member>
         <member name="M:Jcd.SRecord.SRecordElementWriter.#ctor(System.IO.Stream,Jcd.SRecord.ISRecordElementFormatter)">

@@ -20,7 +20,10 @@ Implements [Format(SRecordElement)](Jcd.SRecord.ISRecordElementFormatter.Format(
 
 #### Returns
 [System.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System.String')  
-Null indicates no element was generated. String.Empty indicates  
-that a blank element was generated. `SRecordElementWriter`  
-will discard null results. Depending on options settings, it may write  
-blank lines.
+- Null indicates no element was generated.  
+- String.Empty indicates that a blank element was generated.
+
+### Remarks
+NOTES:  
+            1. `SRecordElementWriter` will discard null results and not emit them to the file/stream.  
+            2. Depending on options settings, instances may write blank lines.

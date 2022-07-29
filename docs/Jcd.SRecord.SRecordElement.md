@@ -3,7 +3,7 @@
 
 ## SRecordElement Class
 
-Represents a single line in an `SRecordDocument`
+Represents a single line in an `SRecordDocument`.
 
 ```csharp
 public class SRecordElement

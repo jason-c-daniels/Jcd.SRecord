@@ -6,14 +6,12 @@ namespace Jcd.SRecord
     public readonly partial struct SRecordDataType
     {
         /// <summary>
-        /// Provides a collection and lookup mechanism for instances of <see cref="SRecordDataType"/>
-        /// configured to accept a maximum of 32 data bytes per record for S0, S1, S2, S3, and S4
-        /// record types. NOTE: S4 types always require special, implementation defined, handling.
+        /// Provides a collection and lookup mechanism for instances of <see cref="SRecordDataType"/> configured to accept a maximum of 32 data bytes per record for S0, S1, S2, S3, and S4 record types. NOTE: S4 types always require special, implementation defined, handling.
         /// </summary>
         public static class Strict
         {
             /// <summary>
-            /// The maximum data any data bearing record may have
+            /// The maximum data any data bearing record may contain.
             /// </summary>
             public const byte MaxDataLength = 32;
 
@@ -63,9 +61,7 @@ namespace Jcd.SRecord
             /// The identifier for S5 records. Address is 2 bytes. No data allowed.
             /// </summary>
             /// <remarks>
-            /// This record type is used to contain a 16-bit count of all S1, S2, or S3 records,
-            /// stored in the address field. There are no data bytes for this record type.
-            /// This record is used if the record count is less than or equal to 65,535 (0xFFFF).
+            /// This record type is used to contain a 16-bit count of all S1, S2, or S3 records, stored in the address field. There are no data bytes for this record type. This record is used if the record count is less than or equal to 65,535 (0xFFFF).
             /// </remarks>
             public static readonly SRecordDataType S5 = new SRecordDataType("S5", 2, 0);
 
@@ -74,10 +70,7 @@ namespace Jcd.SRecord
             /// The identifier for S6 records. Address is 3 bytes. No data allowed.
             /// </summary>
             /// <remarks>
-            /// This record type is used to contain a 24-bit count of all S1, S2, or S3 records,
-            /// stored in the address field. There are no data bytes for this record type.
-            /// This record is used if the record count is less than or equal to 16,777,215 (0xFFFFFF) and 
-            /// greater than 65,535 (0xFFFF) records.
+            /// This record type is used to contain a 24-bit count of all S1, S2, or S3 records, stored in the address field. There are no data bytes for this record type. This record is used if the record count is less than or equal to 16,777,215 (0xFFFFFF) and greater than 65,535 (0xFFFF) records.
             /// </remarks>
             public static readonly SRecordDataType S6 = new SRecordDataType("S6", 3, 0);
 
@@ -86,8 +79,7 @@ namespace Jcd.SRecord
             /// This is used to terminate a series of S3 records. 
             /// </summary>
             /// <remarks>
-            /// If an SRecordData file is only used to program a memory device and the execution location
-            /// is ignored, then an address of zero could be used.
+            /// If an SRecordData file is only used to program a memory device and the execution location is ignored, then an address of zero could be used.
             /// </remarks>
             public static readonly SRecordDataType S7 = new SRecordDataType("S7", 4, 0);
 
@@ -96,8 +88,7 @@ namespace Jcd.SRecord
             /// This is used to terminate a series of S2 records.
             /// </summary>
             /// <remarks>
-            /// If an SRecordData file is only used to program a memory device and the execution location
-            /// is ignored, then an address of zero could be used.
+            /// If an SRecordData file is only used to program a memory device and the execution location is ignored, then an address of zero could be used.
             /// </remarks>
             public static readonly SRecordDataType S8 = new SRecordDataType("S8", 3, 0);
 
@@ -106,8 +97,7 @@ namespace Jcd.SRecord
             /// The identifier for S8 records. Address is 3 bytes.  No data allowed.
             /// </summary>
             /// <remarks>
-            /// This is used to terminate a series of S1 records. If a SRecordData file is only used to program
-            /// a memory device and the execution location is ignored, then an address of zero could be used.
+            /// This is used to terminate a series of S1 records. If a SRecordData file is only used to program a memory device and the execution location is ignored, then an address of zero could be used.
             /// </remarks>
             public static readonly SRecordDataType S9 = new SRecordDataType("S9", 2, 0);
 
@@ -132,9 +122,9 @@ namespace Jcd.SRecord
 
             /// <summary>
             /// Given a key, return an SRecordDataType instance describing it.
-            /// Invalid keys will return  
+            /// Invalid keys will return an instance with IsValid of false.
             /// </summary>
-            /// <param name="key"></param>
+            /// <param name="key">The key to use for the lookup.</param>
             /// <returns>A matching <c>SRecordDataType</c> or a new instance with IsValid set to false.</returns>
             public static SRecordDataType FromKey(string key)
             {

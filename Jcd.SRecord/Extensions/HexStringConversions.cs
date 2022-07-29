@@ -3,8 +3,7 @@ using System;
 namespace Jcd.SRecord.Extensions
 {
     /// <summary>
-    /// A set of extension methods to help in converting
-    /// to and from hexadecimal representations of bytes 
+    /// A set of extension methods to help in converting to and from hexadecimal representations of bytes 
     /// </summary>
     public static class HexStringConversions
     {
@@ -76,11 +75,10 @@ namespace Jcd.SRecord.Extensions
         }
         
         /// <summary>
-        /// Given a pair of hexadecimal characters, convert them into the single
-        /// byte equivalent.
+        /// Given a pair of hexadecimal values encoded as chars, convert them into the single byte equivalent.
         /// </summary>
-        /// <param name="highNybble"></param>
-        /// <param name="lowNybble"></param>
+        /// <param name="highNybble">the high nybble (leftmost digit)</param>
+        /// <param name="lowNybble">the low nybble (rightmost digit)</param>
         /// <returns>The converted value.</returns>
         public static byte MakeByte(char highNybble, char lowNybble)
         {

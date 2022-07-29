@@ -3,8 +3,7 @@
 
 ## ISRecordElementFormatter Interface
 
-Defines the operations necessary to support formatting  
-`SRecordElement`s to lines of text.
+Defines the operations necessary to support formatting `SRecordElement`s to lines of text.
 
 ```csharp
 public interface ISRecordElementFormatter

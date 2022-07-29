@@ -3,7 +3,7 @@
 
 ## SRecordElementParsingEventArgs Class
 
-[System.EventArgs](https://docs.microsoft.com/en-us/dotnet/api/System.EventArgs 'System.EventArgs') is the base class for classes containing event data.
+Provides context for the SRecordElementParser.Parsing event.
 
 ```csharp
 public class SRecordElementParsingEventArgs : System.EventArgs

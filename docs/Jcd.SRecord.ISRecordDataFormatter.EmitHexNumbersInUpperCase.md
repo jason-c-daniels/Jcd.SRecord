@@ -3,8 +3,7 @@
 
 ## ISRecordDataFormatter.EmitHexNumbersInUpperCase Property
 
-Indicates if the hex numbers should be uppercase (true)  
-or lowercase (false).
+Indicates if the hex numbers should be uppercase (true) or lowercase (false).
 
 ```csharp
 bool EmitHexNumbersInUpperCase { get; }

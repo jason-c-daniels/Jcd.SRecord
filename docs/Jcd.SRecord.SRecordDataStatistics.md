@@ -3,14 +3,16 @@
 
 ## SRecordDataStatistics Class
 
-Represents summary information about the contents of  
-an any collection of SRecordData.
+Represents summary information about the contents of an any collection of SRecordData.
 
 ```csharp
 public class SRecordDataStatistics
 ```
 
 Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; SRecordDataStatistics
+
+### Remarks
+This class cannot process more than int.MaxValue records without having Reset called. If you need statistics on larger sets of data you'll need to build your own mechanism.
 
 | Properties | |
 | :--- | :--- |

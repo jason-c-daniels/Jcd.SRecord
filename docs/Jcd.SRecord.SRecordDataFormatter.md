@@ -3,8 +3,7 @@
 
 ## SRecordDataFormatter Class
 
-Encapsulates the formatting logic required to emit a single SRecordData  
-with consistent hex value casing.
+Implements the formatting logic required to emit a single SRecordData with consistent hex value casing.
 
 ```csharp
 public class SRecordDataFormatter :

@@ -5,8 +5,7 @@ using System.Text;
 namespace Jcd.SRecord
 {
     /// <summary>
-    /// Encapsulates the logic necessary to format an <c>SRecordElement</c>
-    /// as a line of text.
+    /// Encapsulates the logic necessary to format an <c>SRecordElement</c> as a line of text.
     /// </summary>
     public partial class SRecordElementFormatter : ISRecordElementFormatter
     {
@@ -26,8 +25,7 @@ namespace Jcd.SRecord
         public ISRecordDataFormatter RecordFormatter { get; }
 
         /// <summary>
-        /// Constructs an instance of <c>SRecordElementFormatter</c> with the specified
-        /// options and <c>ISRecordDataFormatter</c>.
+        /// Constructs an instance of <c>SRecordElementFormatter</c> with the specified options and <c>ISRecordDataFormatter</c>.
         /// </summary>
         /// <param name="options">The options to use, if null, <c>Options.DefaultOptions</c> is used.</param>
         /// <param name="recordFormatter">The ISRecordDataFormatter to use. If null, <c>SRecordDataFormatter.UppercaseHex</c> is used.</param>

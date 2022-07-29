@@ -3,7 +3,7 @@
 
 ## SRecordElementFormattedEventArgs Class
 
-[System.EventArgs](https://docs.microsoft.com/en-us/dotnet/api/System.EventArgs 'System.EventArgs') is the base class for classes containing event data.
+Provides context for the SRecordElementFormatter.Formatted event.
 
 ```csharp
 public class SRecordElementFormattedEventArgs : System.EventArgs

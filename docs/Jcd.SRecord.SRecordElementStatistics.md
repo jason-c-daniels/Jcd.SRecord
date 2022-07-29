@@ -11,6 +11,9 @@ public class SRecordElementStatistics
 
 Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; SRecordElementStatistics
 
+### Remarks
+This class cannot process more than int.MaxValue records without having Reset called. If you need statistics on larger sets of data you'll need to build your own mechanism.
+
 | Properties | |
 | :--- | :--- |
 | [BlankElementCount](Jcd.SRecord.SRecordElementStatistics.BlankElementCount.md 'Jcd.SRecord.SRecordElementStatistics.BlankElementCount') | The number of elements which were not in error but did not<br/>parse comments or SRecordData |

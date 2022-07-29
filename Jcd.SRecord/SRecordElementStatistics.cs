@@ -5,6 +5,7 @@ namespace Jcd.SRecord
     /// <summary>
     /// Represents a set of statistics about a set of <c>SRecordElement</c> instances.
     /// </summary>
+    /// <remarks>This class cannot process more than int.MaxValue records without having Reset called. If you need statistics on larger sets of data you'll need to build your own mechanism.</remarks>
     public class SRecordElementStatistics
     {
         /// <summary>

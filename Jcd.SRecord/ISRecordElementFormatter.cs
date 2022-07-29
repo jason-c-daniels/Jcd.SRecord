@@ -3,8 +3,7 @@ using System;
 namespace Jcd.SRecord
 {
     /// <summary>
-    /// Defines the operations necessary to support formatting
-    /// <c>SRecordElement</c>s to lines of text.
+    /// Defines the operations necessary to support formatting <c>SRecordElement</c>s to lines of text.
     /// </summary>
     public interface ISRecordElementFormatter
     {
@@ -13,11 +12,13 @@ namespace Jcd.SRecord
         /// </summary>
         /// <param name="element">the element to format.</param>
         /// <returns>
-        /// Null indicates no element was generated. String.Empty indicates
-        /// that a blank element was generated. <c>SRecordElementWriter</c>
-        /// will discard null results. Depending on options settings, it may write
-        /// blank lines.
+        /// - Null indicates no element was generated.
+        /// - String.Empty indicates that a blank element was generated.
         /// </returns>
+        /// <remarks>NOTES:
+        /// 1. <c>SRecordElementWriter</c> will discard null results and not emit them to the file/stream.
+        /// 2. Depending on options settings, instances may write blank lines.
+        /// </remarks>
         string Format(SRecordElement element);
         
         /// <summary>

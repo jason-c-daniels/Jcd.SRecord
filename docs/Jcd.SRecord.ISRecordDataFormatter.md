@@ -3,8 +3,7 @@
 
 ## ISRecordDataFormatter Interface
 
-Defines the operations necessary to support formatting an `SRecordData`  
-into text.
+Defines the operations necessary to support formatting an `SRecordData` into text.
 
 ```csharp
 public interface ISRecordDataFormatter
@@ -15,7 +14,7 @@ Derived
 
 | Properties | |
 | :--- | :--- |
-| [EmitHexNumbersInUpperCase](Jcd.SRecord.ISRecordDataFormatter.EmitHexNumbersInUpperCase.md 'Jcd.SRecord.ISRecordDataFormatter.EmitHexNumbersInUpperCase') | Indicates if the hex numbers should be uppercase (true)<br/>or lowercase (false). |
+| [EmitHexNumbersInUpperCase](Jcd.SRecord.ISRecordDataFormatter.EmitHexNumbersInUpperCase.md 'Jcd.SRecord.ISRecordDataFormatter.EmitHexNumbersInUpperCase') | Indicates if the hex numbers should be uppercase (true) or lowercase (false). |
 
 | Methods | |
 | :--- | :--- |

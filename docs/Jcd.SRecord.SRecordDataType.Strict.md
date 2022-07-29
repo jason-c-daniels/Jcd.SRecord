@@ -3,9 +3,7 @@
 
 ## SRecordDataType.Strict Class
 
-Provides a collection and lookup mechanism for instances of [SRecordDataType](Jcd.SRecord.SRecordDataType.md 'Jcd.SRecord.SRecordDataType')  
-configured to accept a maximum of 32 data bytes per record for S0, S1, S2, S3, and S4  
-record types. NOTE: S4 types always require special, implementation defined, handling.
+Provides a collection and lookup mechanism for instances of [SRecordDataType](Jcd.SRecord.SRecordDataType.md 'Jcd.SRecord.SRecordDataType') configured to accept a maximum of 32 data bytes per record for S0, S1, S2, S3, and S4 record types. NOTE: S4 types always require special, implementation defined, handling.
 
 ```csharp
 public static class SRecordDataType.Strict
@@ -15,7 +13,7 @@ Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.O
 
 | Fields | |
 | :--- | :--- |
-| [MaxDataLength](Jcd.SRecord.SRecordDataType.Strict.MaxDataLength.md 'Jcd.SRecord.SRecordDataType.Strict.MaxDataLength') | The maximum data any data bearing record may have |
+| [MaxDataLength](Jcd.SRecord.SRecordDataType.Strict.MaxDataLength.md 'Jcd.SRecord.SRecordDataType.Strict.MaxDataLength') | The maximum data any data bearing record may contain. |
 | [S0](Jcd.SRecord.SRecordDataType.Strict.S0.md 'Jcd.SRecord.SRecordDataType.Strict.S0') | The identifier for S0 records. Address is 2 bytes, should always be 0. Maximum data bytes allowed 32 bytes. |
 | [S1](Jcd.SRecord.SRecordDataType.Strict.S1.md 'Jcd.SRecord.SRecordDataType.Strict.S1') | The identifier for S1 records. Address is 2 bytes. Maximum data bytes allowed 32 bytes. |
 | [S2](Jcd.SRecord.SRecordDataType.Strict.S2.md 'Jcd.SRecord.SRecordDataType.Strict.S2') | The identifier for S2 records. Address is 3 bytes. Maximum data bytes allowed 32 bytes. |
@@ -30,4 +28,4 @@ Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.O
 
 | Methods | |
 | :--- | :--- |
-| [FromKey(string)](Jcd.SRecord.SRecordDataType.Strict.FromKey(string).md 'Jcd.SRecord.SRecordDataType.Strict.FromKey(string)') | Given a key, return an SRecordDataType instance describing it.<br/>Invalid keys will return |
+| [FromKey(string)](Jcd.SRecord.SRecordDataType.Strict.FromKey(string).md 'Jcd.SRecord.SRecordDataType.Strict.FromKey(string)') | Given a key, return an SRecordDataType instance describing it.<br/>Invalid keys will return an instance with IsValid of false. |

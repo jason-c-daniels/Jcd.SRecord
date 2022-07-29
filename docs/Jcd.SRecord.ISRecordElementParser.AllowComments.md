@@ -3,8 +3,7 @@
 
 ## ISRecordElementParser.AllowComments Property
 
-A flag indicating if comments will be parsed and removed before interpreting  
-the `SRecordData` data.
+A flag indicating if comments will be parsed and removed before interpreting the `SRecordData` data.
 
 ```csharp
 bool AllowComments { get; }

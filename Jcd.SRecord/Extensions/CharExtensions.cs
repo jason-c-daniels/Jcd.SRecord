@@ -11,7 +11,7 @@ namespace Jcd.SRecord.Extensions
         ///  Returns true if a character is a hexadecimal digit.
         /// </summary>
         /// <param name="character">the character to inspect.</param>
-        /// <returns>True if the character</returns>
+        /// <returns>True if the character is a hexadecimal digit.</returns>
         public static bool IsHexDigit(this char character)
         {
             switch (character)

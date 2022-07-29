@@ -4,7 +4,7 @@ using Xunit;
 
 namespace Jcd.SRecord.Tests.Extensions
 {
-    public class BigEndianConversionsTests
+    public class ByteSpanExtensionsTests
     {
         [Fact]
         public void ToUInt32_Correctly_Converts_The_Value()

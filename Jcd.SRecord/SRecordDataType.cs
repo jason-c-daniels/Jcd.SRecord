@@ -5,10 +5,7 @@ using Jcd.Validations;
 namespace Jcd.SRecord
 {
     /// <summary>
-    /// Represents the information required to identify and process various types of SRecords
-    /// <see href="https://manpages.ubuntu.com/manpages/trusty/man5/srec.5.html">
-    /// as documented here
-    /// </see>
+    /// Represents the information required to identify and process various types of SRecords <see href="https://manpages.ubuntu.com/manpages/trusty/man5/srec.5.html">as documented here</see>
     /// </summary>
     public readonly partial struct SRecordDataType : IEquatable<SRecordDataType>
     {
@@ -80,14 +77,13 @@ namespace Jcd.SRecord
         }
 
         /// <summary>
-        /// Constructs an SRecordDataType, which identifies how to properly process and/or parse
-        /// an SRecordData of the specified type, provided the key, address length. The maximum
-        /// data length is computed from the following formula:
-        /// MaximumDataBytesAllowed = SRecordData.MaxValueForCount - SRecordData.CheckSumByteLength - addressLengthInBytes;
+        /// Constructs an SRecordDataType, which identifies how to properly process and/or parse an SRecordData of the specified type, provided the key, address length.
         /// </summary>
         /// <remarks>
-        /// This constructor is only intended to be used by people who will use it correctly.
-        /// Typically you'll want to use Strict.FromKey or Flexible.FromKey instead.
+        /// - This constructor is only intended to be used by people who will use it correctly.
+        /// - Typically you'll want to use Strict.FromKey or Flexible.FromKey instead.
+        /// - The maximum data length is computed from the following formula:
+        /// -- MaximumDataBytesAllowed = SRecordData.MaxValueForCount - SRecordData.CheckSumByteLength - addressLengthInBytes;
         /// </remarks>
         /// <param name="key">The two character SRecordData identifier. (S0..S9)</param>
         /// <param name="addressLengthInBytes">The byte length of the address</param>

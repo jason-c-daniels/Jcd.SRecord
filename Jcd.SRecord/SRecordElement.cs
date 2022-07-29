@@ -3,7 +3,7 @@ using System;
 namespace Jcd.SRecord
 {
     /// <summary>
-    /// Represents a single line in an <c>SRecordDocument</c>
+    /// Represents a single line in an <c>SRecordDocument</c>.
     /// </summary>
     public class SRecordElement
     {

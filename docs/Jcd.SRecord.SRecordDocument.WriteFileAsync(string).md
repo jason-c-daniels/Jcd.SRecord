@@ -3,8 +3,7 @@
 
 ## SRecordDocument.WriteFileAsync(string) Method
 
-Asynchronously creates or replaces a file at the specified path and the  
-writes all of the formatted `SRecordElement` data into the file.
+Asynchronously creates or replaces a file at the specified path and the writes all of the formatted `SRecordElement` data into the file.
 
 ```csharp
 public System.Threading.Tasks.Task WriteFileAsync(string filePath);

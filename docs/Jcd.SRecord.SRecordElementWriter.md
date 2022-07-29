@@ -3,7 +3,7 @@
 
 ## SRecordElementWriter Class
 
-Writes `SRecordElement`s to a stream or `TextWriter`.
+Provides the logic necessary to write `SRecordElement`s to a `Stream` or `TextWriter`.
 
 ```csharp
 public class SRecordElementWriter :

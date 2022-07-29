@@ -3,8 +3,7 @@
 
 ## SRecordDocument.CreateFromFile(string, ISRecordElementParser, ISRecordElementFormatter) Method
 
-Creates a `SRecordDocument` using the provided parser and formatter  
-Then loads data from the specified file path.
+Creates a `SRecordDocument` using the provided parser and formatter, then loads data from the specified file path.
 
 ```csharp
 public static Jcd.SRecord.SRecordDocument CreateFromFile(string filePath, Jcd.SRecord.ISRecordElementParser parser=null, Jcd.SRecord.ISRecordElementFormatter formatter=null);

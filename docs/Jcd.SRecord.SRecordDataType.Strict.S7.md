@@ -14,5 +14,4 @@ public static readonly SRecordDataType S7;
 [SRecordDataType](Jcd.SRecord.SRecordDataType.md 'Jcd.SRecord.SRecordDataType')
 
 ### Remarks
-If an SRecordData file is only used to program a memory device and the execution location  
-is ignored, then an address of zero could be used.
+If an SRecordData file is only used to program a memory device and the execution location is ignored, then an address of zero could be used.

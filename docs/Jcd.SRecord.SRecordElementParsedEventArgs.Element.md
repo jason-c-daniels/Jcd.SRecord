@@ -3,8 +3,7 @@
 
 ## SRecordElementParsedEventArgs.Element Property
 
-The parsed element containing the results of parsing.  
-(successful, type parsed, error, error message, exception...etc.)
+The parsed element containing the results of parsing. (successful, type parsed, error, error message, exception...etc.)
 
 ```csharp
 public Jcd.SRecord.SRecordElement Element { get; }

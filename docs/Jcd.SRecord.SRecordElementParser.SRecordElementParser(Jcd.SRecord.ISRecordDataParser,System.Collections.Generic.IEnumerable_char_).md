@@ -3,8 +3,7 @@
 
 ## SRecordElementParser(ISRecordDataParser, IEnumerable<char>) Constructor
 
-Constructs an `SRecordElementParser` from an `ISRecordDataParser`  
-and an optional set of comment characters.
+Constructs an `SRecordElementParser` from an `ISRecordDataParser` and an optional set of comment characters.
 
 ```csharp
 public SRecordElementParser(Jcd.SRecord.ISRecordDataParser sRecordParser=null, System.Collections.Generic.IEnumerable<char> commentCharacters=null);

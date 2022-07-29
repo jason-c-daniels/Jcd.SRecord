@@ -3,8 +3,7 @@
 
 ## SRecordDocument.WriteFile(string) Method
 
-Creates or replaces a file at the specified path and writes  
-all of the formatted `SRecordElement` data into the file.
+Creates or replaces a file at the specified path and writes all of the formatted `SRecordElement` data into the file.
 
 ```csharp
 public void WriteFile(string filePath);

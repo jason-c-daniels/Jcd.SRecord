@@ -11,8 +11,7 @@ using Jcd.SRecord.Extensions;
 namespace Jcd.SRecord
 {
     /// <summary>
-    /// Provides a default mechanism for parsing a line of text into
-    /// an <c>SRecordElement</c>.
+    /// Provides a default mechanism for parsing a line of text into an <c>SRecordElement</c>.
     /// </summary>
     public class SRecordElementParser : ISRecordElementParser
     {
@@ -31,8 +30,7 @@ namespace Jcd.SRecord
         public event EventHandler<SRecordElementParsedEventArgs> Parsed;
 
         /// <summary>
-        /// Gets the <c>ISRecordDataParser</c> instance used to parse the <c>SRecordData</c> data
-        /// from a line of text.
+        /// Gets the <c>ISRecordDataParser</c> instance used to parse the <c>SRecordData</c> data from a line of text.
         /// </summary>
         public ISRecordDataParser RecordParser { get; }
 
@@ -47,46 +45,37 @@ namespace Jcd.SRecord
         public static readonly ReadOnlyCollection<char> DefaultCommentCharacters = Array.AsReadOnly(new[]{ '#', ';' });
 
         /// <summary>
-        /// A default instance configured with reasonable, flexible, defaults. It should parse
-        /// most any line.
+        /// A default instance configured with reasonable, flexible, defaults. It should parse most any line.
         /// </summary>
         public static SRecordElementParser Default => Flexible;
         
         /// <summary>
-        /// An <c>SRecordElementParser</c> configured to accept either '#' or ';' as comment
-        /// characters,  and to allow up to 250-252 (SRecordDataType dependent) data bytes in the
-        /// <c>SRecordData</c> data.
+        /// An <c>SRecordElementParser</c> configured to accept either '#' or ';' as comment characters,  and to allow up to 250-252 (SRecordDataType dependent) data bytes in the <c>SRecordData</c> data.
         /// </summary>
         public static readonly SRecordElementParser Flexible = new SRecordElementParser(SRecordDataParser.Flexible, DefaultCommentCharacters);
 
         /// <summary>
-        /// An <c>SRecordElementParser</c> configured to accept no comments, and to allow up
-        /// to 250-252 (SRecordDataType dependent) data bytes in the <c>SRecordData</c> data.
+        /// An <c>SRecordElementParser</c> configured to accept no comments, and to allow up to 250-252 (SRecordDataType dependent) data bytes in the <c>SRecordData</c> data.
         /// </summary>
         public static readonly SRecordElementParser FlexibleNoComments = new SRecordElementParser(SRecordDataParser.Flexible);
 
         /// <summary>
-        /// An <c>SRecordElementParser</c> configured to accept either '#' or ';' as comment
-        /// characters,  and to allow up to 32 (SRecordDataType dependent) data bytes in the
-        /// <c>SRecordData</c> data.
+        /// An <c>SRecordElementParser</c> configured to accept either '#' or ';' as comment characters,  and to allow up to 32 (SRecordDataType dependent) data bytes in the <c>SRecordData</c> data.
         /// </summary>
         public static readonly SRecordElementParser Strict = new SRecordElementParser(SRecordDataParser.Strict, DefaultCommentCharacters);
 
         /// <summary>
-        /// An <c>SRecordElementParser</c> configured to accept no comments, and to allow up
-        /// to 250-252 (SRecordDataType dependent) data bytes in the <c>SRecordData</c> data.
+        /// An <c>SRecordElementParser</c> configured to accept no comments, and to allow up to 250-252 (SRecordDataType dependent) data bytes in the <c>SRecordData</c> data.
         /// </summary>
         public static readonly SRecordElementParser StrictNoComments = new SRecordElementParser(SRecordDataParser.Strict);
 
         /// <summary>
-        /// Indicates if comments are allowed. To Allow comments pass a set of
-        /// recognized comment characters in to the constructor. 
+        /// Indicates if comments are allowed. To Allow comments pass a set of recognized comment characters in to the constructor. 
         /// </summary>
         public bool AllowComments => _commentCharacters.Length > 0;
 
         /// <summary>
-        /// Constructs an <c>SRecordElementParser</c> from an <c>ISRecordDataParser</c>
-        /// and an optional set of comment characters.
+        /// Constructs an <c>SRecordElementParser</c> from an <c>ISRecordDataParser</c> and an optional set of comment characters.
         /// </summary>
         /// <param name="sRecordParser">The ISRecordDataParser instance to use.</param>
         /// <param name="commentCharacters">The comment characters to accept when parsing.</param>

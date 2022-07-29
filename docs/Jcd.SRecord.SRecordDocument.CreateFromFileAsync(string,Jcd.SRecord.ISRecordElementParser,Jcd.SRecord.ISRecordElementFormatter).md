@@ -3,8 +3,7 @@
 
 ## SRecordDocument.CreateFromFileAsync(string, ISRecordElementParser, ISRecordElementFormatter) Method
 
-Creates the `SRecordDocument` using the provided parser and formatter  
-Then asynchronously loads data from the specified file path.
+Creates the `SRecordDocument` using the provided parser and formatter, then asynchronously loads data from the specified file path.
 
 ```csharp
 public static System.Threading.Tasks.Task<Jcd.SRecord.SRecordDocument> CreateFromFileAsync(string filePath, Jcd.SRecord.ISRecordElementParser parser=null, Jcd.SRecord.ISRecordElementFormatter formatter=null);

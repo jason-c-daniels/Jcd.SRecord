@@ -2,12 +2,13 @@ using System;
 
 namespace Jcd.SRecord
 {
-    /// <inheritdoc />
+    /// <summary>
+    /// Provides context for the SRecordElementParser.Parsed event.
+    /// </summary>
     public class SRecordElementParsedEventArgs : EventArgs
     {
         /// <summary>
-        /// The parsed element containing the results of parsing.
-        /// (successful, type parsed, error, error message, exception...etc.)
+        /// The parsed element containing the results of parsing. (successful, type parsed, error, error message, exception...etc.)
         /// </summary>
         public SRecordElement Element { get; }
 
