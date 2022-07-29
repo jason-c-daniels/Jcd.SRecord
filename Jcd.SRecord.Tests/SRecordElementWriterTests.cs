@@ -58,7 +58,7 @@ namespace Jcd.SRecord.Tests
             writer.Write(line);
             var bytes = stream.ToArray();
             var text = Encoding.UTF8.GetString(bytes);
-            Assert.Equal(expectedText,text.TrimStart());
+            Assert.Equal(expectedText.Replace("\r\n","\n"),text.TrimStart().Replace("\r\n","\n"));
         }
 
         [Fact]
@@ -75,7 +75,7 @@ namespace Jcd.SRecord.Tests
             await writer.WriteAsync(line);
             var bytes = stream.ToArray();
             var text = Encoding.UTF8.GetString(bytes).TrimStart();
-            Assert.Equal(expectedText,text);
+            Assert.Equal(expectedText.Replace("\r\n","\n"),text.TrimStart().Replace("\r\n","\n"));
         }
         
         [Fact]
@@ -95,7 +95,7 @@ namespace Jcd.SRecord.Tests
             writer.Write(new[]{line1,line2});
             var bytes = stream.ToArray();
             var text = Encoding.UTF8.GetString(bytes);
-            Assert.Equal(expectedText,text.TrimStart());
+            Assert.Equal(expectedText.Replace("\r\n","\n"),text.TrimStart().Replace("\r\n","\n"));
         }
 
         [Fact]
@@ -103,7 +103,7 @@ namespace Jcd.SRecord.Tests
         {
             var line1Text = "the original line";
             var line2Text = "the original line 2";
-            var expectedText = "the original line\r\nthe original line 2\r\n";
+            var expectedText = "the original line\nthe original line 2\n";
             
             var mockFormatter = new Mock<ISRecordElementFormatter>();
             mockFormatter.Setup(m => m.Format(It.IsAny<SRecordElement>()))
@@ -115,7 +115,7 @@ namespace Jcd.SRecord.Tests
             await writer.WriteAsync(new[]{line1,line2});
             var bytes = stream.ToArray();
             var text = Encoding.UTF8.GetString(bytes);
-            Assert.Equal(expectedText,text.TrimStart());
+            Assert.Equal(expectedText.Replace("\r\n","\n"),text.TrimStart().Replace("\r\n","\n"));
         }
         
         [Fact]
@@ -135,7 +135,7 @@ namespace Jcd.SRecord.Tests
             await writer.WriteAsync(AsyncEnumerableData(new[]{line1,line2}));
             var bytes = stream.ToArray();
             var text = Encoding.UTF8.GetString(bytes);
-            Assert.Equal(expectedText,text.TrimStart());
+            Assert.Equal(expectedText.Replace("\r\n","\n"),text.TrimStart().Replace("\r\n","\n"));
         }
         
         async IAsyncEnumerable<T> AsyncEnumerableData<T>(IEnumerable<T> data)
