@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 
 namespace Jcd.SRecord
 {
-    public partial struct SRecordDataType
+    public readonly partial struct SRecordDataType
     {
         private const byte MaxS3DataBytes = 250;
         private const byte StrictDataByteSize = 32;

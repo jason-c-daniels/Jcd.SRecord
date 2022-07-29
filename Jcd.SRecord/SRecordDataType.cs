@@ -1,3 +1,4 @@
+using System;
 using System.Globalization;
 using Jcd.Validations;
 
@@ -9,7 +10,7 @@ namespace Jcd.SRecord
     /// as documented here
     /// </see>
     /// </summary>
-    public partial struct SRecordDataType
+    public readonly partial struct SRecordDataType : IEquatable<SRecordDataType>
     {
         /// <summary>
         /// The length of the key in characters.
@@ -96,5 +97,48 @@ namespace Jcd.SRecord
             : this(key,addressLengthInBytes,(byte)(SRecordData.MaxValueForCount-addressLengthInBytes-SRecordData.CheckSumByteLength),requiresSpecialHandling,isValid)
         {
         }
+        
+        #region Equality operators.
+
+        /// <inheritdoc />
+        public bool Equals(SRecordDataType other)
+        {
+            return Key == other.Key && AddressLengthInBytes == other.AddressLengthInBytes && MaximumDataBytesAllowed == other.MaximumDataBytesAllowed && IsValid == other.IsValid && RequiresSpecialHandling == other.RequiresSpecialHandling;
+        }
+
+        /// <inheritdoc />
+        public override bool Equals(object obj)
+        {
+            return obj is SRecordDataType other && Equals(other);
+        }
+
+        /// <inheritdoc />
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Key, AddressLengthInBytes, MaximumDataBytesAllowed, IsValid, RequiresSpecialHandling);
+        }
+
+        /// <summary>
+        /// Compares two operands to determine if they're equal.
+        /// </summary>
+        /// <param name="left">the left hand operand</param>
+        /// <param name="right">the right hand operand</param>
+        /// <returns>True if they are equal</returns>
+        public static bool operator ==(SRecordDataType left, SRecordDataType right)
+        {
+            return left.Equals(right);
+        }
+
+        /// <summary>
+        /// Compares two operands to determine if they're not equal.
+        /// </summary>
+        /// <param name="left">the left hand operand</param>
+        /// <param name="right">the right hand operand</param>
+        /// <returns>True if they are not equal</returns>
+        public static bool operator !=(SRecordDataType left, SRecordDataType right)
+        {
+            return !left.Equals(right);
+        }
+        #endregion
     }
 }

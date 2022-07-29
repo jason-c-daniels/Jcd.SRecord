@@ -408,6 +408,7 @@
         <member name="P:Jcd.SRecord.SRecordDataStatistics.MaximumDataLength">
             <summary>
             The maximum value of any SRecordData.Data.Length entry
+            -1 means there are no entries.
             </summary>
         </member>
         <member name="P:Jcd.SRecord.SRecordDataStatistics.HeaderCount">
@@ -537,6 +538,31 @@
             <param name="addressLengthInBytes">The byte length of the address</param>
             <param name="requiresSpecialHandling">Indicates if the type requires special handling. (S4 does)</param>
             <param name="isValid">Indicates if parsing recognized the key.</param>
+        </member>
+        <member name="M:Jcd.SRecord.SRecordDataType.Equals(Jcd.SRecord.SRecordDataType)">
+            <inheritdoc />
+        </member>
+        <member name="M:Jcd.SRecord.SRecordDataType.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Jcd.SRecord.SRecordDataType.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:Jcd.SRecord.SRecordDataType.op_Equality(Jcd.SRecord.SRecordDataType,Jcd.SRecord.SRecordDataType)">
+            <summary>
+            Compares two operands to determine if they're equal.
+            </summary>
+            <param name="left">the left hand operand</param>
+            <param name="right">the right hand operand</param>
+            <returns>True if they are equal</returns>
+        </member>
+        <member name="M:Jcd.SRecord.SRecordDataType.op_Inequality(Jcd.SRecord.SRecordDataType,Jcd.SRecord.SRecordDataType)">
+            <summary>
+            Compares two operands to determine if they're not equal.
+            </summary>
+            <param name="left">the left hand operand</param>
+            <param name="right">the right hand operand</param>
+            <returns>True if they are not equal</returns>
         </member>
         <member name="T:Jcd.SRecord.SRecordDataType.Flexible">
             <summary>

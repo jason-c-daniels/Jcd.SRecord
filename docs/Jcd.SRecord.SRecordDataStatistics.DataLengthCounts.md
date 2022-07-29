@@ -6,7 +6,7 @@
 A cache of the number of times a data bearing record
 
 ```csharp
-public System.Collections.Generic.Dictionary<int,int> DataLengthCounts { get; }
+private System.Collections.Generic.Dictionary<int,int> DataLengthCounts { get; }
 ```
 
 #### Property Value

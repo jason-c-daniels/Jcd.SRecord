@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace Jcd.SRecord
 {
-    public partial struct SRecordDataType
+    public readonly partial struct SRecordDataType
     {
         /// <summary>
         /// Provides a collection and lookup mechanism for instances of <see cref="SRecordDataType"/>

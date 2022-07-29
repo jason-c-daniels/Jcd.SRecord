@@ -3,7 +3,8 @@
 
 ## SRecordDataStatistics.MaximumDataLength Property
 
-The maximum value of any SRecordData.Data.Length entry
+The maximum value of any SRecordData.Data.Length entry  
+-1 means there are no entries.
 
 ```csharp
 public int MaximumDataLength { get; set; }

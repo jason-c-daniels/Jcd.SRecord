@@ -9,8 +9,11 @@ Represents the information required to identify and process various types of SRe
             ](https://manpages.ubuntu.com/manpages/trusty/man5/srec.5.html 'https://manpages.ubuntu.com/manpages/trusty/man5/srec.5.html')
 
 ```csharp
-public struct SRecordDataType
+public readonly struct SRecordDataType :
+System.IEquatable<Jcd.SRecord.SRecordDataType>
 ```
+
+Implements [System.IEquatable&lt;](https://docs.microsoft.com/en-us/dotnet/api/System.IEquatable-1 'System.IEquatable`1')[SRecordDataType](Jcd.SRecord.SRecordDataType.md 'Jcd.SRecord.SRecordDataType')[&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.IEquatable-1 'System.IEquatable`1')
 
 | Constructors | |
 | :--- | :--- |
@@ -30,3 +33,10 @@ public struct SRecordDataType
 | Methods | |
 | :--- | :--- |
 | [CreateLookup(byte)](Jcd.SRecord.SRecordDataType.CreateLookup(byte).md 'Jcd.SRecord.SRecordDataType.CreateLookup(byte)') | Creates a lookup table of `SRecordDataType`s. |
+| [Equals(object)](Jcd.SRecord.SRecordDataType.Equals(object).md 'Jcd.SRecord.SRecordDataType.Equals(object)') | Indicates whether this instance and a specified object are equal. |
+| [GetHashCode()](Jcd.SRecord.SRecordDataType.GetHashCode().md 'Jcd.SRecord.SRecordDataType.GetHashCode()') | Returns the hash code for this instance. |
+
+| Operators | |
+| :--- | :--- |
+| [operator ==(SRecordDataType, SRecordDataType)](Jcd.SRecord.SRecordDataType.op_Equality(Jcd.SRecord.SRecordDataType,Jcd.SRecord.SRecordDataType).md 'Jcd.SRecord.SRecordDataType.op_Equality(Jcd.SRecord.SRecordDataType, Jcd.SRecord.SRecordDataType)') | Compares two operands to determine if they're equal. |
+| [operator !=(SRecordDataType, SRecordDataType)](Jcd.SRecord.SRecordDataType.op_Inequality(Jcd.SRecord.SRecordDataType,Jcd.SRecord.SRecordDataType).md 'Jcd.SRecord.SRecordDataType.op_Inequality(Jcd.SRecord.SRecordDataType, Jcd.SRecord.SRecordDataType)') | Compares two operands to determine if they're not equal. |

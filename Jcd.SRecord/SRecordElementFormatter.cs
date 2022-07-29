@@ -40,16 +40,8 @@ namespace Jcd.SRecord
         /// <inheritdoc />
         public string Format([NotNull]SRecordElement element)
         {
-            try
-            {
-                RaiseFormattingEvent(element);
-                return ProcessResult(Format(CurrentOptions, RecordFormatter, element), element);
-            }
-            catch
-            {
-                ProcessResult(null, element);
-                throw;
-            }
+            RaiseFormattingEvent(element);
+            return ProcessResult(Format(CurrentOptions, RecordFormatter, element), element);
         }
 
         /// <inheritdoc />

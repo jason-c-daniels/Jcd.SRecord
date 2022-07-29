@@ -18,7 +18,7 @@ Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.O
 | [DataLengthCounts](Jcd.SRecord.SRecordDataStatistics.DataLengthCounts.md 'Jcd.SRecord.SRecordDataStatistics.DataLengthCounts') | A cache of the number of times a data bearing record |
 | [DataRecordCount](Jcd.SRecord.SRecordDataStatistics.DataRecordCount.md 'Jcd.SRecord.SRecordDataStatistics.DataRecordCount') | The count of all S1, S2, and S3 records. |
 | [HeaderCount](Jcd.SRecord.SRecordDataStatistics.HeaderCount.md 'Jcd.SRecord.SRecordDataStatistics.HeaderCount') | The same as S0Count, a convenience getter. |
-| [MaximumDataLength](Jcd.SRecord.SRecordDataStatistics.MaximumDataLength.md 'Jcd.SRecord.SRecordDataStatistics.MaximumDataLength') | The maximum value of any SRecordData.Data.Length entry |
+| [MaximumDataLength](Jcd.SRecord.SRecordDataStatistics.MaximumDataLength.md 'Jcd.SRecord.SRecordDataStatistics.MaximumDataLength') | The maximum value of any SRecordData.Data.Length entry<br/>-1 means there are no entries. |
 | [S0Count](Jcd.SRecord.SRecordDataStatistics.S0Count.md 'Jcd.SRecord.SRecordDataStatistics.S0Count') | The count of all S0 records. |
 | [S1Count](Jcd.SRecord.SRecordDataStatistics.S1Count.md 'Jcd.SRecord.SRecordDataStatistics.S1Count') | The count of all S1 records. |
 | [S2Count](Jcd.SRecord.SRecordDataStatistics.S2Count.md 'Jcd.SRecord.SRecordDataStatistics.S2Count') | The count of all S2 records. |

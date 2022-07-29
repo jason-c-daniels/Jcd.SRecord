@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace Jcd.SRecord.Tests
@@ -78,5 +79,105 @@ namespace Jcd.SRecord.Tests
         {
             Assert.ThrowsAny<ArgumentException>(()=>SRecordDataType.CreateLookup(bytes));
         }
+
+        [Theory]
+        [InlineData("S0")]
+        [InlineData("S1")]
+        [InlineData("S2")]
+        [InlineData("S3")]
+        [InlineData("S4")]
+        [InlineData("S5")]
+        [InlineData("S6")]
+        [InlineData("S7")]
+        [InlineData("S8")]
+        [InlineData("S9")]
+        public void Equals_Returns_True_When_Equivalent(string key)
+        {
+            var type1 = SRecordDataType.Flexible.FromKey(key);
+            var type2 = SRecordDataType.Flexible.FromKey(key);
+            Assert.True(type1.Equals(type2));
+            Assert.True(type2.Equals(type1));
+            Assert.True(type1.Equals((object)type2));
+            Assert.True(type2.Equals((object)type1));
+        }
+
+        [Theory]
+        [InlineData("S0")]
+        [InlineData("S1")]
+        [InlineData("S2")]
+        [InlineData("S3")]
+        [InlineData("S4")]
+        [InlineData("S5")]
+        [InlineData("S6")]
+        [InlineData("S7")]
+        [InlineData("S8")]
+        [InlineData("S9")]
+        public void Equals_Operator_Returns_True_When_Equivalent(string key)
+        {
+            var type1 = SRecordDataType.Flexible.FromKey(key);
+            var type2 = SRecordDataType.Flexible.FromKey(key);
+            Assert.True(type1 == type2);
+            Assert.True(type2 == type1);
+        }
+
+        [Theory]
+        [MemberData(nameof(NonEquivalentTypes))]
+        public void Equals_Returns_False_When_Not_Equivalent(string key1, string key2)
+        {
+            var type1 = SRecordDataType.Flexible.FromKey(key1);
+            var type2 = SRecordDataType.Flexible.FromKey(key2);
+            Assert.False(type1.Equals(type2));
+            Assert.False(type2.Equals(type1));
+            Assert.False(type1.Equals((object)type2));
+            Assert.False(type2.Equals((object)type1));
+        }
+
+        [Theory]
+        [MemberData(nameof(NonEquivalentTypes))]
+        public void Not_Equals_Operator_Returns_True_When_Not_Equivalent(string key1, string key2)
+        {
+            var type1 = SRecordDataType.Flexible.FromKey(key1);
+            var type2 = SRecordDataType.Flexible.FromKey(key2);
+            Assert.True(type1 != type2);
+            Assert.True(type2 != type1);
+        }
+        
+        [Theory]
+        [InlineData("S0")]
+        [InlineData("S1")]
+        [InlineData("S2")]
+        [InlineData("S3")]
+        [InlineData("S4")]
+        [InlineData("S5")]
+        [InlineData("S6")]
+        [InlineData("S7")]
+        [InlineData("S8")]
+        [InlineData("S9")]
+        public void Not_Equals_Operator_Returns_False_When_Equivalent(string key)
+        {
+            var type1 = SRecordDataType.Flexible.FromKey(key);
+            var type2 = SRecordDataType.Flexible.FromKey(key);
+            Assert.False(type1 != type2);
+            Assert.False(type2 != type1);
+        }
+        
+        
+        public static IEnumerable<object[]> NonEquivalentTypes => MakeNonEquivalentTypes();
+
+        private static IEnumerable<object[]> MakeNonEquivalentTypes()
+        {
+            var keys = new[] { "S0", "S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9" };
+            foreach (var key1 in keys)
+            {
+                foreach (var key2 in keys)
+                {
+                    if (key1==key2) continue;
+                    yield return new object[] { key1, key2 };
+                }
+            }
+        }
+
+        
+        
     }
 }

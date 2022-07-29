@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 
 namespace Jcd.SRecord
 {
@@ -14,7 +13,7 @@ namespace Jcd.SRecord
         /// <summary>
         /// A cache of the number of times a data bearing record
         /// </summary>
-        public Dictionary<int, int> DataLengthCounts { get; } = new Dictionary<int, int>();
+        private Dictionary<int, int> DataLengthCounts { get; } = new Dictionary<int, int>();
 
         /// <summary>
         /// The count of all S0 records.
@@ -68,8 +67,9 @@ namespace Jcd.SRecord
 
         /// <summary>
         /// The maximum value of any SRecordData.Data.Length entry
+        /// -1 means there are no entries.
         /// </summary>
-        public int MaximumDataLength { get; private set; }
+        public int MaximumDataLength { get; private set; } = -1;
 
         /// <summary>
         /// The same as S0Count, a convenience getter.
@@ -97,8 +97,10 @@ namespace Jcd.SRecord
         public int TotalSRecordDataCount => HeaderCount +
                                             CounterRecordCount +
                                             DataRecordCount +
+                                            S4Count +
                                             StartAddressRecordCount;
 
+        
         /// <summary>
         /// Resets all properties to 0;
         /// </summary>
@@ -114,7 +116,7 @@ namespace Jcd.SRecord
             S7Count = 0;
             S8Count = 0;
             S9Count = 0;
-            MaximumDataLength = 0;
+            MaximumDataLength = -1;
             DataLengthCounts.Clear();
         }
 
@@ -190,7 +192,7 @@ namespace Jcd.SRecord
             if (DataLengthCounts[dataLength] != 0) return;
             DataLengthCounts.Remove(dataLength);
             if (DataLengthCounts.Count == 0) return;
-            while (!DataLengthCounts.ContainsKey(MaximumDataLength))
+            while (!DataLengthCounts.ContainsKey(MaximumDataLength) && MaximumDataLength >=0)
                 MaximumDataLength--;
         }
     }
