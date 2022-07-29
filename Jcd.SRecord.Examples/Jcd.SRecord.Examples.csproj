@@ -4,6 +4,12 @@
     <ProjectReference Include="..\Jcd.SRecord\Jcd.SRecord.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="FakeFirmware.s37">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>

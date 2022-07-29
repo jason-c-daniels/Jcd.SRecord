@@ -50,7 +50,36 @@ namespace Jcd.SRecord
         // ReSharper disable once MemberCanBePrivate.Global
         public ISRecordElementFormatter Formatter { get; }
 
+        /// <summary>
+        /// Computes a new set of statistics for the current set of Elements
+        /// </summary>
+        /// <returns>a new <c>SRecordElementStatistics</c> instance</returns>
+        public SRecordElementStatistics CalculateParseStatistics()
+        {
+            var stats = new SRecordElementStatistics();
+            foreach (var element in Elements)
+            {
+                stats.Increment(element);
+            }
 
+            return stats;
+        }
+        
+        /// <summary>
+        /// Computes a new set of statistics for the current set of Elements
+        /// </summary>
+        /// <returns>a new <c>SRecordDataStatistics</c> instance</returns>
+        public SRecordDataStatistics CalculateDataStatistics()
+        {
+            var stats = new SRecordDataStatistics();
+            foreach (var recordData in SRecords)
+            {
+                stats.Increment(recordData);
+            }
+
+            return stats;
+        }
+        
         /// <summary>
         /// Creates an instance of an <c>SRecordDocument</c>.
         /// </summary>

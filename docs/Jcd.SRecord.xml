@@ -806,6 +806,18 @@
             Gets the instance of the formatter used by this <c>SRecordDocument</c>.
             </summary>
         </member>
+        <member name="M:Jcd.SRecord.SRecordDocument.CalculateParseStatistics">
+            <summary>
+            Computes a new set of statistics for the current set of Elements
+            </summary>
+            <returns>a new <c>SRecordElementStatistics</c> instance</returns>
+        </member>
+        <member name="M:Jcd.SRecord.SRecordDocument.CalculateDataStatistics">
+            <summary>
+            Computes a new set of statistics for the current set of Elements
+            </summary>
+            <returns>a new <c>SRecordDataStatistics</c> instance</returns>
+        </member>
         <member name="M:Jcd.SRecord.SRecordDocument.#ctor(Jcd.SRecord.ISRecordElementParser,Jcd.SRecord.ISRecordElementFormatter)">
             <summary>
             Creates an instance of an <c>SRecordDocument</c>.

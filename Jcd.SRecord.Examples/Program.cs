@@ -10,18 +10,55 @@ namespace Jcd.SRecord.Examples
         private const int RecordsToGenerate = 0xFFFF+1;
         private static void Main()
         {
+            // read all of the data, tracking the parse result for each line.
+            var document = SRecordDocument.CreateFromFile("FakeFirmware.s37");
+            
+            // compute some statistics.
+            var parsingStats = document.CalculateParseStatistics();
+            var dataStats = document.CalculateDataStatistics();
+            
+            // Report on what's in the file. 
+            Console.WriteLine($"Record type counts:");
+            Console.WriteLine($"S0 {dataStats.S0Count}; S1 {dataStats.S1Count}; S2 {dataStats.S2Count}; S3 {dataStats.S3Count}; S4 {dataStats.S4Count}; S5 {dataStats.S5Count}; S6 {dataStats.S6Count}; S7 {dataStats.S7Count}; S8 {dataStats.S8Count}; S9: {dataStats.S9Count}");
+            Console.WriteLine();
+            Console.WriteLine($"Parsing stats:");
+            Console.WriteLine($"Total number of blank lines: {parsingStats.BlankElementCount}");
+            Console.WriteLine($"Total number of lines with parsing errors: {parsingStats.ErrorElementCount}");
+            Console.WriteLine($"Total number of stand alone comment lines: {parsingStats.StandAloneCommentCount}");
+            Console.WriteLine($"Total number of lines with comments: {parsingStats.ElementsWithCommentsCount}");
+            Console.WriteLine($"Total number of lines with s-record entries: {parsingStats.ElementsWithSRecordDataCount}");
+            Console.WriteLine($"Total number of lines with comments and s-record entries: {parsingStats.SRecordDataWithCommentCount}");
+            Console.WriteLine($"Total line count: {parsingStats.TotalElementsCount}");
+
+            // now access the data and upload the firmware to a device.
+            foreach (var record in document.SRecords)
+            {
+                // get a byte array if it's S1, S2, S3 and send firmware to the device.
+                if (record.Type.Key == "S1" || record.Type.Key == "S2" || record.Type.Key == "S3")
+                    UploadToFirmware(record.Address, record.Type.AddressLengthInBytes, record.Data.ToArray());
+                // set the execution address if S7, S8, or S9
+                else if (record.Type.Key == "S7" || record.Type.Key == "S8" || record.Type.Key == "S9")
+                    SetExecutionAddress(record.Address,record.Type.AddressLengthInBytes);
+            }
             
             Console.WriteLine("Type,Payload Bytes,Record Count,Scenario Name,Duration(ms),Records/ms");
             var elapsed=CaptureActionTiming(() =>
             {
                 DoPerfTestForAllRecordTypes(SRecordDataType.Flexible.TypeLookup);
-                //Console.WriteLine();
-                //Console.WriteLine();
                 DoPerfTestForAllRecordTypes(SRecordDataType.Strict.TypeLookup);
             });
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine($"Total execution time, {elapsed.TotalMilliseconds:n2}");
+        }
+
+        private static void SetExecutionAddress(uint recordAddress, byte addressLengthInBytes)
+        {
+            // implementation defined.
+        }
+        private static void UploadToFirmware(uint recordAddress, byte addressLengthInBytes, byte[] dataBytes)
+        {
+            // implementation defined.
         }
 
         private static void DoPerfTestForAllRecordTypes(IDictionary<string, SRecordDataType> lookup)
