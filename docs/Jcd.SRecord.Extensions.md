@@ -2,6 +2,8 @@
 
 ## Jcd.SRecord.Extensions Namespace
 
+Provides various extension methods used when reading and writing [s-record](https://en.wikipedia.org/wiki/SREC_(file_format) 'https://en.wikipedia.org/wiki/SREC_(file_format)') files.
+
 | Classes | |
 | :--- | :--- |
 | [ByteSpanExtensions](Jcd.SRecord.Extensions.ByteSpanExtensions.md 'Jcd.SRecord.Extensions.ByteSpanExtensions') | Provides an extension method to convert data into a uint. |
