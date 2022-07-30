@@ -2,6 +2,8 @@
 
 ## Jcd.SRecord Namespace
 
+Provides support for reading and writing [s-record](https://en.wikipedia.org/wiki/SREC_(file_format) 'https://en.wikipedia.org/wiki/SREC_(file_format)') files.
+
 | Classes | |
 | :--- | :--- |
 | [SRecordData](Jcd.SRecord.SRecordData.md 'Jcd.SRecord.SRecordData') | Represents a single `SRecordData` entry in an s-record file. This is an immutable type.<br/>To edit the contents, create a new one with the altered data buffer, address, and/or type. |

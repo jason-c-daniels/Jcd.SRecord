@@ -79,6 +79,11 @@
             <param name="lowNybble">the low nybble (rightmost digit)</param>
             <returns>The converted value.</returns>
         </member>
+        <member name="T:Jcd.SRecord.Extensions.NamespaceDoc">
+            <summary>
+            Provides various extension methods used when reading and writing <see href="https://en.wikipedia.org/wiki/SREC_(file_format)">s-record</see> files.  
+            </summary>
+        </member>
         <member name="T:Jcd.SRecord.ISRecordDataFormatter">
             <summary>
             Defines the operations necessary to support formatting an <c>SRecordData</c> into text.
@@ -173,6 +178,11 @@
         <member name="E:Jcd.SRecord.ISRecordElementParser.Parsed">
             <summary>
             An event that indicates parsing has finished.
+            </summary>
+        </member>
+        <member name="T:Jcd.SRecord.NamespaceDoc">
+            <summary>
+            Provides support for reading and writing <see href="https://en.wikipedia.org/wiki/SREC_(file_format)">s-record</see> files. 
             </summary>
         </member>
         <member name="T:Jcd.SRecord.SRecordData">
